@@ -121,8 +121,12 @@ uses rxdateutil;
 { TRxDBDateEdit }
 
 procedure TRxDBDateEdit.DoCheckEnable;
+var
+  F: Boolean;
 begin
-  Enabled:=FDataLink.Active and (FDataLink.Field<>nil) and (not FDataLink.Field.ReadOnly);
+  F:=FDataLink.Active and (FDataLink.Field<>nil) and (not FDataLink.Field.ReadOnly);
+  Enabled:=F;
+  Button.Enabled:=F;
 end;
 
 function TRxDBDateEdit.GetDataField: string;

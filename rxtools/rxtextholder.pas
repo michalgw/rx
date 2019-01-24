@@ -72,11 +72,13 @@ type
   private
     FHighlighter: TRxTextHolderHighlighter;
     FItems:TRxTextHolderItems;
+    FOnExpandMacros: TNotifyEvent;
     function GetText(ACaption: string): string;
     procedure SetItems(AValue: TRxTextHolderItems);
     procedure SetText(ACaption: string; AValue: string);
   protected
     procedure AssignTo(Dest: TPersistent); override;
+    procedure BeforeExpandMacros; virtual;
   public
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -85,6 +87,7 @@ type
   published
     property Highlighter: TRxTextHolderHighlighter read FHighlighter write FHighlighter;
     property Items:TRxTextHolderItems read FItems write SetItems;
+    property OnExpandMacros: TNotifyEvent read FOnExpandMacros write FOnExpandMacros;
   end;
 
 implementation
@@ -144,6 +147,11 @@ begin
   end
   else
     inherited AssignTo(Dest);
+end;
+
+procedure TRxTextHolder.BeforeExpandMacros;
+begin
+  if Assigned(FOnExpandMacros) then FOnExpandMacros(Self);
 end;
 
 constructor TRxTextHolder.Create(TheOwner: TComponent);
