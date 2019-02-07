@@ -123,7 +123,8 @@ begin
       ASize:=StrToIntDef(Result, -1);
       if ASize>-1 then
       begin
-        ASize1 := MulDiv(ASize, Screen.PixelsPerInch, 96);
+        //ASize1 := MulDiv(ASize, Screen.PixelsPerInch, 96);
+        ASize1 := MulDiv(ASize, 96, Screen.PixelsPerInch);
         Result := IntToStr(ASize1);
       end;
     end;
