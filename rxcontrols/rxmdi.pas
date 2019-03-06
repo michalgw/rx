@@ -97,6 +97,7 @@ type
     procedure ShowHiddenBtnOnResize;
     procedure ChildWindowsShowLast;
     procedure DoCloseAll(AIgnoreBtn:TRxMDIButton);
+    procedure ShowMDIButton(Btn:TRxMDIButton);
   protected
     procedure Paint; override;
     procedure Resize; override;
@@ -689,7 +690,7 @@ var
   i:Integer;
   B:TRxMDIButton;
 begin
-  for i:=0 to ComponentCount-1 do
+  for I:=ComponentCount-1 downto 0 do
   begin
     if (Components[i] is TRxMDIButton) then
     begin
@@ -767,6 +768,78 @@ begin
   end;
   if Assigned(AIgnoreBtn) then
     FMainPanel.CurrentChildWindow:=AIgnoreBtn.FNavForm;
+end;
+
+procedure TRxMDITasks.ShowMDIButton(Btn: TRxMDIButton);
+var
+  B: TRxMDIButton;
+  i, W, K: Integer;
+begin
+  Exit;
+  if (not Assigned(Btn)) or (Btn.Parent <> Self) then Exit;
+
+  if not Btn.Visible then
+  begin
+    for i:=ComponentCount-1 downto 0 do
+    begin
+      if (Components[i] is TRxMDIButton) then
+      begin
+        B:=TRxMDIButton(Components[i]);
+        if not B.Visible then
+        begin
+          B.Visible:=true;
+          B.Left:=FBtnScrollLeft.Width;
+          if B = Btn then
+            break;
+        end;
+      end;
+    end;
+  end
+  else
+  begin
+    W:=FBtnScrollLeft.Width;
+    K:=Btn.ComponentIndex;
+    for I:=0 to K do
+    begin
+      if (Components[i] is TRxMDIButton) then
+      begin
+        B:=TRxMDIButton(Components[i]);
+        W:=W + B.Width;
+      end;
+    end;
+
+    if W > Width then
+    begin
+      W:=Width - FBtnScrollLeft.Width;
+      K:=0;
+      for i:=Btn.ComponentIndex downto 0 do
+      begin
+        if (Components[i] is TRxMDIButton) then
+        begin
+          B:=TRxMDIButton(Components[i]);
+          W:=W - B.Width;
+          if W < 0 then
+          begin
+            K:=i;
+            break;
+          end;
+        end;
+      end;
+
+      if K>0 then
+      begin
+        for i:=0 to K - 1 do
+        begin
+          if (Components[i] is TRxMDIButton) then
+          begin
+            B:=TRxMDIButton(Components[i]);
+            B.Visible:=false;
+          end;
+
+        end;
+      end;
+    end;
+  end;
 end;
 
 procedure TRxMDITasks.Paint;
@@ -1123,6 +1196,9 @@ begin
       FNavPanel.FMainPanel.DoOnChangeCurrentChild(FNavForm);
   end;
   Down:=true;
+
+  if Assigned(FNavPanel) then
+    FNavPanel.ShowMDIButton(Self);
   FNavPanel.FMainPanel.RefreshMDIMenu;
 end;
 

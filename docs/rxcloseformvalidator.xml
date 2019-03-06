@@ -18,7 +18,8 @@
       </element><element name="TRxCloseFormValidator.Items"><short>Список элементов проверки введённых данных</short>
       </element><element name="TRxCloseFormValidator.IgnoreDisabled"><short>Признак того, что запрещённые контролы проверки не подлежат </short>
       </element>
-    <element name="TRxCloseFormValidator.ByControl"><short>Метод возвращает проверяемый элемент по указанному контролу</short><descr>Прменяется при ручном управлении включением/выключением проведения проверок</descr>
+    <element name="TRxCloseFormValidator.ByControl"><short>Метод возвращает проверяемый элемент по указанному контролу</short><descr>Прменяется при ручном управлении включением/выключением проведения проверок
+</descr>
       </element>
     </module>
   </package>

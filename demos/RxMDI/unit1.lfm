@@ -13,15 +13,31 @@ object Form1: TForm1
   WindowState = wsMaximized
   object ToolPanel1: TToolPanel
     Left = 0
-    Height = 31
+    Height = 32
     Top = 0
     Width = 613
-    Items = <>
+    Items = <    
+      item
+        Action = Action1
+        Visible = True
+        ShowCaption = True
+      end    
+      item
+        Action = Action2
+        Visible = True
+        ShowCaption = True
+      end    
+      item
+        Action = Action3
+        Visible = True
+        ShowCaption = True
+      end>
+    ToolBarStyle = tbsNative
     Options = []
     CustomizeShortCut = False
     Align = alTop
     BorderWidth = 4
-    ClientHeight = 31
+    ClientHeight = 32
     ClientWidth = 613
     TabOrder = 0
     object RxMDICloseButton1: TRxMDICloseButton
@@ -31,7 +47,7 @@ object Form1: TForm1
       AnchorSideRight.Side = asrBottom
       Left = 585
       Height = 22
-      Top = 4
+      Top = 5
       Width = 23
       Anchors = [akTop, akRight]
       Glyph.Data = {
@@ -81,8 +97,8 @@ object Form1: TForm1
   end
   object RxMDIPanel1: TRxMDIPanel
     Left = 0
-    Height = 333
-    Top = 31
+    Height = 332
+    Top = 32
     Width = 613
     CloseButton = RxMDICloseButton1
     TaskPanel = RxMDITasks1

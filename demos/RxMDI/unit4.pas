@@ -43,6 +43,7 @@ begin
   Inc(CntMM);
   Panel1.Caption:=Panel1.Caption + IntToStr(CntMM);
   Caption:=Panel1.Caption;
+  Edit1.Text:=IntToStr(CntMM);
 end;
 
 end.

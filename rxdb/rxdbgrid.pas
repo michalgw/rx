@@ -1143,6 +1143,7 @@ type
     property OnRxCalcFooterValues: TOnRxCalcFooterValues read FOnRxCalcFooterValues write FOnRxCalcFooterValues;
     property OnRxColumnFooterDraw: TOnRxColumnFooterDraw read FOnRxColumnFooterDraw write FOnRxColumnFooterDraw;
     property OnUserCheckboxBitmap;
+    property OnUserCheckboxImage;
     property OnUserCheckboxState;
     property OnUTF8KeyPress;
 
