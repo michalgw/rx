@@ -1,0 +1,118 @@
+object Form1: TForm1
+  Left = 333
+  Height = 336
+  Top = 141
+  Width = 440
+  Caption = 'RxClock demo'
+  ClientHeight = 336
+  ClientWidth = 440
+  OnCreate = FormCreate
+  Position = poScreenCenter
+  LCLVersion = '2.1.0.0'
+  object RxClock1: TRxClock
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 6
+    Height = 104
+    Top = 6
+    Width = 428
+    Anchors = [akTop, akLeft, akRight]
+    Font.Height = -40
+    ParentFont = False
+    OnAlarm = RxClock1Alarm
+  end
+  object CheckBox1: TCheckBox
+    AnchorSideLeft.Control = Owner
+    AnchorSideLeft.Side = asrCenter
+    AnchorSideTop.Control = RxClock1
+    AnchorSideTop.Side = asrBottom
+    Left = 159
+    Height = 23
+    Top = 116
+    Width = 122
+    BorderSpacing.Around = 6
+    Caption = 'Alarm enabled'
+    OnChange = CheckBox1Change
+    TabOrder = 1
+  end
+  object SpinEdit1: TSpinEdit
+    AnchorSideLeft.Control = Label2
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = CheckBox1
+    AnchorSideTop.Side = asrBottom
+    Left = 239
+    Height = 31
+    Top = 145
+    Width = 90
+    BorderSpacing.Around = 6
+    MaxValue = 23
+    TabOrder = 2
+    Value = 1
+  end
+  object Label2: TLabel
+    AnchorSideLeft.Control = CheckBox1
+    AnchorSideBottom.Control = SpinEdit1
+    AnchorSideBottom.Side = asrBottom
+    Left = 159
+    Height = 19
+    Top = 157
+    Width = 74
+    Anchors = [akLeft, akBottom]
+    Caption = 'Alarm hour'
+    ParentColor = False
+  end
+  object SpinEdit2: TSpinEdit
+    AnchorSideLeft.Control = Label2
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = SpinEdit1
+    AnchorSideTop.Side = asrBottom
+    Left = 239
+    Height = 31
+    Top = 182
+    Width = 90
+    BorderSpacing.Around = 6
+    MaxValue = 59
+    TabOrder = 3
+    Value = 1
+  end
+  object Label3: TLabel
+    AnchorSideLeft.Control = CheckBox1
+    AnchorSideBottom.Control = SpinEdit2
+    AnchorSideBottom.Side = asrBottom
+    Left = 159
+    Height = 19
+    Top = 194
+    Width = 69
+    Anchors = [akLeft, akBottom]
+    Caption = 'Alarm min'
+    ParentColor = False
+  end
+  object SpinEdit3: TSpinEdit
+    AnchorSideLeft.Control = Label2
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = SpinEdit2
+    AnchorSideTop.Side = asrBottom
+    Left = 239
+    Height = 31
+    Top = 219
+    Width = 90
+    BorderSpacing.Around = 6
+    MaxValue = 59
+    TabOrder = 4
+    Value = 1
+  end
+  object Label4: TLabel
+    AnchorSideLeft.Control = CheckBox1
+    AnchorSideBottom.Control = SpinEdit3
+    AnchorSideBottom.Side = asrBottom
+    Left = 159
+    Height = 19
+    Top = 231
+    Width = 66
+    Anchors = [akLeft, akBottom]
+    Caption = 'Alarm sec'
+    ParentColor = False
+  end
+end
