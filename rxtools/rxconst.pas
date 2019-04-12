@@ -41,6 +41,7 @@ const
 
 
 resourcestring
+  sQuestion             = 'Question';
   sBrowse               = 'Browse';
   sDefaultFilter        = 'All files (*.*)|*.*';
   sDateDlgTitle         = 'Select a Date';
@@ -104,7 +105,8 @@ resourcestring
   sCloseWindows          = 'Close window';
   sCloseAllExceptThis    = 'Close all except this';
   sCloseAllWindows       = 'Close all windows';
-  sErrorLinkedTaskPanel  = 'Not assigned task panel';//Нет связанной панели задач';
+  sErrorLinkedTaskPanel  = 'Not assigned task panel';
+  sCloseAllQuestion      = 'Close all window?';
 
   { TRxDateRangeEdit }
   sFirstQuarter         = 'First quarter';

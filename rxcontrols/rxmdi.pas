@@ -42,7 +42,7 @@ uses
   Classes, SysUtils, Forms, Buttons, Menus, ExtCtrls, Graphics, Controls;
 
 type
-  TRxMDITaskOption = (rxtoMidleClickClose);
+  TRxMDITaskOption = (rxtoMidleClickClose, rxtoAskCloseAll);
   TRxMDITaskOptions = set of TRxMDITaskOption;
 
   TRxMDIPanelOption = (rxpoCloseF4, rxpoSwithByTab);
@@ -203,7 +203,7 @@ type
   end;
 
 implementation
-uses LResources, rxlclutils, rxconst, LCLType;
+uses LResources, rxlclutils, rxconst, LCLType, Dialogs;
 
 
 { TRxMDICloseButton }
@@ -891,6 +891,7 @@ end;
 constructor TRxMDITasks.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
+  FOptions:=[rxtoAskCloseAll, rxtoMidleClickClose];
   Caption:='';
 
   FBtnScrollLeft:=TSpeedButton.Create(Self);
@@ -1088,8 +1089,15 @@ begin
 end;
 
 procedure TRxMDIButton.DoCloseAllMenu(Sender: TObject);
+var
+  B: Boolean;
 begin
-  FNavPanel.DoCloseAll(nil);
+  if rxtoAskCloseAll in FNavPanel.Options then
+    B:=QuestionDlg(sQuestion, sCloseAllQuestion, mtConfirmation, [mrOk, mrCancel], 0) = mrOK
+  else
+    B:=true;
+  if B then
+    FNavPanel.DoCloseAll(nil);
 end;
 
 procedure TRxMDIButton.DoCloseAllExcepThisMenu(Sender: TObject);

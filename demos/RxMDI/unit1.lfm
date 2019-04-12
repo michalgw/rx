@@ -13,7 +13,7 @@ object Form1: TForm1
   WindowState = wsMaximized
   object ToolPanel1: TToolPanel
     Left = 0
-    Height = 32
+    Height = 36
     Top = 0
     Width = 613
     Items = <    
@@ -37,7 +37,7 @@ object Form1: TForm1
     CustomizeShortCut = False
     Align = alTop
     BorderWidth = 4
-    ClientHeight = 32
+    ClientHeight = 36
     ClientWidth = 613
     TabOrder = 0
     object RxMDICloseButton1: TRxMDICloseButton
@@ -47,7 +47,7 @@ object Form1: TForm1
       AnchorSideRight.Side = asrBottom
       Left = 585
       Height = 22
-      Top = 5
+      Top = 7
       Width = 23
       Anchors = [akTop, akRight]
       Glyph.Data = {
@@ -79,7 +79,7 @@ object Form1: TForm1
     Width = 613
     Align = alBottom
     FlatButton = True
-    Options = [rxtoMidleClickClose]
+    Options = [rxtoMidleClickClose, rxtoAskCloseAll]
   end
   object StatusBar1: TStatusBar
     Left = 0
@@ -97,8 +97,8 @@ object Form1: TForm1
   end
   object RxMDIPanel1: TRxMDIPanel
     Left = 0
-    Height = 332
-    Top = 32
+    Height = 328
+    Top = 36
     Width = 613
     CloseButton = RxMDICloseButton1
     TaskPanel = RxMDITasks1
@@ -155,6 +155,12 @@ object Form1: TForm1
       Caption = 'Close all...'
       OnExecute = wndCloseAllExecute
     end
+    object optAskCloseAll: TAction
+      Category = 'Options'
+      Caption = 'Ask close all window'
+      Checked = True
+      OnExecute = optAskCloseAllExecute
+    end
   end
   object MainMenu1: TMainMenu
     Left = 408
@@ -175,6 +181,9 @@ object Form1: TForm1
       end
       object MenuItem11: TMenuItem
         Action = optHideCloseButton
+      end
+      object MenuItem12: TMenuItem
+        Action = optAskCloseAll
       end
     end
     object MenuItem3: TMenuItem

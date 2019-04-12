@@ -16,6 +16,8 @@ type
     Action1: TAction;
     Action2: TAction;
     Action3: TAction;
+    MenuItem12: TMenuItem;
+    optAskCloseAll: TAction;
     WindowItems: TMenuItem;
     MenuItem13: TMenuItem;
     wndCloseAll: TAction;
@@ -46,6 +48,7 @@ type
     procedure Action2Execute(Sender: TObject);
     procedure Action3Execute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure optAskCloseAllExecute(Sender: TObject);
     procedure optHideCloseButtonExecute(Sender: TObject);
     procedure optMidleMouseClickCloseExecute(Sender: TObject);
     procedure optShowInfoLabelExecute(Sender: TObject);
@@ -97,6 +100,10 @@ begin
   else
     RxMDITasks1.Options:=RxMDITasks1.Options - [rxtoMidleClickClose];
 
+  if optAskCloseAll.Checked then
+    RxMDITasks1.Options:=RxMDITasks1.Options + [rxtoAskCloseAll]
+  else
+    RxMDITasks1.Options:=RxMDITasks1.Options - [rxtoAskCloseAll];
   RxMDIPanel1.HideCloseButton:=optHideCloseButton.Checked; ;
 end;
 
@@ -120,6 +127,12 @@ end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
+  UpdateOptions;
+end;
+
+procedure TForm1.optAskCloseAllExecute(Sender: TObject);
+begin
+  optAskCloseAll.Checked:=not optAskCloseAll.Checked;
   UpdateOptions;
 end;
 
