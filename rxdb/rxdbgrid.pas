@@ -892,6 +892,7 @@ type
     procedure Notification(AComponent: TComponent; Operation: TOperation); override;
 
     function DatalinkActive: boolean;
+    function DataSetNotEmpty: boolean;
     procedure AdjustEditorBounds(NewCol,NewRow:Integer); override;
     procedure LinkActive(Value: Boolean); override;
 
@@ -3308,6 +3309,11 @@ begin
     DataSource.DataSet.Active;
 end;
 
+function TRxDBGrid.DataSetNotEmpty: boolean;
+begin
+  Result := Assigned(DataSource) and Assigned(DataSource.DataSet) and (not DataSource.DataSet.IsEmpty);
+end;
+
 procedure TRxDBGrid.AdjustEditorBounds(NewCol, NewRow: Integer);
 begin
   inherited AdjustEditorBounds(NewCol, NewRow);
@@ -4687,58 +4693,59 @@ begin
       CalcCellExtent(acol, arow, aRect);
 
     PrepareCanvas(aCol, aRow, aState);
-
-    if FGroupItems.Active and  Assigned(FGroupItemDrawCur) then
+    if DataSetNotEmpty then
     begin
-      gRect:=aRect;
-      aRect.Bottom:=aRect.Bottom - DefaultRowHeight - 1;
-      gRect.Top:=aRect.Bottom;
-      gRect.Bottom:=gRect.Bottom - 2;
-    end;
+      if FGroupItems.Active and  Assigned(FGroupItemDrawCur) then
+      begin
+        gRect:=aRect;
+        aRect.Bottom:=aRect.Bottom - DefaultRowHeight - 1;
+        gRect.Top:=aRect.Bottom;
+        gRect.Bottom:=gRect.Bottom - 2;
+      end;
 
-    if Assigned(FOnGetCellProps) and not (gdSelected in aState) then
-    begin
-      FBackground := Canvas.Brush.Color;
-      FOnGetCellProps(Self, GetFieldFromGridColumn(aCol), Canvas.Font, FBackground);
-      Canvas.Brush.Color := FBackground;
-    end;
-    Canvas.FillRect(aRect);
+      if Assigned(FOnGetCellProps) and not (gdSelected in aState) then
+      begin
+        FBackground := Canvas.Brush.Color;
+        FOnGetCellProps(Self, GetFieldFromGridColumn(aCol), Canvas.Font, FBackground);
+        Canvas.Brush.Color := FBackground;
+      end;
+      Canvas.FillRect(aRect);
 
-    DrawCellGrid(aCol, aRow, aRect, aState);
+      DrawCellGrid(aCol, aRow, aRect, aState);
 
-    RxColumn := TRxColumn(ColumnFromGridColumn(aCol));
-    if Assigned(RxColumn) and Assigned(RxColumn.Field) and
-      Assigned(RxColumn.ImageList) then
-    begin
-      AImageIndex := StrToIntDef(RxColumn.KeyList.Values[RxColumn.Field.AsString],
-        RxColumn.NotInKeyListIndex);
-      if (AImageIndex > -1) and (AImageIndex < RxColumn.ImageList.Count) then
-        DrawCellBitmap(RxColumn, aRect, aState, AImageIndex);
-    end
-    else
-      DefaultDrawCellData(aCol, aRow, aRect, aState)
-      ;
-
-    if FGroupItems.Active and  Assigned(FGroupItemDrawCur) then
-    begin
-      C := ColumnFromGridColumn(aCol) as TRxColumn;
-
-      if C.FGroupParam.Color <> clNone then
-        Canvas.Brush.Color := C.FGroupParam.Color
+      RxColumn := TRxColumn(ColumnFromGridColumn(aCol));
+      if Assigned(RxColumn) and Assigned(RxColumn.Field) and
+        Assigned(RxColumn.ImageList) then
+      begin
+        AImageIndex := StrToIntDef(RxColumn.KeyList.Values[RxColumn.Field.AsString],
+          RxColumn.NotInKeyListIndex);
+        if (AImageIndex > -1) and (AImageIndex < RxColumn.ImageList.Count) then
+          DrawCellBitmap(RxColumn, aRect, aState, AImageIndex);
+      end
       else
-      if FGroupItems.Color <> clNone then
-        Canvas.Brush.Color := FGroupItems.Color
-      else
-        Canvas.Brush.Color := Color;
+        DefaultDrawCellData(aCol, aRow, aRect, aState)
+        ;
 
-      Canvas.Font.Color:=Font.Color;
+      if FGroupItems.Active and  Assigned(FGroupItemDrawCur) then
+      begin
+        C := ColumnFromGridColumn(aCol) as TRxColumn;
 
-      Canvas.FillRect(gRect);
+        if C.FGroupParam.Color <> clNone then
+          Canvas.Brush.Color := C.FGroupParam.Color
+        else
+        if FGroupItems.Color <> clNone then
+          Canvas.Brush.Color := FGroupItems.Color
+        else
+          Canvas.Brush.Color := Color;
 
-      if C.FGroupParam.FValueType <> fvtNon then
-        WriteTextHeader(Canvas, gRect, C.FGroupParam.DisplayText, C.FGroupParam.Alignment);
+        Canvas.Font.Color:=Font.Color;
+
+        Canvas.FillRect(gRect);
+
+        if C.FGroupParam.FValueType <> fvtNon then
+          WriteTextHeader(Canvas, gRect, C.FGroupParam.DisplayText, C.FGroupParam.Alignment);
+      end;
     end;
-
   end
   else
     inherited DrawCell(aCol, aRow, aRect, aState);
