@@ -335,6 +335,7 @@ type
     property BorderStyle;
     property CellHintPriority;
     property Color;
+    property SelectedColor;
     property GridDefValues;
     property DataCoumn;
     property DataSource;

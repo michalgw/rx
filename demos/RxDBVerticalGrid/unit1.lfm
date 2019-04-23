@@ -8,14 +8,15 @@ object Form1: TForm1
   ClientWidth = 1206
   OnCreate = FormCreate
   Position = poScreenCenter
-  LCLVersion = '1.9.0.0'
+  LCLVersion = '2.1.0.0'
   object RxDBVerticalGrid1: TRxDBVerticalGrid
     Left = 899
-    Height = 642
-    Top = 107
+    Height = 646
+    Top = 103
     Width = 307
     Align = alClient
     Color = clWindow
+    SelectedColor = clSkyBlue
     GridDefValues.BlobText = '(данные)'
     DataCoumn.Title.Alignment = taCenter
     DataCoumn.Title.Caption = 'Данные'
@@ -171,8 +172,8 @@ object Form1: TForm1
   end
   object RxDBGrid1: TRxDBGrid
     Left = 0
-    Height = 642
-    Top = 107
+    Height = 646
+    Top = 103
     Width = 894
     ColumnDefValues.BlobText = '(данные)'
     TitleButtons = False
@@ -186,6 +187,7 @@ object Form1: TForm1
         EditButtons = <>
         Filter.DropDownRows = 0
         Filter.EmptyValue = '(Пусто)'
+        Filter.NotEmptyValue = '(Не пусто)'
         Filter.AllValue = '(Все значения)'
         Filter.EmptyFont.Style = [fsItalic]
         Filter.ItemIndex = -1
@@ -199,6 +201,7 @@ object Form1: TForm1
         EditButtons = <>
         Filter.DropDownRows = 0
         Filter.EmptyValue = '(Пусто)'
+        Filter.NotEmptyValue = '(Не пусто)'
         Filter.AllValue = '(Все значения)'
         Filter.EmptyFont.Style = [fsItalic]
         Filter.ItemIndex = -1
@@ -212,6 +215,7 @@ object Form1: TForm1
         EditButtons = <>
         Filter.DropDownRows = 0
         Filter.EmptyValue = '(Пусто)'
+        Filter.NotEmptyValue = '(Не пусто)'
         Filter.AllValue = '(Все значения)'
         Filter.EmptyFont.Style = [fsItalic]
         Filter.ItemIndex = -1
@@ -225,6 +229,7 @@ object Form1: TForm1
         EditButtons = <>
         Filter.DropDownRows = 0
         Filter.EmptyValue = '(Пусто)'
+        Filter.NotEmptyValue = '(Не пусто)'
         Filter.AllValue = '(Все значения)'
         Filter.EmptyFont.Style = [fsItalic]
         Filter.ItemIndex = -1
@@ -238,6 +243,7 @@ object Form1: TForm1
         EditButtons = <>
         Filter.DropDownRows = 0
         Filter.EmptyValue = '(Пусто)'
+        Filter.NotEmptyValue = '(Не пусто)'
         Filter.AllValue = '(Все значения)'
         Filter.EmptyFont.Style = [fsItalic]
         Filter.ItemIndex = -1
@@ -251,6 +257,7 @@ object Form1: TForm1
         EditButtons = <>
         Filter.DropDownRows = 0
         Filter.EmptyValue = '(Пусто)'
+        Filter.NotEmptyValue = '(Не пусто)'
         Filter.AllValue = '(Все значения)'
         Filter.EmptyFont.Style = [fsItalic]
         Filter.ItemIndex = -1
@@ -264,6 +271,7 @@ object Form1: TForm1
         EditButtons = <>
         Filter.DropDownRows = 0
         Filter.EmptyValue = '(Пусто)'
+        Filter.NotEmptyValue = '(Не пусто)'
         Filter.AllValue = '(Все значения)'
         Filter.EmptyFont.Style = [fsItalic]
         Filter.ItemIndex = -1
@@ -277,6 +285,7 @@ object Form1: TForm1
         EditButtons = <>
         Filter.DropDownRows = 0
         Filter.EmptyValue = '(Пусто)'
+        Filter.NotEmptyValue = '(Не пусто)'
         Filter.AllValue = '(Все значения)'
         Filter.EmptyFont.Style = [fsItalic]
         Filter.ItemIndex = -1
@@ -290,6 +299,7 @@ object Form1: TForm1
         EditButtons = <>
         Filter.DropDownRows = 0
         Filter.EmptyValue = '(Пусто)'
+        Filter.NotEmptyValue = '(Не пусто)'
         Filter.AllValue = '(Все значения)'
         Filter.EmptyFont.Style = [fsItalic]
         Filter.ItemIndex = -1
@@ -368,21 +378,21 @@ object Form1: TForm1
   end
   object Panel1: TPanel
     Left = 0
-    Height = 107
+    Height = 103
     Top = 0
     Width = 1206
     Align = alTop
     AutoSize = True
-    ClientHeight = 107
+    ClientHeight = 103
     ClientWidth = 1206
     TabOrder = 2
     object Button1: TButton
       AnchorSideLeft.Control = Panel1
       AnchorSideTop.Control = Panel1
       Left = 7
-      Height = 36
+      Height = 31
       Top = 7
-      Width = 80
+      Width = 78
       AutoSize = True
       BorderSpacing.Around = 6
       Caption = 'Diconnect'
@@ -393,10 +403,10 @@ object Form1: TForm1
       AnchorSideLeft.Control = Button1
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = Panel1
-      Left = 93
-      Height = 36
+      Left = 91
+      Height = 31
       Top = 7
-      Width = 69
+      Width = 66
       AutoSize = True
       BorderSpacing.Around = 6
       Caption = 'Connect'
@@ -407,10 +417,10 @@ object Form1: TForm1
       AnchorSideLeft.Control = Button2
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = Panel1
-      Left = 168
-      Height = 93
+      Left = 163
+      Height = 89
       Top = 7
-      Width = 83
+      Width = 85
       AutoFill = True
       AutoSize = True
       BorderSpacing.Around = 6
@@ -422,8 +432,8 @@ object Form1: TForm1
       ChildSizing.ShrinkVertical = crsScaleChilds
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 1
-      ClientHeight = 72
-      ClientWidth = 81
+      ClientHeight = 69
+      ClientWidth = 83
       ItemIndex = 0
       Items.Strings = (
         'Left'
@@ -438,10 +448,10 @@ object Form1: TForm1
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = CheckBox1
       AnchorSideTop.Side = asrBottom
-      Left = 257
-      Height = 24
-      Top = 37
-      Width = 111
+      Left = 254
+      Height = 23
+      Top = 36
+      Width = 114
       BorderSpacing.Around = 6
       Caption = 'Show images'
       OnChange = CheckBox1Change
@@ -451,10 +461,10 @@ object Form1: TForm1
       AnchorSideLeft.Control = RadioGroup1
       AnchorSideLeft.Side = asrBottom
       AnchorSideTop.Control = Panel1
-      Left = 257
-      Height = 24
+      Left = 254
+      Height = 23
       Top = 7
-      Width = 110
+      Width = 112
       BorderSpacing.Around = 6
       Caption = 'Show header'
       OnChange = CheckBox1Change
@@ -463,8 +473,8 @@ object Form1: TForm1
   end
   object Splitter1: TSplitter
     Left = 894
-    Height = 642
-    Top = 107
+    Height = 646
+    Top = 103
     Width = 5
   end
   object dsData: TDataSource
