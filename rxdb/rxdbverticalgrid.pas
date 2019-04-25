@@ -39,7 +39,42 @@ uses
   Classes, SysUtils, Types, Grids, Graphics, Controls, DB, Menus;
 
 type
-  TRxDBVerticalGridOption = (rxvgColumnTitle);
+  TRxDBVerticalGridOption = (
+     rxvgFixedVertLine,       //goFixedVertLine
+     rxvgFixedHorzLine,       //goFixedHorzLine
+     rxvgVertLine,            //goVertLine
+     rxvgHorzLine,            //goHorzLine
+                              //goRangeSelect,
+                              //goDrawFocusSelected,
+                              //goRowSizing,
+                              //goColSizing,
+                              //goRowMoving,
+                              //goColMoving,
+     rxvgEditing,             //goEditing,
+                              //goAutoAddRows,
+                              //goTabs,
+     rxvgRowSelect,           //goRowSelect,
+     rxvgAlwaysShowEditor,    //goAlwaysShowEditor,
+     rxvgThumbTracking,       //goThumbTracking
+     // Additional Options
+                              //goColSpanning,        // Enable cellextent calcs
+                              //goRelaxedRowSelect,   // User can see focused cell on goRowSelect
+     rxvgDblClickAutoSize,    //goDblClickAutoSize,   // dblclicking columns borders (on hdrs) resize col.
+     rxvgSmoothScroll,        //goSmoothScroll,       // Switch scrolling mode (pixel scroll is by default)
+                              //goFixedRowNumbering,  // Ya
+                              //goScrollKeepVisible,  // keeps focused cell visible while scrolling
+     rxvgHeaderHotTracking,   //goHeaderHotTracking,  // Header cells change look when mouse is over them
+     rxvgHeaderPushedLook,    //goHeaderPushedLook,   // Header cells looks pushed when clicked
+                              //goSelectionActive,    // Setting grid.Selection moves also cell cursor
+     rxvgFixedColSizing,      //goFixedColSizing,     // Allow to resize fixed columns
+                              //goDontScrollPartCell, // clicking partially visible cells will not scroll
+     rxvgCellHints,           //goCellHints,          // show individual cell hints
+     rxvgTruncCellHints,      //goTruncCellHints,     // show cell hints if cell text is too long
+     rxvgCellEllipsis,        //goCellEllipsis,       // show "..." if cell text is too long
+                              //goAutoAddRowsSkipContentCheck,//BB Also add a row (if AutoAddRows in Options) if last row is empty
+     rxvgRowHighlight,        //goRowHighlight        // Highlight the current Row
+     rxvgColumnTitle
+     );
   TRxDBVerticalGridOptions = set of TRxDBVerticalGridOption;
 
   TRxDBVerticalGridRowStyle = (rxvrData, rxvrStaticText);
@@ -1616,21 +1651,115 @@ end;
 procedure TRxCustomDBVerticalGrid.SetOptions(AValue: TRxDBVerticalGridOptions);
 var
   O: TGridOptions;
+  FOldOpt: TRxDBVerticalGridOptions;
 begin
   if FOptions=AValue then Exit;
+  FOldOpt:=FOptions;
   FOptions:=AValue;
 
-//  O:=inherited Options;
-  if rxvgColumnTitle in FOptions then
+  O:=inherited Options;
+  if rxvgFixedVertLine in FOptions then
+    O:=O + [goFixedVertLine]
+  else
+    O:=O - [goFixedVertLine];
+
+  if rxvgFixedHorzLine in FOptions then
+    O:=O + [goFixedHorzLine]
+  else
+    O:=O - [goFixedHorzLine];
+
+  if rxvgVertLine in FOptions then
+    O:=O + [goVertLine]
+  else
+    O:=O - [goVertLine];
+
+  if rxvgHorzLine in FOptions then
+    O:=O + [goHorzLine]
+  else
+    O:=O - [goHorzLine];
+
+  //rxvgEditing,             //goEditing,
+
+  if rxvgRowSelect in FOptions then
+    O:=O + [goRowSelect]
+  else
+    O:=O - [goRowSelect];
+
+  if rxvgAlwaysShowEditor in FOptions then
+    O:=O + [goAlwaysShowEditor]
+  else
+    O:=O - [goAlwaysShowEditor];
+
+  if rxvgThumbTracking in FOptions then
+    O:=O + [goThumbTracking]
+  else
+    O:=O - [goThumbTracking];
+
+  if rxvgDblClickAutoSize in FOptions then
+    O:=O + [goDblClickAutoSize]
+  else
+    O:=O - [goDblClickAutoSize];
+
+  if rxvgSmoothScroll in FOptions then
+    O:=O + [goSmoothScroll]
+  else
+    O:=O - [goSmoothScroll];
+
+  if rxvgHeaderHotTracking in FOptions then
+    O:=O + [goHeaderHotTracking]
+  else
+    O:=O - [goHeaderHotTracking];
+
+  if rxvgHeaderPushedLook in FOptions then
+    O:=O + [goHeaderPushedLook]
+  else
+    O:=O - [goHeaderPushedLook];
+
+  if rxvgFixedColSizing in FOptions then
+    O:=O + [goFixedColSizing]
+  else
+    O:=O - [goFixedColSizing];
+
+  if rxvgFixedColSizing in FOptions then
+    O:=O + [goFixedColSizing]
+  else
+    O:=O - [goFixedColSizing];
+
+  if rxvgCellHints in FOptions then
+    O:=O + [goCellHints]
+  else
+    O:=O - [goCellHints];
+
+  if rxvgTruncCellHints in FOptions then
+    O:=O + [goTruncCellHints]
+  else
+    O:=O - [goTruncCellHints];
+
+  if rxvgCellEllipsis in FOptions then
+    O:=O + [goCellEllipsis]
+  else
+    O:=O - [goCellEllipsis];
+
+  if rxvgRowHighlight in FOptions then
+    O:=O + [goRowHighlight]
+  else
+    O:=O - [goRowHighlight];
+  (*
+rxvgRowHighlight,        //goRowHighlight        // Highlight the current Row
+*)
+  if (rxvgColumnTitle in FOptions) and (not (rxvgColumnTitle in FOldOpt)) then
   begin
     RowCount:=RowCount + 1;
     FixedRows:=1;
   end
   else
+  if (not(rxvgColumnTitle in FOptions)) and (rxvgColumnTitle in FOldOpt) then
   begin
     RowCount:=RowCount - 1;
     FixedRows:=0;
   end;
+
+  inherited Options := O;
 
   UpdateRowsHight;
 end;
