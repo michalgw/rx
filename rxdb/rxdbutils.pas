@@ -458,7 +458,8 @@ var
   Bookmark: TBookmark;
 begin
   Result := False;
-  with DataSet do begin
+  with DataSet do
+  begin
     CheckBrowseMode;
     if BOF and EOF then Exit;
   end;
@@ -470,7 +471,11 @@ begin
     if SearchOrigin = rsdAll then
     begin
       Result := CompareRecord;
-      if Result then Exit;
+      if Result then
+      begin
+        Fields.Free;
+        Exit;
+      end;
     end;
 
     DataSet.DisableControls;
