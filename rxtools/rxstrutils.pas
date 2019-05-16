@@ -232,7 +232,7 @@ function RomanToInt(const S: string): Longint; deprecated; //use this function f
   doesn't contain a valid roman numeric value, the 0 value is returned. }
 
 procedure StrToStrings(const S:string; const List:TStrings; const Delims:Char);
-
+function FileToString(const AFileName:string):string;
 const
   DigitChars = ['0'..'9'];
   Brackets = ['(',')','[',']','{','}'];
@@ -1127,6 +1127,26 @@ begin
     if j<Length(S) then
       List.Add(Copy(S, j, Length(S)));
   end;
+end;
+
+function FileToString(const AFileName: string): string;
+var
+  F: TFileStream;
+begin
+  if FileExists(AFileName) then
+  begin;
+    F:=TFileStream.Create(AFileName, fmOpenRead);
+    if F.Size>0 then
+    begin
+      SetLength(Result, F.Size);
+      F.ReadBuffer(Result[1], F.Size);
+    end
+    else
+      Result:='';
+    F.Free;
+  end
+  else
+    Result:='';
 end;
 
 end.

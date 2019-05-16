@@ -14,7 +14,7 @@
     <Description Value="
 "/>
     <License Value="LGPL"/>
-    <Version Minor="4" Build="6"/>
+    <Version Minor="5" Build="10"/>
     <Files Count="11">
       <Item1>
         <Filename Value="rxtools/rxcrc.pas"/>
