@@ -122,11 +122,13 @@ var
   R:boolean;
 begin
   { TODO -oalexs : Необходимо переделать поиск по колонке - искать всегда по строковому представлению. Иначе не ищет по дате-времени }
-  if Edit1.Text<>'' then
+  if (Edit1.Text<>'') and (ComboBox1.ItemIndex>=0) and (ComboBox1.ItemIndex<ComboBox1.Items.Count) and (ComboBox1.Text<>'') then
   begin
     try
 
-      FieldName:=FGrid.Columns[ComboBox1.ItemIndex].FieldName;
+      //FieldName:=FGrid.Columns[ComboBox1.ItemIndex].FieldName;
+      //FieldName:=FGrid.ColumnByFieldName(ComboBox1.Text).FieldName;
+      FieldName:=ComboBox1.Text;
       LOptions:=[];
       if not CheckBox1.Checked then
         LOptions:=LOptions+[loCaseInsensitive];
@@ -158,11 +160,7 @@ begin
     end;
   end;
 end;
-{
-type
-  THckGrid = class(TCustomDBGrid)
-  end;
-}
+
 procedure TrxDBGridFindForm.SetGrid(AGrid: TRxDBGrid);
 var
   i:integer;
@@ -184,8 +182,6 @@ begin
   FDataSet:=nil;
   if Assigned(FGrid) and Assigned(FGrid.DataSource) then
     FDataSet:=FGrid.DataSource.DataSet;
-{  if Assigned(FGrid) and Assigned(THckGrid(FGrid).DataSource) then
-    FDataSet:=THckGrid(FGrid).DataSource.DataSet;}
   BtnFind.Enabled:=Assigned(FDataSet) and FDataSet.Active
 end;
 
