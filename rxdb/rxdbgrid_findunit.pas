@@ -120,15 +120,15 @@ var
   SearchOrigin:TRxSearchDirection;
   P:TBookMark;
   R:boolean;
+  FC: TRxColumn;
 begin
   { TODO -oalexs : Необходимо переделать поиск по колонке - искать всегда по строковому представлению. Иначе не ищет по дате-времени }
   if (Edit1.Text<>'') and (ComboBox1.ItemIndex>=0) and (ComboBox1.ItemIndex<ComboBox1.Items.Count) and (ComboBox1.Text<>'') then
   begin
     try
-
-      //FieldName:=FGrid.Columns[ComboBox1.ItemIndex].FieldName;
-      //FieldName:=FGrid.ColumnByFieldName(ComboBox1.Text).FieldName;
-      FieldName:=ComboBox1.Text;
+      FC:=FGrid.ColumnByCaption(ComboBox1.Text);
+      if not Assigned(FC) then Exit;
+      FieldName:=FC.FieldName;
       LOptions:=[];
       if not CheckBox1.Checked then
         LOptions:=LOptions+[loCaseInsensitive];
