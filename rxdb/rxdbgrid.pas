@@ -172,6 +172,8 @@ type
   TRxDBGridSearchOptions = class(TPersistent)
   private
     FFromStart: boolean;
+    FHilightColor: TColor;
+    FHilightSearch: boolean;
     FOwner:TRxDBGrid;
     FQuickSearchOptions: TLocateOptions;
   protected
@@ -181,6 +183,8 @@ type
   published
     property QuickSearchOptions:TLocateOptions read FQuickSearchOptions write FQuickSearchOptions;
     property FromStart:boolean read FFromStart write FFromStart;
+    property HilightSearch:boolean read FHilightSearch write FHilightSearch default true;
+    property HilightColor:TColor read FHilightColor write FHilightColor default clYellow;
   end;
 
   { TRxDBGridCollumnConstraint }
@@ -1809,6 +1813,8 @@ begin
   begin
     TRxDBGridSearchOptions(Dest).FQuickSearchOptions:=FQuickSearchOptions;
     TRxDBGridSearchOptions(Dest).FFromStart:=FFromStart;
+    TRxDBGridSearchOptions(Dest).FHilightSearch:=FHilightSearch;
+    TRxDBGridSearchOptions(Dest).FHilightColor:=FHilightColor;
   end
   else
     inherited AssignTo(Dest);
@@ -1820,6 +1826,8 @@ begin
   FOwner:=AOwner;
   FQuickSearchOptions:=[loPartialKey, loCaseInsensitive];
   FFromStart:=false;
+  FHilightSearch:=true;
+  FHilightColor:=clYellow;
 end;
 
 { TRxDBGridColumnDefValues }
@@ -4585,38 +4593,43 @@ end;
 
 procedure TRxDBGrid.DefaultDrawCellData(aCol, aRow: integer; aRect: TRect;
   aState: TGridDrawState);
+procedure DoDrawHilightSearch(const ADisplayText:string);
+var
+  sHRec: TRect;
+  FSaveColor: TColor;
+  L: PtrInt;
+begin
+  L:=UTF8Pos(UTF8UpperCase(FQuickUTF8Search), UTF8UpperCase(ADisplayText));
+  if L = 0 then Exit;
+  sHRec:=aRect;
+  dec(sHRec.Right, varCellPadding);
+  Inc(sHRec.Left, varCellPadding);
+
+  case Canvas.TextStyle.Alignment of
+    Classes.taLeftJustify:
+      begin
+        sHRec.Left:=sHRec.Left + Canvas.TextWidth(UTF8Copy(ADisplayText, 1, L-1));
+        sHRec.Width:=Canvas.TextWidth(FQuickUTF8Search);
+      end;
+    Classes.taRightJustify:
+      begin
+        sHRec.Left:=sHRec.Right - Canvas.TextWidth(UTF8Copy(ADisplayText, L, UTF8Length(ADisplayText)));
+        sHRec.Width:=Canvas.TextWidth(FQuickUTF8Search);
+      end;
+  end;
+
+  FSaveColor:=Canvas.Brush.Color;
+  Canvas.Brush.Color:=FSearchOptions.HilightColor;
+  Canvas.FillRect(sHRec);
+  Canvas.Brush.Color:=FSaveColor;
+end;
+
 var
   S: string;
   F: TField;
   C: TRxColumn;
   j, DataCol, L, R: integer;
   FIsMerged: Boolean;
-(*
-function CheckBoxHeight(const aState: TCheckboxState):integer;
-const
-  arrtb:array[TCheckboxState] of TThemedButton = (tbCheckBoxUncheckedNormal, tbCheckBoxCheckedNormal, tbCheckBoxMixedNormal);
-var
-  Details: TThemedElementDetails;
-  CSize: TSize;
-  ChkBitmap: TBitmap;
-begin
-  if (TitleStyle=tsNative) and not assigned(OnUserCheckboxBitmap) then
-  begin
-    Details := ThemeServices.GetElementDetails(arrtb[AState]);
-    CSize := ThemeServices.GetDetailSize(Details);
-    //CSize.cx := MulDiv(CSize.cx, Font.PixelsPerInch, Screen.PixelsPerInch);
-    Result := MulDiv(CSize.cy, Font.PixelsPerInch, Screen.PixelsPerInch);
-  end
-  else
-  begin
-    ChkBitmap := GetImageForCheckBox(aCol, aRow, AState);
-    if ChkBitmap<>nil then
-      Result:=ChkBitmap.Height
-    else
-      Result:=DefaultRowHeight;
-  end;
-end;
-*)
 begin
   FIsMerged:=false;
 
@@ -4651,23 +4664,17 @@ begin
     else
     begin
       case ColumnEditorStyle(aCol, F) of
-        cbsCheckBoxColumn:
-(*        begin
-          if C.Layout = tlTop then
-            aRect.Bottom:=aRect.Top + CheckBoxHeight(cbChecked) + varCellPadding + 1
-          else
-          if C.Layout = tlBottom then
-            aRect.Top:=aRect.Bottom - CheckBoxHeight(cbChecked) - varCellPadding - 1;
-          DrawCheckBoxBitmaps(aCol, aRect, F);
-        end*)
-        DrawCheckBoxBitmaps(aCol, aRect, F);
-        //DrawGridCheckboxBitmaps(aCol, aRect, F);
+        cbsCheckBoxColumn:DrawCheckBoxBitmaps(aCol, aRect, F);
       else
         S:=GetFieldDisplayText(F, C);
         if ((rdgWordWrap in FOptionsRx) and Assigned(C) and (C.WordWrap)) or (FIsMerged) then
           WriteTextHeader(Canvas, aRect, S, C.Alignment)
         else
+        begin
+          if FSearchOptions.HilightSearch and (SelectedField = F) and (FQuickUTF8Search<>'') then
+            DoDrawHilightSearch(S);
           DrawCellText(aCol, aRow, aRect, aState, S);
+        end;
       end;
     end;
   end;
@@ -5401,6 +5408,7 @@ begin
       begin
         Self.FQuickUTF8Search := '';
       end;
+      Invalidate;
       if (OldSearchString <> Self.FQuickUTF8Search) and
         Assigned(Self.FAfterQuickSearch) then
         Self.FAfterQuickSearch(Self, SelectedField, OldSearchString);
