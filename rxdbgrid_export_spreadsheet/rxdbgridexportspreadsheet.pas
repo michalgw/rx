@@ -533,8 +533,8 @@ begin
       begin
         case Footer.ValueType of
           fvtSum:SF:='SUM';
-          fvtMax:SF:='MIN';
-          fvtMin:SF:='MAX';
+          fvtMax:SF:='MAX';
+          fvtMin:SF:='MIN';
         else
           SF:='Error!(';
         end;
