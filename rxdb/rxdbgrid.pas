@@ -4700,26 +4700,26 @@ begin
       CalcCellExtent(acol, arow, aRect);
 
     PrepareCanvas(aCol, aRow, aState);
+    if FGroupItems.Active and  Assigned(FGroupItemDrawCur) then
+    begin
+      gRect:=aRect;
+      aRect.Bottom:=aRect.Bottom - DefaultRowHeight - 1;
+      gRect.Top:=aRect.Bottom;
+      gRect.Bottom:=gRect.Bottom - 2;
+    end;
+
+    if Assigned(FOnGetCellProps) and not (gdSelected in aState) then
+    begin
+      FBackground := Canvas.Brush.Color;
+      FOnGetCellProps(Self, GetFieldFromGridColumn(aCol), Canvas.Font, FBackground);
+      Canvas.Brush.Color := FBackground;
+    end;
+    Canvas.FillRect(aRect);
+
+    DrawCellGrid(aCol, aRow, aRect, aState);
+
     if DataSetNotEmpty then
     begin
-      if FGroupItems.Active and  Assigned(FGroupItemDrawCur) then
-      begin
-        gRect:=aRect;
-        aRect.Bottom:=aRect.Bottom - DefaultRowHeight - 1;
-        gRect.Top:=aRect.Bottom;
-        gRect.Bottom:=gRect.Bottom - 2;
-      end;
-
-      if Assigned(FOnGetCellProps) and not (gdSelected in aState) then
-      begin
-        FBackground := Canvas.Brush.Color;
-        FOnGetCellProps(Self, GetFieldFromGridColumn(aCol), Canvas.Font, FBackground);
-        Canvas.Brush.Color := FBackground;
-      end;
-      Canvas.FillRect(aRect);
-
-      DrawCellGrid(aCol, aRow, aRect, aState);
-
       RxColumn := TRxColumn(ColumnFromGridColumn(aCol));
       if Assigned(RxColumn) and Assigned(RxColumn.Field) and
         Assigned(RxColumn.ImageList) then
@@ -4730,8 +4730,7 @@ begin
           DrawCellBitmap(RxColumn, aRect, aState, AImageIndex);
       end
       else
-        DefaultDrawCellData(aCol, aRow, aRect, aState)
-        ;
+        DefaultDrawCellData(aCol, aRow, aRect, aState);
 
       if FGroupItems.Active and  Assigned(FGroupItemDrawCur) then
       begin
@@ -4752,6 +4751,7 @@ begin
         if C.FGroupParam.FValueType <> fvtNon then
           WriteTextHeader(Canvas, gRect, C.FGroupParam.DisplayText, C.FGroupParam.Alignment);
       end;
+
     end;
   end
   else

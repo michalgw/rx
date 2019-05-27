@@ -210,7 +210,7 @@ msgid "Question"
 msgstr ""
 
 #: rxconst.sreqvalue
-#, fuzzy, object-pascal-format
+#, object-pascal-format, fuzzy
 #| msgid "Error. Expected value for filed %s."
 msgid "Error. Expected value for field %s."
 msgstr "Поле %s. Вимагається значення"

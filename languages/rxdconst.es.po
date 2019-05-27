@@ -75,7 +75,7 @@ msgid "Data changed. Save?"
 msgstr "Dato cambiado. Salvar?"
 
 #: rxdconst.sdatabasename
-#, fuzzy, object-pascal-format
+#, object-pascal-format, fuzzy
 #| msgid "Database loocked: %s"
 msgid "Database locked: %s"
 msgstr "Base de Dato bloqueada: %s"
