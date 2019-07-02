@@ -601,9 +601,9 @@ begin
          FImgS.Width,
          Font.PixelsPerInch,
          GetCanvasScaleFactor,
-         TCustomAction(Action).Enabled);
+         (FToolbarButtonStyle = tbrDropDown) or TCustomAction(Action).Enabled);
       {$ELSE}
-      FImgS.Draw(Canvas, Offset.X, Offset.Y, TCustomAction(Action).ImageIndex, TCustomAction(Action).Enabled)
+      FImgS.Draw(Canvas, Offset.X, Offset.Y, TCustomAction(Action).ImageIndex, (FToolbarButtonStyle = tbrDropDown) or TCustomAction(Action).Enabled)
       {$ENDIF}
     end
     else
@@ -614,9 +614,9 @@ begin
          FImgN.Width,
          Font.PixelsPerInch,
          GetCanvasScaleFactor,
-         TCustomAction(Action).Enabled);
+         (FToolbarButtonStyle = tbrDropDown) or TCustomAction(Action).Enabled);
     {$ELSE}
-      FImageList.Draw(Canvas, Offset.X, Offset.Y, TCustomAction(Action).ImageIndex, TCustomAction(Action).Enabled);
+      FImageList.Draw(Canvas, Offset.X, Offset.Y, TCustomAction(Action).ImageIndex, (FToolbarButtonStyle = tbrDropDown) or TCustomAction(Action).Enabled);
     {$ENDIF}
   end
   else
