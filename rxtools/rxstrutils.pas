@@ -233,16 +233,18 @@ function RomanToInt(const S: string): Longint; deprecated; //use this function f
 
 procedure StrToStrings(const S:string; const List:TStrings; const Delims:Char);
 function FileToString(const AFileName:string):string;
+function RxPrettySizeName(ASize:Int64):string;
 const
   DigitChars = ['0'..'9'];
   Brackets = ['(',')','[',']','{','}'];
   StdWordDelims = [#0..' ',',','.',';','/','\',':','''','"','`'] + Brackets;
 
 implementation
-
+uses
 {$IFDEF WINDOWS}
-uses Windows;
+  Windows,
 {$ENDIF}
+  rxconst;
 
 function StrToOem(const AnsiStr: string): string;
 begin
@@ -1147,6 +1149,23 @@ begin
   end
   else
     Result:='';
+end;
+
+function RxPrettySizeName(ASize: Int64): string;
+begin
+  if ASize div (1024 * 1024 * 1024 * 1024) > 0 then
+    Result := IntToStr(ASize div (1024 * 1024 * 1024 * 1024)) + ' ' +sRxTerraByte
+  else
+  if ASize div (1024 * 1024 * 1024) > 0 then
+    Result := IntToStr(ASize div (1024 * 1024 * 1024)) + ' ' +sRxGigaByte
+  else
+  if ASize div (1024 * 1024) > 0 then
+    Result := IntToStr(ASize div (1024 * 1024)) + ' ' +sRxMegaByte
+  else
+  if ASize div 1024 > 0 then
+    Result := IntToStr(ASize div (1024)) + ' ' +sRxKiloByte
+  else
+    Result := IntToStr(ASize div (1024)) + ' ' +sRxByte;
 end;
 
 end.

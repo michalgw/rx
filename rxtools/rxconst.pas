@@ -157,6 +157,12 @@ resourcestring
   sPressTheKey                  = 'Press the key';
   sShortCut                     = 'ShortCut';
 
+  { Pretty names for Size}
+  sRxTerraByte                  = 'TB';
+  sRxGigaByte                   = 'GB';
+  sRxMegaByte                   = 'MB';
+  sRxKiloByte                   = 'KB';
+  sRxByte                       = 'B';
 implementation
 
 end.

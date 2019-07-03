@@ -215,8 +215,20 @@ msgstr ""
 msgid "Error. Expected value for field %s."
 msgstr "Поле %s. Вимагається значення"
 
+#: rxconst.srxbyte
+msgid "B"
+msgstr ""
+
 #: rxconst.srxcloseformvalidatoreditor
 msgid "Rx close form validator editor"
+msgstr ""
+
+#: rxconst.srxgigabyte
+msgid "GB"
+msgstr ""
+
+#: rxconst.srxkilobyte
+msgid "KB"
 msgstr ""
 
 #: rxconst.srxlogindlgbtnmore
@@ -227,8 +239,16 @@ msgstr ""
 msgid "Database"
 msgstr ""
 
+#: rxconst.srxmegabyte
+msgid "MB"
+msgstr ""
+
 #: rxconst.srxstrholdertexteditor
 msgid "Rx string holder editor"
+msgstr ""
+
+#: rxconst.srxterrabyte
+msgid "TB"
 msgstr ""
 
 #: rxconst.srxtextfolderitem
