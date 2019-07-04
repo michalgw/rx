@@ -1154,18 +1154,38 @@ end;
 function RxPrettySizeName(ASize: Int64): string;
 begin
   if ASize div (1024 * 1024 * 1024 * 1024) > 0 then
-    Result := IntToStr(ASize div (1024 * 1024 * 1024 * 1024)) + ' ' +sRxTerraByte
+  begin
+    if ASize mod (1024 * 1024 * 1024 * 1024) <> 0 then
+      Result := IntToStr(1 + ASize div (1024 * 1024 * 1024 * 1024)) + ' ' +sRxTerraByte
+    else
+      Result := IntToStr(ASize div (1024 * 1024 * 1024 * 1024)) + ' ' +sRxTerraByte
+  end
   else
   if ASize div (1024 * 1024 * 1024) > 0 then
-    Result := IntToStr(ASize div (1024 * 1024 * 1024)) + ' ' +sRxGigaByte
+  begin
+    if ASize mod (1024 * 1024 * 1024) > 0 then
+      Result := IntToStr(1 + ASize div (1024 * 1024 * 1024)) + ' ' +sRxGigaByte
+    else
+      Result := IntToStr(ASize div (1024 * 1024 * 1024)) + ' ' +sRxGigaByte
+  end
   else
   if ASize div (1024 * 1024) > 0 then
-    Result := IntToStr(ASize div (1024 * 1024)) + ' ' +sRxMegaByte
+  begin
+    if ASize mod (1024 * 1024) > 0 then
+      Result := IntToStr(1 + ASize div (1024 * 1024)) + ' ' +sRxMegaByte
+    else
+      Result := IntToStr(ASize div (1024 * 1024)) + ' ' +sRxMegaByte
+  end
   else
   if ASize div 1024 > 0 then
-    Result := IntToStr(ASize div (1024)) + ' ' +sRxKiloByte
+  begin
+    if ASize mod 1024 > 0 then
+      Result := IntToStr(1 + ASize div (1024)) + ' ' +sRxKiloByte
+    else
+      Result := IntToStr(ASize div (1024)) + ' ' +sRxKiloByte
+  end
   else
-    Result := IntToStr(ASize div (1024)) + ' ' +sRxByte;
+    Result := IntToStr(ASize) + ' ' +sRxByte;
 end;
 
 end.
