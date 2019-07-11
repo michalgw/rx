@@ -110,6 +110,7 @@ type
     property MainPanel:TRxMDIPanel read FMainPanel{ write FMainPanel};
     procedure SelectNext;
     procedure SelectPrior;
+    procedure UpdateMDICaptions;
   published
     property Align;
     property ShowHint;
@@ -625,18 +626,21 @@ end;
 procedure TRxMDIPanel.ChildWindowsUpdateCaption(F: TForm);
 var
   i:integer;
-  B:TRxMDIButton;
+//  B:TRxMDIButton;
+  C: TComponent;
 begin
   if (FCurrentChildWindow = F) and Assigned(FCloseButton) and FCloseButton.Enabled then
     FCloseButton.FInfoLabel.Caption:=F.Caption;
 
   for i:=0 to TaskPanel.ComponentCount -1 do
   begin
-    if TRxMDIButton(TaskPanel.Components[i]).NavForm = F then
-    begin
-      TRxMDIButton(TaskPanel.Components[i]).UpdateCaption;
-      exit;
-    end;
+    C:=TaskPanel.Components[i];
+    if C is TRxMDIButton then
+      if TRxMDIButton(C).NavForm = F then
+      begin
+        TRxMDIButton(C).UpdateCaption;
+        exit;
+      end;
   end;
 end;
 
@@ -1023,6 +1027,19 @@ begin
       ShowWindow(TForm(C));
       Exit;
     end;
+  end;
+end;
+
+procedure TRxMDITasks.UpdateMDICaptions;
+var
+  C: TComponent;
+  i: Integer;
+begin
+  for i:=0 to ComponentCount -1 do
+  begin
+    C:=Components[i];
+    if C is TRxMDIButton then
+      TRxMDIButton(C).UpdateCaption;
   end;
 end;
 

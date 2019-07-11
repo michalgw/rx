@@ -5,11 +5,13 @@
       <element name="TRxMDIButton.DoActivateMenu"/>
       <element name="TRxMDIButton">
          <short>Кнопка на панели задач компонентов MDI</short>
-         <descr>Кнопка предназначена для управления окнами</descr>
+         <descr>Кнопка предназначена для управления окнами
+</descr>
       </element>
       <element name="TRxMDIButton.NavForm">
         <short>Указатель на связанное с кнопкой окно</short>
-        <descr>Указатель на связанное с кнопкой окно</descr>
+        <descr>Указатель на связанное с кнопкой окно
+</descr>
       </element>
       <element name="TRxMDIPanel">
         <short>Основаня панель для управления окнами в режиме MDI</short>
@@ -24,10 +26,12 @@
         <short>Закрыть все окна</short>
       </element>
       <element name="TRxMDIPanel.ShowWindow">
-        <short>Переключить в указанную MDI форму</short><descr>Переключить в указанную MDI форму</descr>
+        <short>Переключить в указанную MDI форму</short><descr>Переключить в указанную MDI форму
+</descr>
       </element>
       <element name="TRxMDIPanel.ChildWindowsAdd">
-        <short>Добавить указанную форму в список MDI</short><descr>Добавить указанную форму в список MDI</descr>
+        <short>Добавить указанную форму в список MDI</short><descr>Добавить указанную форму в список MDI
+</descr>
       </element>
       <element name="TRxMDIPanel.ChildWindowsCreate"><short>Создать экземпляр MDI формы</short><descr><p>Создать экземпляр указнной MDI формы, вставить в список форм и сделать активной</p><p>В случае, если указанный экземпляр существет, то форма просто активируется</p>
         </descr>
