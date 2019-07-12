@@ -1234,6 +1234,9 @@ begin
   else
     Caption:='---';
   AdjustSize;
+
+  if Assigned(FNavPanel) and Assigned(FNavPanel.FMainPanel) then
+    FNavPanel.FMainPanel.RefreshMDIMenu;
 end;
 
 initialization
