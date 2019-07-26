@@ -92,6 +92,7 @@ resourcestring
   sSeparator            = 'Separator';
   sRxToolPanelEditor    = 'Rx toolpanel editor';
   sRxCloseFormValidatorEditor    = 'Rx close form validator editor';
+  sRxViewsPanelEditor   = 'Rx views panel editor';
 
   { TRxHistoryNavigator }
   sHistoryDesc          = 'History - "%s"';

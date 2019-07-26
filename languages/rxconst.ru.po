@@ -304,6 +304,10 @@ msgstr "Редактор RxTextHolder"
 msgid "Rx toolpanel editor"
 msgstr "Редактор RxToolPanel"
 
+#: rxconst.srxviewspaneleditor
+msgid "Rx views panel editor"
+msgstr "Редактор RxViewsPanel"
+
 #: rxconst.ssecondhalfofyear
 msgid "Second half of year"
 msgstr "Вторая половина года"

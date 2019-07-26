@@ -89,6 +89,15 @@ type
     procedure ExecuteVerb(Index:integer);override;
   end;
 
+  { TRxViewsPanelEditor }
+
+  TRxViewsPanelEditor = class(TComponentEditor)
+  public
+    function GetVerbCount:integer;override;
+    function GetVerb(Index:integer):string;override;
+    procedure ExecuteVerb(Index:integer);override;
+  end;
+
   { TRxCloseFormValidatorEditor }
 
   TRxCloseFormValidatorEditor = class(TComponentEditor)
@@ -101,10 +110,36 @@ type
 procedure Register;
 implementation
 uses RxLogin, Dialogs, rxconst, RxHistoryNavigator, rxpopupunit, rxtoolbar, RxCloseFormValidator,
-  rxceEditLookupFields, rxdbgrid, rxdconst, rxduallist, rxstrutils, Forms;
+  rxceEditLookupFields, rxdbgrid, rxdconst, rxduallist, rxstrutils, Forms, RxViewsPanel;
 
 resourcestring
   sTestTRxLoginDialog = 'Test TRxLoginDialog';
+
+{ TRxViewsPanelEditor }
+
+function TRxViewsPanelEditor.GetVerbCount: integer;
+begin
+  Result:=1;
+end;
+
+function TRxViewsPanelEditor.GetVerb(Index: integer): string;
+begin
+  if Index = 0 then Result:=sRxViewsPanelEditor
+  else Result:='';
+end;
+
+procedure TRxViewsPanelEditor.ExecuteVerb(Index: integer);
+var
+  FRxViewsPanel: TRxViewsPanel;
+begin
+  if Index = 0 then
+  begin
+    FRxViewsPanel:=GetComponent as TRxViewsPanel;
+    TCollectionPropertyEditor.ShowCollectionEditor(FRxViewsPanel.Items, FRxViewsPanel, 'Items');
+  end
+  else
+    inherited ExecuteVerb(Index);
+end;
 
 { TRxCloseFormValidatorEditor }
 
@@ -345,6 +380,7 @@ begin
   RegisterComponentEditor(TRxLoginDialog, TRxLoginDialogEditor);
   RegisterComponentEditor(TToolPanel, TToolPanelEditor);
   RegisterComponentEditor(TRxCloseFormValidator, TRxCloseFormValidatorEditor);
+  RegisterComponentEditor(TRxViewsPanel, TRxViewsPanelEditor);
 
   //
   RegisterPropertyEditor(TypeInfo(string), TPopUpColumn, 'FieldName', TPopUpColumnFieldProperty);

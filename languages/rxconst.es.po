@@ -297,6 +297,10 @@ msgstr ""
 msgid "Rx toolpanel editor"
 msgstr ""
 
+#: rxconst.srxviewspaneleditor
+msgid "Rx views panel editor"
+msgstr ""
+
 #: rxconst.ssecondhalfofyear
 msgid "Second half of year"
 msgstr ""
