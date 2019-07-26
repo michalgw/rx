@@ -117,6 +117,7 @@ type
     procedure InternalSelectView(Item:TRxViewsPanelItem);
   protected
     procedure Loaded; override;
+    procedure Notification(AComponent: TComponent; Operation: TOperation); override;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -245,6 +246,17 @@ begin
   FItems.UpdateImages;
   if (FItems.Count>0) and (FItemIndex>-1) and (FItemIndex < FItems.Count) then
     FItems[FItemIndex].FButton.Down:=true;
+end;
+
+procedure TRxViewsPanel.Notification(AComponent: TComponent;
+  Operation: TOperation);
+begin
+  inherited Notification(AComponent, Operation);
+  if Operation = opRemove then
+  begin
+    if AComponent = FImageList then
+      SetImageList(nil)
+  end;
 end;
 
 constructor TRxViewsPanel.Create(AOwner: TComponent);

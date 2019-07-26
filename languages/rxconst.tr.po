@@ -36,6 +36,7 @@ msgid "Button align"
 msgstr "Buton hizala"
 
 #: rxconst.sbuttonalign1
+msgctxt "rxconst.sbuttonalign1"
 msgid "None"
 msgstr "Yok"
 
@@ -52,12 +53,17 @@ msgid "Close"
 msgstr "Kapat"
 
 #: rxconst.scloseaftersec
+#, object-pascal-format
 msgid "Close after %d sec"
 msgstr "%d sn sonra kapat"
 
 #: rxconst.scloseallexceptthis
 msgid "Close all except this"
 msgstr "Bu hariç hepsini kapat"
+
+#: rxconst.scloseallquestion
+msgid "Close all window?"
+msgstr ""
 
 #: rxconst.scloseallwindows
 msgid "Close all windows"
@@ -104,6 +110,7 @@ msgid "Not assigned task panel"
 msgstr "Görev paneli atanmadı"
 
 #: rxconst.sexptcontrolnotfound
+#, object-pascal-format
 msgid "Control not found in validate %s."
 msgstr "Kontrol bulunamadı doğrulanamadı %s."
 
@@ -124,6 +131,7 @@ msgid "Flat buttons"
 msgstr "Düz düğmeler"
 
 #: rxconst.sfolderlistererr
+#, object-pascal-format
 msgid "%s. Not assigned property MenuItem"
 msgstr "%s. Atanmamış özellik Menuöğesi"
 
@@ -139,7 +147,12 @@ msgstr "FPC Sürümü: "
 msgid "General"
 msgstr "Genel"
 
+#: rxconst.sgrabkey
+msgid "Grab key"
+msgstr ""
+
 #: rxconst.shistorydesc
+#, object-pascal-format
 msgid "History - \"%s\""
 msgstr "Geçmiş - \"%s\""
 
@@ -152,6 +165,7 @@ msgid "License"
 msgstr "Lisans"
 
 #: rxconst.sloadliberror
+#, object-pascal-format
 msgid "Could not load '%s' library"
 msgstr "'%s' kütüphanesi yüklenemedi"
 
@@ -172,8 +186,13 @@ msgid "Options"
 msgstr "Seçenekler"
 
 #: rxconst.soutofrange
+#, object-pascal-format
 msgid "Out of range %d %d %d %d"
 msgstr "Aralık dışı %d %d %d %d"
+
+#: rxconst.spressthekey
+msgid "Press the key"
+msgstr ""
 
 #: rxconst.sprevmonth
 msgid "Previous Month|"
@@ -183,17 +202,76 @@ msgstr "Önceki Ay|"
 msgid "Previous Year|"
 msgstr "Önceki Yıl|"
 
+#: rxconst.squestion
+msgid "Question"
+msgstr ""
+
 #: rxconst.sreqvalue
+#, object-pascal-format
 msgid "Error. Expected value for field %s."
 msgstr "Hata. %s alanı için beklenen değer."
+
+#: rxconst.srxbyte
+msgid "B"
+msgstr ""
+
+#: rxconst.srxcloseformvalidatoreditor
+msgid "Rx close form validator editor"
+msgstr ""
+
+#: rxconst.srxgigabyte
+msgid "GB"
+msgstr ""
+
+#: rxconst.srxkilobyte
+msgid "KB"
+msgstr ""
+
+#: rxconst.srxlogindlgbtnmore
+msgid "More >>"
+msgstr ""
+
+#: rxconst.srxlogindlgdatabase
+msgid "Database"
+msgstr ""
+
+#: rxconst.srxmegabyte
+msgid "MB"
+msgstr ""
 
 #: rxconst.srxstrholdertexteditor
 msgid "Rx string holder editor"
 msgstr "Rx string tutucu editörü"
 
+#: rxconst.srxterrabyte
+msgid "TB"
+msgstr ""
+
 #: rxconst.srxtextfolderitem
 msgid "Item "
 msgstr "Öğe "
+
+#: rxconst.srxtextfoldersynhighlighter
+msgid "Highlighter"
+msgstr ""
+
+#: rxconst.srxtextfoldersynhtml
+msgid "HTML"
+msgstr ""
+
+#: rxconst.srxtextfoldersynnone
+#, fuzzy
+msgctxt "rxconst.srxtextfoldersynnone"
+msgid "None"
+msgstr "Yok"
+
+#: rxconst.srxtextfoldersynsql
+msgid "SQL"
+msgstr ""
+
+#: rxconst.srxtextfoldersynxml
+msgid "XML"
+msgstr ""
 
 #: rxconst.srxtextholderadd
 msgid "Add"
@@ -202,6 +280,14 @@ msgstr "Ekle"
 #: rxconst.srxtextholdereditor
 msgid "RxTextHolder editor"
 msgstr "RxTextHolder editorü"
+
+#: rxconst.srxtextholdermovedown
+msgid "Down"
+msgstr ""
+
+#: rxconst.srxtextholdermoveup
+msgid "Up"
+msgstr ""
 
 #: rxconst.srxtextholderremove
 msgid "Remove"
@@ -215,6 +301,10 @@ msgstr "Başlık"
 msgid "Rx text holder editor"
 msgstr "Rx metin tutucu editörü"
 
+#: rxconst.srxtoolpaneleditor
+msgid "Rx toolpanel editor"
+msgstr ""
+
 #: rxconst.ssecondhalfofyear
 msgid "Second half of year"
 msgstr "Yılın ikinci yarısı"
@@ -222,6 +312,14 @@ msgstr "Yılın ikinci yarısı"
 #: rxconst.ssecondquarter
 msgid "Second quarter"
 msgstr "İkinci çeyrek"
+
+#: rxconst.sseparator
+msgid "Separator"
+msgstr ""
+
+#: rxconst.sshortcut
+msgid "ShortCut"
+msgstr ""
 
 #: rxconst.sshowcaption
 msgid "Show caption"
@@ -272,22 +370,27 @@ msgid "Transparent"
 msgstr "Transparent"
 
 #: rxconst.svariableisnotboolean
+#, object-pascal-format
 msgid "Variable %s is not boolean"
 msgstr "%s değişkeni boolean değil"
 
 #: rxconst.svariableisnotdt
+#, object-pascal-format
 msgid "Variable %s is not date/time"
 msgstr "%s değişkeni tarih/saat değil"
 
 #: rxconst.svariableisnotfloat
+#, object-pascal-format
 msgid "Variable %s is not float"
 msgstr "%s değişkeni float değil"
 
 #: rxconst.svariableisnotinteger
+#, object-pascal-format
 msgid "Variable %s is not integer"
 msgstr "%s değişkeni sayı değil"
 
 #: rxconst.svariableisnotstring
+#, object-pascal-format
 msgid "Variable %s is not string"
 msgstr "%s değişkeni metin değil"
 
@@ -302,3 +405,4 @@ msgstr "Widget : "
 #: rxconst.swindowsicofiles
 msgid "Windows Ico files (*.ico)|*.ico|All files (*.*)|*.*"
 msgstr "Windows Ikon dosyasları (*.ico)|*.ico|Tüm dosyalar (*.*)"
+

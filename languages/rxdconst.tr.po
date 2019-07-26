@@ -16,6 +16,7 @@ msgid "All values"
 msgstr "Tüm değerler"
 
 #: rxdconst.sapptitlelabel
+#, object-pascal-format
 msgid "Application \"%s\""
 msgstr "Uygulama \"%s\""
 
@@ -81,6 +82,7 @@ msgid "Data changed. Save?"
 msgstr "Veri değişti kaydedilsin mi?"
 
 #: rxdconst.sdatabasename
+#, object-pascal-format
 msgid "Database locked: %s"
 msgstr "Veritabanı kilitli : %s"
 
@@ -89,6 +91,7 @@ msgid "Database"
 msgstr "Veritabanı"
 
 #: rxdconst.sdbcomboboxfieldnotassigned
+#, object-pascal-format
 msgid "%s:TDBComboBox - DataField not assigned"
 msgstr "%s:TDBComboBox - DataField atanmadı"
 
@@ -167,6 +170,7 @@ msgid "Compare opertion needs field and const"
 msgstr "Operasyon ihtiyaçları alanını ve sabitlerini karşılaştır"
 
 #: rxdconst.sexprbadfield
+#, object-pascal-format
 msgid "Field '%s' not used in filter expression"
 msgstr "'%s' alanı filtre ifadesinde kullanılmıyor"
 
@@ -175,6 +179,7 @@ msgid "NULL-values enabled in '=' and '<>'"
 msgstr "'=' Ve '<>' içinde boş değerler etkin"
 
 #: rxdconst.sexprexpected
+#, object-pascal-format
 msgid "Error %s"
 msgstr "Hata %s"
 
@@ -183,6 +188,7 @@ msgid "Error in filter expression"
 msgstr "Filtre ifadesinde hata"
 
 #: rxdconst.sexprinvalidchar
+#, object-pascal-format
 msgid "Error symbol in expression: '%s'"
 msgstr "Sembol ifadesinde hata : '%s'"
 
@@ -191,10 +197,12 @@ msgid "Error in filed name"
 msgstr "Alan adında hata"
 
 #: rxdconst.sexprnorparen
+#, object-pascal-format
 msgid "Error ')', error: %s"
 msgstr "Hata ')', hata : %s"
 
 #: rxdconst.sexprnotboolean
+#, object-pascal-format
 msgid "Field '%s' is not boolean"
 msgstr "'%s' alanı boolean değil"
 
@@ -207,14 +215,17 @@ msgid "Error in filter end"
 msgstr "Filtre sonunda hata"
 
 #: rxdconst.sfieldreadonly
+#, object-pascal-format
 msgid "SFieldReadOnly %s"
 msgstr "SFieldReadOnly %s"
 
 #: rxdconst.sfieldrequired
+#, object-pascal-format
 msgid "Field '%s' must have a value"
 msgstr "'%s' alanı bir değere sahip olmalı"
 
 #: rxdconst.sfieldtypemismatch
+#, object-pascal-format
 msgid "Type mismatch for field '%s', expecting: %s actual: %s"
 msgstr "'%s' alanı için uyuşmazlık yazın, beklenen :%s gerçek: %s"
 
@@ -594,10 +605,6 @@ msgctxt "rxdconst.srxfilterformapply"
 msgid "Apply"
 msgstr "Uygula"
 
-#: rxdconst.srxfilterformcancel
-msgid "Cancel"
-msgstr "İptal"
-
 #: rxdconst.srxfilterformcaption
 msgid "Filter conditions"
 msgstr "Filtre koşulları"
@@ -711,6 +718,10 @@ msgstr "Altbilgi rengini göster"
 msgid "Show grid color"
 msgstr "Grid rengini göster"
 
+#: rxdconst.sshowpreview
+msgid "Show preview"
+msgstr ""
+
 #: rxdconst.sshowreporttitle
 msgid "Show report title"
 msgstr "Rapor başlığını göster"
@@ -744,6 +755,7 @@ msgid "Top"
 msgstr "Üst"
 
 #: rxdconst.sunknownfieldtype
+#, object-pascal-format
 msgid "SUnknownFieldType %s"
 msgstr "SUnknownFieldType %s"
 
@@ -766,3 +778,4 @@ msgstr "Raw JPEG kullan"
 #: rxdconst.susernamelabel
 msgid "&User name:"
 msgstr "&Kullanıcı adı:"
+
