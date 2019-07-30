@@ -51,13 +51,15 @@ type
     ComboBox1: TComboBox;
     Edit1: TEdit;
     Label1: TLabel;
-    Label2: TLabel;
     Panel1: TPanel;
+    RadioButton1: TRadioButton;
+    RadioButton2: TRadioButton;
     RadioGroup1: TRadioGroup;
     procedure BtnFindClick(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure RadioButton1Click(Sender: TObject);
   private
     FGrid:TRxDBGrid;
     FDataSet:TDataSet;
@@ -69,7 +71,7 @@ type
 procedure ShowRxDBGridFindForm(Grid:TRxDBGrid);
 
 implementation
-uses rxdbutils, DBGrids, rxdconst;
+uses rxdbutils, DBGrids, rxdconst, Variants;
 
 {$R *.lfm}
 
@@ -94,7 +96,8 @@ procedure TrxDBGridFindForm.FormCreate(Sender: TObject);
 begin
   Caption:=sRxDbGridFindCaption;
   Label1.Caption:=sRxDbGridFindText;
-  Label2.Caption:=sRxDbGridFindOnField;
+  RadioButton1.Caption:=sRxDbGridFindOnField;
+  RadioButton2.Caption:=sRxDbGridFindInAllFileds;
   CheckBox1.Caption:=sRxDbGridFindCaseSens;
   CheckBox2.Caption:=sRxDbGridFindPartial;
   RadioGroup1.Caption:=sRxDbGridFindDirecion;
@@ -113,14 +116,21 @@ begin
   Edit1.SetFocus;
 end;
 
+procedure TrxDBGridFindForm.RadioButton1Click(Sender: TObject);
+begin
+  ComboBox1.Enabled:=RadioButton1.Checked;
+end;
+
 procedure TrxDBGridFindForm.BtnFindClick(Sender: TObject);
 var
-  FieldName:string;
+  FieldName, S:string;
   LOptions: TLocateOptions;
   SearchOrigin:TRxSearchDirection;
   P:TBookMark;
   R:boolean;
   FC: TRxColumn;
+  RF:TField;
+  i: Integer;
 begin
   { TODO -oalexs : Необходимо переделать поиск по колонке - искать всегда по строковому представлению. Иначе не ищет по дате-времени }
   if (Edit1.Text<>'') and (ComboBox1.ItemIndex>=0) and (ComboBox1.ItemIndex<ComboBox1.Items.Count) and (ComboBox1.Text<>'') then
@@ -147,7 +157,20 @@ begin
       else
       if SearchOrigin = rsdBackward then
         FDataSet.Prior;
-      R:=DataSetLocateThrough(FDataSet, FieldName, Edit1.Text, LOptions, SearchOrigin);
+      if RadioButton1.Checked then
+        R:=DataSetLocateThrough(FDataSet, FieldName, Edit1.Text, LOptions, SearchOrigin)
+      else
+      begin
+        S:='';
+        for i:=0 to FDataSet.Fields.Count-1 do
+        begin
+          if S<>'' then S:=S + ';';
+          S:=S + FDataSet.Fields[i].FieldName;
+        end;
+        R:=DataSetLocateThroughEx(FDataSet, S, Edit1.Text, LOptions, SearchOrigin, false, RF);
+        if R then
+          FGrid.SelectedField:=RF;
+      end;
     finally
       {$IFDEF NoAutomatedBookmark}
       if not R then

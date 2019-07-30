@@ -150,6 +150,7 @@ resourcestring
   sRxDbGridFindCaption     = 'Find data';
   sRxDbGridFindText        = 'Text to find';
   sRxDbGridFindOnField     = 'Find on field';
+  sRxDbGridFindInAllFileds = 'Find in all fields';
   sRxDbGridFindCaseSens    = 'Case sensetive';
   sRxDbGridFindPartial     = 'Partial key';
   sRxDbGridFindDirecion    = 'Direction';

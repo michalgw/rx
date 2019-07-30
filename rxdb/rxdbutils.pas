@@ -111,6 +111,9 @@ procedure InternalRestoreFields(DataSet: TDataSet; IniFile: TObject;
 function DataSetLocateThrough(DataSet: TDataSet; const KeyFields: string;
   const KeyValues: Variant; Options: TLocateOptions; SearchOrigin:TRxSearchDirection = rsdAll; ASearchFromStart:boolean = false): Boolean;
 
+function DataSetLocateThroughEx(DataSet: TDataSet; const KeyFields: string;
+  const KeyValues: Variant; Options: TLocateOptions; SearchOrigin:TRxSearchDirection; ASearchFromStart:boolean; out ResultField:TField): Boolean;
+
 procedure SaveFieldsReg(DataSet: TDataSet; IniFile: TRegIniFile);
 procedure RestoreFieldsReg(DataSet: TDataSet; IniFile: TRegIniFile;
   RestoreVisible: Boolean);
@@ -167,7 +170,7 @@ procedure _DBError(const Msg: string);
 
 implementation
 
-uses Forms, Controls, Dialogs, RXDConst, rxlclutils, FileUtil,
+uses Forms, Controls, Dialogs, RXDConst, rxlclutils, FileUtil, Variants,
   RxAppUtils, RxStrUtils, Math, rxdateutil, LazUTF8;
 
 { Utility routines }
@@ -390,15 +393,37 @@ function DataSetLocateThrough(DataSet: TDataSet; const KeyFields: string;
   const KeyValues: Variant; Options: TLocateOptions; SearchOrigin:TRxSearchDirection = rsdAll;
   ASearchFromStart:boolean = false): Boolean;
 var
+  R: TField;
+begin
+  Result:=DataSetLocateThroughEx(DataSet, KeyFields, KeyValues, Options, SearchOrigin, ASearchFromStart, R)
+end;
+
+procedure SaveFields(DataSet: TDataSet; IniFile: TIniFile);
+begin
+  InternalSaveFields(DataSet, IniFile, DataSetSectionName(DataSet));
+end;
+
+procedure RestoreFields(DataSet: TDataSet; IniFile: TIniFile;
+  RestoreVisible: Boolean);
+begin
+  InternalRestoreFields(DataSet, IniFile, DataSetSectionName(DataSet),
+    RestoreVisible);
+end;
+
+function DataSetLocateThroughEx(DataSet: TDataSet; const KeyFields: string;
+  const KeyValues: Variant; Options: TLocateOptions;
+  SearchOrigin: TRxSearchDirection; ASearchFromStart: boolean; out
+  ResultField: TField): Boolean;
+var
   FieldCount: Integer;
   Fields: TList;
+  SingleValueFind:boolean;
 
   function CompareField(Field: TField; Value: Variant): Boolean;
   var
     S,S1: string;
-    
   begin
-    if (Field.DataType = ftString) or (loPartialKey in Options) then
+    if (Field.DataType = ftString) or (loPartialKey in Options) or SingleValueFind then
     begin
       if loCaseInsensitive in Options then
       begin
@@ -412,7 +437,7 @@ var
       end;
 {      if (loPartialKey in Options) then
         Delete(S, Length(S1) + 1, MaxInt);
-        
+
       if (loCaseInsensitive in Options) then
         Result := UTF8CompareText(S, S1) = 0
       else
@@ -439,15 +464,43 @@ var
   function CompareRecord: Boolean;
   var
     I: Integer;
+    V:Variant;
+    B: Boolean;
   begin
     if FieldCount = 1 then
       Result := CompareField(TField(Fields.First), KeyValues)
     else
     begin
       Result := True;
+      if not VarIsArray(KeyValues) then
+      begin
+        SingleValueFind:=true;
+        V:=KeyValues;
+      end
+      else
+      if (Length(KeyValues)=1) then
+      begin
+        SingleValueFind:=true;
+        V:=KeyValues[0];
+      end;
+
+      if SingleValueFind then
+      begin
+        B:=false;
+        for I := 0 to FieldCount - 1 do
+        begin
+          B:=B or CompareField(TField(Fields[I]), V);
+          if B then
+          begin
+            ResultField:=TField(Fields[I]);
+            Exit(B);
+          end;
+        end;
+        Exit(B);
+      end
+      else
       for I := 0 to FieldCount - 1 do
       begin
-        //Result := Result and CompareField(TField(Fields[I]), KeyValues[I]);
         if not CompareField(TField(Fields[I]), KeyValues[I]) then
           Exit(false);
       end;
@@ -458,6 +511,8 @@ var
   Bookmark: TBookmark;
 begin
   Result := False;
+  ResultField:=nil;
+  SingleValueFind:=false;
   with DataSet do
   begin
     CheckBrowseMode;
@@ -522,18 +577,6 @@ begin
     Fields.Free;}
   end;
   Fields.Free;
-end;
-
-procedure SaveFields(DataSet: TDataSet; IniFile: TIniFile);
-begin
-  InternalSaveFields(DataSet, IniFile, DataSetSectionName(DataSet));
-end;
-
-procedure RestoreFields(DataSet: TDataSet; IniFile: TIniFile;
-  RestoreVisible: Boolean);
-begin
-  InternalRestoreFields(DataSet, IniFile, DataSetSectionName(DataSet),
-    RestoreVisible);
 end;
 
 procedure SaveFieldsReg(DataSet: TDataSet; IniFile: TRegIniFile);

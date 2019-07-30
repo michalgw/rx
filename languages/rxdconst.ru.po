@@ -513,6 +513,10 @@ msgstr "Регистро-зависимо"
 msgid "Direction"
 msgstr "Направление"
 
+#: rxdconst.srxdbgridfindinallfileds
+msgid "Find in all fields"
+msgstr "Поиск во всех полях"
+
 #: rxdconst.srxdbgridfindonfield
 msgid "Find on field"
 msgstr "Искать по полю"

@@ -514,6 +514,10 @@ msgstr "Harfe duyarlı"
 msgid "Direction"
 msgstr "Yön"
 
+#: rxdconst.srxdbgridfindinallfileds
+msgid "Find in all fields"
+msgstr ""
+
 #: rxdconst.srxdbgridfindonfield
 msgid "Find on field"
 msgstr "Alanda bul"

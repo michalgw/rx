@@ -503,6 +503,10 @@ msgstr ""
 msgid "Direction"
 msgstr ""
 
+#: rxdconst.srxdbgridfindinallfileds
+msgid "Find in all fields"
+msgstr ""
+
 #: rxdconst.srxdbgridfindonfield
 msgid "Find on field"
 msgstr ""

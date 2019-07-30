@@ -514,6 +514,10 @@ msgstr "Rozróżniaj wielkość liter"
 msgid "Direction"
 msgstr "Kierunek"
 
+#: rxdconst.srxdbgridfindinallfileds
+msgid "Find in all fields"
+msgstr ""
+
 #: rxdconst.srxdbgridfindonfield
 msgid "Find on field"
 msgstr "Szukaj w polu"

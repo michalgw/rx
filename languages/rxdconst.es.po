@@ -522,6 +522,10 @@ msgstr "Sensitivo MAY/min"
 msgid "Direction"
 msgstr "Dirección"
 
+#: rxdconst.srxdbgridfindinallfileds
+msgid "Find in all fields"
+msgstr ""
+
 #: rxdconst.srxdbgridfindonfield
 msgid "Find on field"
 msgstr "Buscar en campo"
