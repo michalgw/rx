@@ -1286,7 +1286,7 @@ type
     FCol, FRow: integer;
   protected
     procedure EditChange; override;
-    procedure KeyDown(var Key: word; Shift: TShiftState); override;
+    procedure EditKeyDown(var Key: word; Shift: TShiftState); override;
 
     procedure WndProc(var TheMessage: TLMessage); override;
     procedure msg_SetGrid(var Msg: TGridMessage); message GM_SETGRID;
@@ -2712,32 +2712,22 @@ end;
 
 
 { TRxDBGridDateEditor }
-
 procedure TRxDBGridDateEditor.EditChange;
 var
   D:TDateTime;
 begin
   inherited EditChange;
-  if Assigned(FGrid) and FGrid.DatalinkActive and not FGrid.EditorIsReadOnly then
+  if (FGrid<>nil) and Visible then
   begin
-    if not (FGrid.DataSource.DataSet.State in dsEditModes) then
-      FGrid.DataSource.Edit;
-    if Self.Text <> '' then
-      FGrid.SelectedField.AsDateTime := Self.Date
+    if TryStrToDate(Text, D) then
+      FGrid.EditorTextChanged(FCol, FRow, Text)
     else
-      FGrid.SelectedField.Clear;
-
-    if FGrid <> nil then
-    begin
-      if TryStrToDate(Text, D) then
-        FGrid.SetEditText(FCol, FRow, Text)
-      else
-        FGrid.SetEditText(FCol, FRow, '');
-    end;
+      FGrid.EditorTextChanged(FCol, FRow, '')
   end;
 end;
 
-procedure TRxDBGridDateEditor.KeyDown(var Key: word; Shift: TShiftState);
+
+procedure TRxDBGridDateEditor.EditKeyDown(var Key: word; Shift: TShiftState);
 
   function AllSelected: boolean;
   begin
@@ -2862,7 +2852,10 @@ procedure TRxDBGridDateEditor.msg_GetValue(var Msg: TGridMessage);
 var
   sText: string;
 begin
-  sText := Text;
+  if Date = NullDate then
+    sText := ''
+  else
+    sText := Text;
   Msg.Value := sText;
 end;
 

@@ -61,7 +61,7 @@ end;
 procedure RxWriteLog(ALogType: TEventType; const ALogMessage: string;
   Params: array of const);
 begin
-  RxWriteLog(ALogType, Format(ALogMessage, Params));
+   RxWriteLog(ALogType, Format(ALogMessage, Params));
 end;
 
 procedure RxDefaultWriteLog(ALogType: TEventType; const ALogMessage: string);
