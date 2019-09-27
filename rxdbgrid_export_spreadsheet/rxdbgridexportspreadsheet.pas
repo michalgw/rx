@@ -51,6 +51,7 @@ type
     );
 
   TRxDBGridExportSpreadSheetOptions = set of TRxDBGridExportSpreadSheetOption;
+  TRxSpreadSheetDefaultExt = (rdeNone, rdeOpenDocument, rdeExcel, rdeExcelX);
 
 type
 
@@ -58,6 +59,7 @@ type
 
   TRxDBGridExportSpreadSheet = class(TRxDBGridAbstractTools)
   private
+    FDefaultExt: TRxSpreadSheetDefaultExt;
     FFileName: string;
     FOpenAfterExport: boolean;
     FOptions: TRxDBGridExportSpreadSheetOptions;
@@ -67,6 +69,7 @@ type
     procedure ExpAllRow;
     procedure ExpSelectedRow;
     procedure ExpGrpLine(G: TColumnGroupItem);
+    function InternalGetFileName:string;
   protected
     FDataSet:TDataSet;
     FWorkbook: TsWorkbook;
@@ -90,12 +93,21 @@ type
     property PageName:string read FPageName write FPageName;
     property Options:TRxDBGridExportSpreadSheetOptions read FOptions write FOptions;
     property OpenAfterExport:boolean read FOpenAfterExport write FOpenAfterExport default false;
+    property DefaultExt:TRxSpreadSheetDefaultExt read FDefaultExt write FDefaultExt default rdeOpenDocument;
   end;
 
 procedure Register;
 
+const
+  RxSpreadSheetDefaultExtStr : array [TRxSpreadSheetDefaultExt] of string = (
+    '', //rdeNone,
+    '.ods', //rdeOpenDocument,
+    '.xls', //rdeExcel,
+    '.xlsx'  //rdeExcelX
+  );
+
 implementation
-uses fpsallformats, LCLType, Forms, math, LazUTF8, rxdconst, Controls, LCLIntf,
+uses fpsallformats, LCLType, Forms, math, LazUTF8, rxdconst, rxconst, Controls, LCLIntf,
   RxDBGridExportSpreadSheet_ParamsUnit, rxdbutils, fpsutils, DBGrids;
 
 {$R rxdbgridexportspreadsheet.res}
@@ -360,6 +372,19 @@ begin
   end;
 end;
 
+function TRxDBGridExportSpreadSheet.InternalGetFileName: string;
+var
+  SExt: String;
+begin
+  if FFileName = '' then
+    raise Exception.Create(sRxNotDefinedFileName);
+
+  Result:=FFileName;
+  SExt:=ExtractFileExt(FFileName);
+  if (SExt = '') and (FDefaultExt <> rdeNone) then
+    Result:=Result + RxSpreadSheetDefaultExtStr[FDefaultExt];
+end;
+
 procedure TRxDBGridExportSpreadSheet.DoExportTitle;
 var
   i, k  : Integer;
@@ -604,15 +629,24 @@ begin
   inherited Create(AOwner);
   FCaption:=sToolsExportSpeadSheet;
   FOpenAfterExport:=false;
+  FDefaultExt:=rdeOpenDocument;
 end;
 
 function TRxDBGridExportSpreadSheet.DoExecTools: boolean;
 var
   P:TBookMark;
+  FPN, FFN: String;
 begin
   Result:=false;
   if (not Assigned(FRxDBGrid)) or (not Assigned(FRxDBGrid.DataSource)) or (not Assigned(FRxDBGrid.DataSource.DataSet)) then
     exit;
+  if FPageName = '' then
+    FPN:=sPageName
+  else
+    FPN:=FPageName;
+
+  FFN:=InternalGetFileName;
+
   FDataSet:=FRxDBGrid.DataSource.DataSet;
   FDataSet.DisableControls;
   {$IFDEF NoAutomatedBookmark}
@@ -622,7 +656,7 @@ begin
   {$ENDIF}
 
   FWorkbook := TsWorkbook.Create;
-  FWorksheet := FWorkbook.AddWorksheet(FPageName);
+  FWorksheet := FWorkbook.AddWorksheet(FPN);
   try
     scColorBlack:=FRxDBGrid.GridLineColor;
     FCurRow:=0;
@@ -638,7 +672,7 @@ begin
 
     DoExportColWidth;
 
-    FWorkbook.WriteToFile(UTF8ToSys(FileName), true);
+    FWorkbook.WriteToFile(UTF8ToSys(FFN), true);
     Result:=true;
   finally
     FWorkbook.Free;
@@ -652,7 +686,7 @@ begin
   end;
 
   if Result and FOpenAfterExport then
-    OpenDocument(FileName);
+    OpenDocument(FFN);
 end;
 
 function TRxDBGridExportSpreadSheet.DoSetupTools: boolean;

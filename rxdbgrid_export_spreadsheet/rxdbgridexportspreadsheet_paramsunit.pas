@@ -60,6 +60,7 @@ type
     Label1: TLabel;
     Label3: TLabel;
     Label4: TLabel;
+    procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
   private
     { private declarations }
@@ -68,7 +69,7 @@ type
   end;
 
 implementation
-uses rxdconst;
+uses rxdconst, rxconst, rxAppUtils;
 
 {$R *.lfm}
 
@@ -89,6 +90,18 @@ begin
   cbHideZeroValues.Caption:=sExportHideZeroValues;
   cbMergeCells.Caption:=sMergeCells;
   cbExportGrpData.Caption:=sExportGroupData;
+end;
+
+procedure TRxDBGridExportSpreadSheet_ParamsForm.FormCloseQuery(Sender: TObject;
+  var CanClose: boolean);
+begin
+  CanClose:=(FileNameEdit1.FileName<>'');
+  if not CanClose then
+  begin
+    ErrorBox(sRxNotDefinedFileName);
+    FileNameEdit1.SetFocus;
+    Exit;
+  end;
 end;
 
 end.

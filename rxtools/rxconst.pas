@@ -93,6 +93,7 @@ resourcestring
   sRxToolPanelEditor    = 'Rx toolpanel editor';
   sRxCloseFormValidatorEditor    = 'Rx close form validator editor';
   sRxViewsPanelEditor   = 'Rx views panel editor';
+  sRxNotDefinedFileName = 'Not defined file name';
 
   { TRxHistoryNavigator }
   sHistoryDesc          = 'History - "%s"';
