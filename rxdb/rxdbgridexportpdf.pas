@@ -668,7 +668,9 @@ begin
           end
         end
         else
-          WriteTextRect(ActivateFont(C.Font, FRxDBGrid.Font), X, FPosY, C.Width, FRxDBGrid.DefaultRowHeight, C.Field.DisplayText, C.Alignment);
+          WriteTextRect(ActivateFont(C.Font, FRxDBGrid.Font), X, FPosY, C.Width, FRxDBGrid.DefaultRowHeight,
+            THackExDBGrid(FRxDBGrid).GetFieldDisplayText(C.Field, C) {C.Field.DisplayText}, C.Alignment);
+          //WriteTextRect(ActivateFont(C.Font, FRxDBGrid.Font), X, FPosY, C.Width, FRxDBGrid.DefaultRowHeight, C.Field.DisplayText, C.Alignment);
       end;
 
       X:=X + C.Width;
