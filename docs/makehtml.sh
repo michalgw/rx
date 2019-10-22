@@ -50,17 +50,17 @@ fpdoc --package=rxfpc --format=html --index-colcount=4 --hide-protected \
 echo 
 echo Write help files for RxDBGrid_Print
 fpdoc --package=rxdbgrid_print --format=html --index-colcount=4 --hide-protected \
-  --input=../rxdbgridprintgrid.pas --descr=rxdbgridprintgrid.xml
+  --input="-Fi../ ../rxdbgrid_print/rxdbgridprintgrid.pas" --descr=rxdbgridprintgrid.xml -Fi=/usr/local/share/lazarus/components/rxnew
 
 echo 
 echo Write help files for rxdbgrid_export_spreadsheet
 fpdoc --package=rxdbgrid_export_spreadsheet --format=html --index-colcount=4 --hide-protected \
-  --input=../rxdbgridexportspreadsheet.pas --descr=rxdbgridexportspreadsheet.xml \ 
-  --input=../rxdbgridexportspreadsheet_paramsunit.pas --descr=rxdbgridexportspreadsheet_paramsunit.xml
+  --input="-Fi../../rxdbgrid_export_spreadsheet/rxdbgridexportspreadsheet.pas" --descr=rxdbgridexportspreadsheet.xml \
+  --input="-Fi../../rxdbgrid_export_spreadsheet/rxdbgridexportspreadsheet_paramsunit.pas" --descr=rxdbgridexportspreadsheet_paramsunit.xml
 
 echo   
 echo Write help files for rx_sort_zeos
 fpdoc --package=rx_sort_zeos --format=html --index-colcount=4 --hide-protected \
-  --input=../exsortzeos.pas --descr=exsortzeos.xml \
-  --input=../rxsortzeos.pas --descr=rxsortzeos.xml
+  --input=../rx_sort_zeos/exsortzeos.pas --descr=exsortzeos.xml \
+  --input=../rx_sort_zeos/rxsortzeos.pas --descr=rxsortzeos.xml
   
