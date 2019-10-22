@@ -7,10 +7,10 @@ object Form1: TForm1
   ClientHeight = 444
   ClientWidth = 702
   OnCreate = FormCreate
-  LCLVersion = '1.9.0.0'
+  LCLVersion = '2.1.0.0'
   object RxDBGrid1: TRxDBGrid
     Left = 0
-    Height = 444
+    Height = 389
     Top = 0
     Width = 702
     ColumnDefValues.BlobText = '(blob)'
@@ -61,7 +61,7 @@ object Form1: TForm1
         Filter.AllValue = '(All values)'
         Filter.EmptyFont.Style = [fsItalic]
         Filter.ItemIndex = -1
-        Filter.Style = rxfstDialog
+        Filter.Style = rxfstBoth
         Footers = <>
       end    
       item
@@ -164,6 +164,79 @@ object Form1: TForm1
     DataSource = dsData
     Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgHeaderPushedLook]
     TabOrder = 0
+  end
+  object Panel1: TPanel
+    Left = 0
+    Height = 50
+    Top = 394
+    Width = 702
+    Align = alBottom
+    ClientHeight = 50
+    ClientWidth = 702
+    TabOrder = 1
+    object Button1: TButton
+      Left = 8
+      Height = 33
+      Top = 0
+      Width = 85
+      AutoSize = True
+      Caption = 'CODE filter'
+      OnClick = Button1Click
+      TabOrder = 0
+    end
+    object Label1: TLabel
+      Left = 104
+      Height = 17
+      Top = 0
+      Width = 39
+      Caption = 'Label1'
+      ParentColor = False
+    end
+    object Label2: TLabel
+      Left = 408
+      Height = 17
+      Top = 0
+      Width = 40
+      Caption = 'Label2'
+      ParentColor = False
+    end
+    object Button2: TButton
+      Left = 312
+      Height = 33
+      Top = 0
+      Width = 87
+      AutoSize = True
+      Caption = 'NAME filter'
+      OnClick = Button2Click
+      TabOrder = 1
+    end
+    object Button3: TButton
+      Left = 168
+      Height = 33
+      Top = 0
+      Width = 79
+      AutoSize = True
+      Caption = 'ID_R filter'
+      OnClick = Button3Click
+      TabOrder = 2
+    end
+    object Label3: TLabel
+      Left = 256
+      Height = 17
+      Top = 0
+      Width = 41
+      Caption = 'Label3'
+      ParentColor = False
+    end
+  end
+  object Splitter1: TSplitter
+    Cursor = crVSplit
+    Left = 0
+    Height = 5
+    Top = 389
+    Width = 702
+    Align = alBottom
+    ResizeAnchor = akBottom
   end
   object rxData: TRxMemoryData
     FieldDefs = <    
