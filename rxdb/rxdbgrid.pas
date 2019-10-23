@@ -4240,7 +4240,8 @@ begin
       begin
         C := TRxColumn(Columns[i]);
         if C.Filter.Enabled and (C.Field <> nil) and (C.Filter.ValueList.IndexOf(C.Field.DisplayText) < 0) then
-          C.Filter.ValueList.Add(C.Field.DisplayText);
+          C.Filter.ValueList.Add(GetFieldDisplayText(C.Field, C)); // C.Field.DisplayText);
+          //C.Filter.ValueList.Add(C.Field.DisplayText);
       end;
       DataSource.DataSet.Next;
     end;
@@ -6171,12 +6172,15 @@ var
   i: integer;
   Filter: TRxColumnFilter;
   F: TField;
+  C: TRxColumn;
+  S: String;
 begin
   Accept := True;
   for i := 0 to Columns.Count - 1 do
   begin
-    Filter:=TRxColumn(Columns[i]).Filter;
-    F:=TRxColumn(Columns[i]).Field;
+    C:=Columns[i];
+    Filter:=TRxColumn(C).Filter;
+    F:=TRxColumn(C).Field;
     if Filter.State = rxfsAll then
       Accept:=true
     else
@@ -6197,12 +6201,19 @@ begin
       end
       else}
     begin
+      S:=GetFieldDisplayText(F, C);
+      if Filter.CurrentValues.Count > 0 then
+        Accept := Filter.CurrentValues.IndexOf(S) >= 0;
+
+      if Accept and (Filter.Style in [rxfstBoth, rxfstManualEdit]) and (Filter.ManulEditValue<>'') then
+        Accept := UTF8Pos(UTF8UpperCase(Filter.ManulEditValue), UTF8UpperCase(S)) > 0;
+(*
       if Filter.CurrentValues.Count > 0 then
         Accept := Filter.CurrentValues.IndexOf(F.DisplayText) >= 0;
 
       if Accept and (Filter.Style in [rxfstBoth, rxfstManualEdit]) and (Filter.ManulEditValue<>'') then
         Accept := UTF8Pos(UTF8UpperCase(Filter.ManulEditValue), UTF8UpperCase(F.DisplayText)) > 0;
-
+*)
       if not Accept then
         Break;
     end;
@@ -6474,12 +6485,13 @@ begin
               if K<>0 then
                 S:=S+#9;
 
-              {$IF lcl_fullversion >= 1090000}
+              S:=S + GetFieldDisplayText(Columns[i].Field, Columns[i]);
+(*              {$IF lcl_fullversion >= 1090000}
               if CheckDisplayMemo(Columns[i].Field) then
                 S :=S + Columns[i].Field.AsString
               else
               {$ENDIF}
-                S:=S+Columns[i].Field.DisplayText;
+                S:=S+Columns[i].Field.DisplayText; *)
               inc(K);
             end;
           end;
