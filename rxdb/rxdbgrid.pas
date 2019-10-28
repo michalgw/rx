@@ -1457,7 +1457,7 @@ begin
     if Assigned(F) then
     begin
       if F.DataType in [ftSmallint, ftInteger, ftWord, ftFloat, ftCurrency,
-        ftDate, ftTime, ftDateTime, ftTimeStamp, ftLargeint, ftBCD] then
+        ftDate, ftTime, ftDateTime, ftTimeStamp, ftLargeint, ftBCD, ftFMTBcd] then
       begin
         if F.DataType in [ftDate, ftTime, ftDateTime, ftTimeStamp] then
         begin
@@ -1972,7 +1972,7 @@ begin
     if Assigned(F) then
     begin
       if F.DataType in [ftSmallint, ftInteger, ftWord, ftFloat, ftCurrency,
-        ftDate, ftTime, ftDateTime, ftTimeStamp, ftLargeint, ftBCD] then
+        ftDate, ftTime, ftDateTime, ftTimeStamp, ftLargeint, ftBCD, ftFMTBcd] then
       begin
         if F.DataType in [ftDate, ftTime, ftDateTime, ftTimeStamp] then
         begin
