@@ -1148,7 +1148,9 @@ type
     property OnRxCalcFooterValues: TOnRxCalcFooterValues read FOnRxCalcFooterValues write FOnRxCalcFooterValues;
     property OnRxColumnFooterDraw: TOnRxColumnFooterDraw read FOnRxColumnFooterDraw write FOnRxColumnFooterDraw;
     property OnUserCheckboxBitmap;
+    {$IF LCL_FullVersion >= 2010000}
     property OnUserCheckboxImage;
+    {$IFEND}
     property OnUserCheckboxState;
     property OnUTF8KeyPress;
 
