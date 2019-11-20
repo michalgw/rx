@@ -8,7 +8,7 @@
       <Version Value="11"/>
       <SearchPaths>
         <OtherUnitFiles Value="rx_sort_zeos"/>
-        <UnitOutputDirectory Value="lib/rx_sort_zeos/$(TargetCPU)-$(TargetOS)"/>
+        <UnitOutputDirectory Value="lib/rx_sort_zeos/$(TargetCPU)-$(TargetOS)/$(LCLWidgetType)"/>
       </SearchPaths>
     </CompilerOptions>
     <License Value="LGPL"/>

@@ -8,7 +8,7 @@
       <Version Value="11"/>
       <SearchPaths>
         <OtherUnitFiles Value="dcl_rx_ctrl"/>
-        <UnitOutputDirectory Value="lib/dcl_rx_ctrl/$(TargetCPU)-$(TargetOS)"/>
+        <UnitOutputDirectory Value="lib/dcl_rx_ctrl/$(TargetCPU)-$(TargetOS)/$(LCLWidgetType)"/>
       </SearchPaths>
       <Parsing>
         <SyntaxOptions>

@@ -5,7 +5,7 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, rxdbgrid, rxmemds, Forms, Controls, Graphics,
+  Classes, SysUtils, FileUtil, rxdbgrid, rxmemds, Forms, Controls, Graphics, DBGrids,
   Dialogs, StdCtrls, ExtCtrls, db;
 
 type
@@ -16,12 +16,14 @@ type
     Button1: TButton;
     Button2: TButton;
     Button3: TButton;
+    CheckBox1: TCheckBox;
     dsData: TDataSource;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
     Panel1: TPanel;
     rxDataID_R: TLongintField;
+    rxDataMEMO: TMemoField;
     RxDBGrid1: TRxDBGrid;
     rxData: TRxMemoryData;
     rxDataCODE: TLongintField;
@@ -31,6 +33,7 @@ type
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
+    procedure CheckBox1Change(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure rxDataAfterInsert(DataSet: TDataSet);
   private
@@ -55,7 +58,7 @@ begin
   rxData.Open;
   for i:=1 to 20 do
   begin
-    rxData.AppendRecord([i, i mod 4, Format('Line %d', [i])]);
+    rxData.AppendRecord([i, i mod 4, Format('Line %d', [i]), i, 'Строка МЕМО ' + IntToStr(i div 2)]);
     if i mod 5 = 0 then
       rxData.AppendRecord([null, null, 'Пустая строка']);
   end;
@@ -79,6 +82,14 @@ end;
 procedure TForm1.Button3Click(Sender: TObject);
 begin
   Label3.Caption:=RxDBGrid1.ColumnByFieldName('ID_R').Filter.CurrentValues.Text;
+end;
+
+procedure TForm1.CheckBox1Change(Sender: TObject);
+begin
+  if CheckBox1.Checked then
+    RxDBGrid1.Options:=RxDBGrid1.Options + [dgDisplayMemoText]
+  else
+    RxDBGrid1.Options:=RxDBGrid1.Options - [dgDisplayMemoText];
 end;
 
 procedure TForm1.rxDataAfterInsert(DataSet: TDataSet);

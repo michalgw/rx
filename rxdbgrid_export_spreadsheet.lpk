@@ -8,7 +8,7 @@
       <Version Value="11"/>
       <SearchPaths>
         <OtherUnitFiles Value="rxdbgrid_export_spreadsheet"/>
-        <UnitOutputDirectory Value="lib/rxdbgrid_export_spreadsheet/$(TargetCPU)-$(TargetOS)"/>
+        <UnitOutputDirectory Value="lib/rxdbgrid_export_spreadsheet/$(TargetCPU)-$(TargetOS)/$(LCLWidgetType)"/>
       </SearchPaths>
     </CompilerOptions>
     <License Value="LGPL"/>

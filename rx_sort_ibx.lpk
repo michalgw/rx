@@ -7,7 +7,7 @@
       <Version Value="11"/>
       <SearchPaths>
         <OtherUnitFiles Value="rx_sort_ibx"/>
-        <UnitOutputDirectory Value="lib/rx_sort_ibx/$(TargetCPU)-$(TargetOS)"/>
+        <UnitOutputDirectory Value="lib/rx_sort_ibx/$(TargetCPU)-$(TargetOS)/$(LCLWidgetType)"/>
       </SearchPaths>
     </CompilerOptions>
     <Files Count="2">

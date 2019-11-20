@@ -7,7 +7,7 @@
       <Version Value="11"/>
       <SearchPaths>
         <OtherUnitFiles Value="rx_sort_sqldb"/>
-        <UnitOutputDirectory Value="lib/rx_sort_sqldb/$(TargetCPU)-$(TargetOS)"/>
+        <UnitOutputDirectory Value="lib/rx_sort_sqldb/$(TargetCPU)-$(TargetOS)/$(LCLWidgetType)"/>
       </SearchPaths>
     </CompilerOptions>
     <Version Major="1" Minor="1" Release="1" Build="2"/>
