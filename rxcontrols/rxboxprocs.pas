@@ -221,6 +221,7 @@ var
   Index, I, NewIndex: Integer;
 begin
   Index := BoxGetFirstSelection(SrcList);
+  NewIndex:=-1;
   if Index <> LB_ERR then
   begin
     BoxItems(SrcList).BeginUpdate;
@@ -232,14 +233,18 @@ begin
         if BoxGetSelected(SrcList, I) then
         begin
           NewIndex := BoxItems(DstList).AddObject(BoxItems(SrcList).Strings[I], BoxItems(SrcList).Objects[I]);
+
           if (SrcList is TCheckListBox) and (DstList is TCheckListBox) then
             TCheckListBox(DstList).State[NewIndex] := TCheckListBox(SrcList).State[I];
+
           BoxItems(SrcList).Delete(I);
         end
         else
           Inc(I);
       end;
       BoxSetItem(SrcList, Index);
+      if NewIndex>-1 then
+        BoxSetItem(DstList, NewIndex);
     finally
       BoxItems(SrcList).EndUpdate;
       BoxItems(DstList).EndUpdate;
