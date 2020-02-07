@@ -56,7 +56,7 @@ type
     FDesigner: TComponentEditorDesigner;
     FExclude: string;
     procedure FillDataSetList(ExcludeDataSet: TDataSet);
-    procedure AddDataSet(const S: string);
+    procedure AddDataSet(const S: string; ADS:TDataSet);
   public
     { public declarations }
   end; 
@@ -100,10 +100,7 @@ begin
     FillDataSetList(ExcludeDataSet);
     if ShowModal = mrOk then
       if DataSetList.ItemIndex >= 0 then
-      begin
-        with DataSetList do
-          Result := FDesigner.Form.FindComponent(Items[ItemIndex]) as TDataSet;
-      end;
+        Result := DataSetList.Items.Objects[DataSetList.ItemIndex] as TDataSet;
   finally
     Free;
   end;
@@ -138,19 +135,39 @@ end;
 procedure TSelectDataSetForm.FillDataSetList(ExcludeDataSet: TDataSet);
 var
   I: Integer;
-  Component: TComponent;
+  Component, F: TComponent;
 begin
   DataSetList.Items.BeginUpdate;
   try
     DataSetList.Clear;
     FExclude := '';
     if ExcludeDataSet <> nil then FExclude := ExcludeDataSet.Name;
-    for I := 0 to FDesigner.Form.ComponentCount - 1 do
+
+    if FDesigner.Form.ComponentCount > 0 then
     begin
-      Component := FDesigner.Form.Components[I];
-      if (Component is TDataSet) and (Component <> ExcludeDataSet) then
-        AddDataSet(Component.Name);
+      for I := 0 to FDesigner.Form.ComponentCount - 1 do
+      begin
+        Component := FDesigner.Form.Components[I];
+        if (Component is TDataSet) and (Component <> ExcludeDataSet) then
+          AddDataSet(Component.Name, TDataSet(Component));
+      end;
+    end
+    else
+    begin
+      F:=ExcludeDataSet.Owner;
+
+      while Assigned(F) and not((F is TForm) or (F is TFrame) or (F is TDataModule)) do F:=F.Owner;
+      if Assigned(F) then
+      begin
+        for I := 0 to F.ComponentCount - 1 do
+        begin
+          Component := F.Components[I];
+          if (Component is TDataSet) and (Component <> ExcludeDataSet) then
+            AddDataSet(Component.Name, TDataSet(Component));
+        end;
+      end;
     end;
+
     with DataSetList do
     begin
       if Items.Count > 0 then ItemIndex := 0;
@@ -162,9 +179,10 @@ begin
   end;
 end;
 
-procedure TSelectDataSetForm.AddDataSet(const S: string);
+procedure TSelectDataSetForm.AddDataSet(const S: string; ADS: TDataSet);
 begin
-  if (S <> '') and (S <> FExclude) then DataSetList.Items.Add(S);
+  if (S <> '') and (S <> FExclude) then
+    DataSetList.Items.AddObject(S, ADS);
 end;
 
 { TMemDataSetEditor }
