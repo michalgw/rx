@@ -8,14 +8,14 @@ object AboutForm: TAboutForm
   ClientHeight = 163
   ClientWidth = 274
   Position = poDesktopCenter
-  LCLVersion = '1.7'
+  LCLVersion = '2.1.0.0'
   object Label1: TLabel
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
     Left = 0
-    Height = 20
+    Height = 17
     Top = 12
     Width = 274
     Alignment = taCenter
@@ -31,12 +31,12 @@ object AboutForm: TAboutForm
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
     Left = 0
-    Height = 20
-    Top = 32
+    Height = 17
+    Top = 29
     Width = 274
     Alignment = taCenter
     Anchors = [akTop, akLeft, akRight]
-    Caption = '(c) 2005-2016 by Alexs'
+    Caption = '(c) 2005-2020 by Alexs'
     ParentColor = False
   end
   object Label3: TLabel
@@ -46,12 +46,12 @@ object AboutForm: TAboutForm
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
     Left = 0
-    Height = 20
-    Top = 52
+    Height = 17
+    Top = 46
     Width = 274
     Alignment = taCenter
     Anchors = [akTop, akLeft, akRight]
-    Caption = 'alexs75@hotbox.ru'
+    Caption = 'alexs75@yandex.ru'
     ParentColor = False
   end
   object BitBtn1: TBitBtn
@@ -59,10 +59,10 @@ object AboutForm: TAboutForm
     AnchorSideLeft.Side = asrCenter
     AnchorSideBottom.Control = Owner
     AnchorSideBottom.Side = asrBottom
-    Left = 107
+    Left = 108
     Height = 36
     Top = 121
-    Width = 60
+    Width = 59
     Anchors = [akLeft, akBottom]
     AutoSize = True
     BorderSpacing.Bottom = 6
