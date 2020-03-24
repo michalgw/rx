@@ -31,7 +31,7 @@
 
 {$I rx.inc}
 
-unit rxdbgrid;
+unit RxDBGrid;
 
 interface
 
@@ -753,6 +753,7 @@ type
     FIsSelectedDefaultFont:boolean;
 
     FFooterOptions: TRxDBGridFooterOptions;
+    FBeforeSorting: TNotifyEvent;
     FOnCalcRowHeight: TRxDBGridCalcRowHeight;
     FSearchOptions: TRxDBGridSearchOptions;
     FSelectedFont: TFont;
@@ -1046,6 +1047,7 @@ type
 
     property OnFiltred: TNotifyEvent read FOnFiltred write FOnFiltred;
     property OnSortChanged: TNotifyEvent read FOnSortChanged write FOnSortChanged;
+    property BeforeSorting: TNotifyEvent read FBeforeSorting write FBeforeSorting;
     property OnDataHintShow: TRxDBGridDataHintShowEvent read FOnDataHintShow write FOnDataHintShow;
 
     //from DBGrid
@@ -5068,6 +5070,13 @@ begin
         CollumnSortListClear;
         ACollumn.FSortOrder := smUp;
       end;
+    end;
+
+    if Assigned(FBeforeSorting) then
+    begin
+      FSortingNow := True;
+      FBeforeSorting(Self);
+      FSortingNow := False;
     end;
 
     CollumnSortListUpdate;

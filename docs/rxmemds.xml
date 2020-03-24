@@ -3,7 +3,8 @@
 <package name="rxnew">
 
     <module name="rxmemds">
-      <element name="TRxMemoryData"><short>TRxMemoryData - таблица в памяти. Является наследником от TDataSet</short><descr>TRxMemoryData - таблица в памяти. Является наследником от TDataSet</descr>
+      <element name="TRxMemoryData"><short>TRxMemoryData - таблица в памяти. Является наследником от TDataSet</short><descr>TRxMemoryData - таблица в памяти. Является наследником от TDataSet
+</descr>
       </element>
       <element name="TRxMemoryData.Create"/>
       <element name="TRxMemoryData.Destroy"/>

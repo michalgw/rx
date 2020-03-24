@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
-  <Package Version="4">
+  <Package Version="5">
     <PathDelim Value="\"/>
     <Name Value="rxnew"/>
     <Type Value="RunAndDesignTime"/>
@@ -23,9 +23,9 @@
     </CompilerOptions>
     <Description Value="Delphi VCL Extensions (RX) 
 Copyright (c) 1998 Master-Bank
-translate to Lazarus by alexs in 2005 - 2018"/>
+translate to Lazarus by alexs in 2005 - 2020"/>
     <License Value="LGPL"/>
-    <Version Major="3" Minor="3" Release="1" Build="220"/>
+    <Version Major="3" Minor="3" Release="2" Build="222"/>
     <Files Count="70">
       <Item1>
         <Filename Value="registerrx.pas"/>
