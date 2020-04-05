@@ -5652,15 +5652,15 @@ begin
         if (CellRect_.Bottom > CursorPos.Y) and (CellRect_.Right > CursorPos.X) then
           if Assigned(FOnDataHintShow) then
           begin
+            Processed := False;
             rec := DataLink.ActiveRecord;
             try
               DataLink.ActiveRecord := Cell.y - 1;
               HintStr_ := tCol.Field.DisplayText;
+              FOnDataHintShow(Self, CursorPos, Cell, tCol, HintStr_, Processed);
             finally
               DataLink.ActiveRecord := rec;
             end;
-            Processed := False;
-            FOnDataHintShow(Self, CursorPos, Cell, tCol, HintStr_, Processed);
             if Processed then
               HintStr := HintStr_;
           end;
