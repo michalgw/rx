@@ -2533,6 +2533,7 @@ var
   Col:TRxColumn;
 
   msg: TGridMessage;
+  V: Boolean;
 begin
   Col:=TRxColumnEditButtons(Collection).FOwner as TRxColumn;
   F:=Col.Field;
@@ -2545,7 +2546,16 @@ begin
     if F.IsNull then
       F.Value:=0;
 
-    F.Value:=F.Value - 1;
+    if F is TLongintField then
+      V:=(TLongintField(F).MinValue <> 0) and (TLongintField(F).MaxValue <> 0) and (TLongintField(F).MinValue < F.Value)
+    else
+    if F is TFloatField then
+      V:=(TFloatField(F).MinValue <> 0) and (TFloatField(F).MaxValue <> 0) and (TFloatField(F).MinValue < F.Value)
+    else
+      V:=true;
+
+    if V then
+      F.Value:=F.Value - 1;
 
     Msg.LclMsg.msg:=GM_SETVALUE;
     Msg.Grid:=Col.Grid;
@@ -2561,6 +2571,7 @@ var
   Col:TRxColumn;
 
   msg: TGridMessage;
+  V: Boolean;
 begin
   Col:=TRxColumnEditButtons(Collection).FOwner as TRxColumn;
   F:=Col.Field;
@@ -2572,7 +2583,17 @@ begin
 
     if F.IsNull then
       F.Value:=0;
-    F.Value:=F.Value + 1;
+
+    if F is TLongintField then
+      V:=(TLongintField(F).MinValue <> 0) and (TLongintField(F).MaxValue <> 0) and (TLongintField(F).MaxValue > F.Value)
+    else
+    if F is TFloatField then
+      V:=(TFloatField(F).MinValue <> 0) and (TFloatField(F).MaxValue <> 0) and (TFloatField(F).MaxValue < F.Value)
+    else
+      V:=true;
+
+    if V then
+      F.Value:=F.Value + 1;
 
     Msg.LclMsg.msg:=GM_SETVALUE;
     Msg.Grid:=Col.Grid;
