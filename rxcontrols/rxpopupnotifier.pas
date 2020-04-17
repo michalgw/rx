@@ -65,6 +65,7 @@ type
   protected
   public
     constructor CreateNotifierForm(AOwnerItem:TRxPopupNotifierItem);
+    procedure SetMessage(AMessage:string);
   end;
 
   { TCloseButtonItem }
@@ -112,6 +113,7 @@ type
     procedure SetAlphaBlendValue(AValue: Byte);
     procedure SetCloseButton(AValue: TCloseButtonItem);
     procedure SetColor(AValue: TColor);
+    procedure SetMessage(AValue: string);
     procedure SetShowCloseButton(AValue: boolean);
     procedure SetShowCloseTimer(AValue: boolean);
     procedure UpdateCloseLabel;
@@ -134,7 +136,7 @@ type
     property ShowCloseTimer:boolean read FShowCloseTimer write SetShowCloseTimer default true;
     property ShowCloseButton:boolean read GetShowCloseButton write SetShowCloseButton default true;
     property Caption:string read FCaption write FCaption;
-    property Message:string read FMessage write FMessage;
+    property Message:string read FMessage write SetMessage;
     property CloseButton:TCloseButtonItem read FCloseButton write SetCloseButton;
   end;
 
@@ -360,6 +362,17 @@ begin
   ShowHint:=true;
 end;
 
+procedure TRxNotifierForm.SetMessage(AMessage: string);
+begin
+  if not Assigned(FMessageLabel) then
+    CreateMessage(AMessage)
+  else
+  begin
+    FMessageLabel.Caption:=AMessage;
+    DoUpdateControls;
+  end;
+end;
+
 { TNotifierCollection }
 
 function TNotifierCollection.GetItems(AIndex: Integer): TRxPopupNotifierItem;
@@ -452,6 +465,14 @@ begin
   FColor:=AValue;
   if Assigned(FNotifyForm) then
     FNotifyForm.Color:=FColor;
+end;
+
+procedure TRxPopupNotifierItem.SetMessage(AValue: string);
+begin
+  if FMessage=AValue then Exit;
+  FMessage:=AValue;
+  if Assigned(FNotifyForm) then
+    FNotifyForm.SetMessage(AValue);
 end;
 
 procedure TRxPopupNotifierItem.SetShowCloseButton(AValue: boolean);
