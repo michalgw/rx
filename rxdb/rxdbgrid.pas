@@ -2547,10 +2547,10 @@ begin
       F.Value:=0;
 
     if F is TLongintField then
-      V:=(TLongintField(F).MinValue <> 0) and (TLongintField(F).MaxValue <> 0) and (TLongintField(F).MinValue < F.Value)
+      V:=((TLongintField(F).MinValue <> 0) or (TLongintField(F).MaxValue <> 0)) and (TLongintField(F).MinValue < F.Value)
     else
     if F is TFloatField then
-      V:=(TFloatField(F).MinValue <> 0) and (TFloatField(F).MaxValue <> 0) and (TFloatField(F).MinValue < F.Value)
+      V:=((TFloatField(F).MinValue <> 0) or (TFloatField(F).MaxValue <> 0)) and (TFloatField(F).MinValue < F.Value)
     else
       V:=true;
 
@@ -2585,10 +2585,10 @@ begin
       F.Value:=0;
 
     if F is TLongintField then
-      V:=(TLongintField(F).MinValue <> 0) and (TLongintField(F).MaxValue <> 0) and (TLongintField(F).MaxValue > F.Value)
+      V:=((TLongintField(F).MinValue <> 0) or (TLongintField(F).MaxValue <> 0)) and (TLongintField(F).MaxValue > F.Value)
     else
     if F is TFloatField then
-      V:=(TFloatField(F).MinValue <> 0) and (TFloatField(F).MaxValue <> 0) and (TFloatField(F).MaxValue < F.Value)
+      V:=((TFloatField(F).MinValue <> 0) or (TFloatField(F).MaxValue <> 0)) and (TFloatField(F).MaxValue > F.Value)
     else
       V:=true;
 
