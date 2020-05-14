@@ -7122,16 +7122,13 @@ begin
   FPropertyStorageLink.OnLoad := @OnIniLoad;
 
   FFilterListEditor := TFilterListCellEditor.Create(nil);
-  with FFilterListEditor do
-  begin
-    Name := 'FilterListEditor';
-    Visible := False;
-    Items.Append('');
-    ReadOnly := True;
-    AutoComplete := True;
-    OnChange := @FFilterListEditorOnChange;
-    OnCloseUp := @FFilterListEditorOnCloseUp;
-  end;
+  FFilterListEditor.Name := 'FilterListEditor';
+  FFilterListEditor.Visible := False;
+  FFilterListEditor.Items.Append('');
+  //FFilterListEditor.ReadOnly := True;
+  FFilterListEditor.AutoComplete := True;
+  FFilterListEditor.OnChange := @FFilterListEditorOnChange;
+  FFilterListEditor.OnCloseUp := @FFilterListEditorOnCloseUp;
 
   FFilterColDlgButton:=TFilterColDlgButton.Create(nil);
   FFilterColDlgButton.Name := 'FilterColDlgButton';
