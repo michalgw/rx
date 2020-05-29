@@ -5958,6 +5958,8 @@ begin
   if (not (DatalinkActive and (FGroupItems.Active or FFooterOptions.Active))) or (Columns.Count = 0) or (gsAddingAutoColumns in GridStatus) then
     Exit;
 
+  if Datalink.ActiveRecord < 0 then exit;
+
   if Assigned(OnRxCalcFooterValues)then
   begin
     Inc(FInProcessCalc);
