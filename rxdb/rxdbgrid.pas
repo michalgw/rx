@@ -620,6 +620,7 @@ type
     FNotInKeyListIndex: integer;
     FOnDrawColumnCell: TDrawColumnCellEvent;
     FOptions: TRxColumnOptions;
+    FPopupMenu: TPopupMenu;
     FSortFields: string;
     FSortOrder: TSortMarker;
     FSortPosition: integer;
@@ -663,6 +664,7 @@ type
     property SortFields: string read FSortFields write FSortFields;
     property WordWrap:boolean read FWordWrap write SetWordWrap default false;
     property OnDrawColumnCell: TDrawColumnCellEvent read FOnDrawColumnCell write FOnDrawColumnCell;
+    property PopupMenu: TPopupMenu read FPopupMenu write FPopupMenu;
   end;
 
   { TRxDbGridColumns }
@@ -970,6 +972,7 @@ type
     function  GetDefaultEditor(Column: Integer): TWinControl; override;
 
     procedure PrepareCanvas(aCol, aRow: Integer; AState: TGridDrawState); override;
+    function GetPopupMenu: TPopupMenu; override;
 {$IFDEF DEVELOPER_RX}
     procedure InternalAdjustRowCount(var RecCount:integer); override;
 {$ENDIF}
@@ -3959,6 +3962,8 @@ begin
 end;
 
 procedure TRxDBGrid.Notification(AComponent: TComponent; Operation: TOperation);
+var
+  C: TRxColumn;
 begin
   inherited Notification(AComponent, Operation);
   if Assigned(Datalink) and (AComponent = DataSource) and (Operation = opRemove) then
@@ -3966,8 +3971,18 @@ begin
     ShowMessage('i');
   end
   else
-  if (Operation = opRemove) and (AComponent is TRxDBGridAbstractTools) then
-    RemoveTools(TRxDBGridAbstractTools(AComponent));
+  if (Operation = opRemove) then
+  begin
+    if (AComponent is TRxDBGridAbstractTools) then
+      RemoveTools(TRxDBGridAbstractTools(AComponent))
+    else
+    if (AComponent is TPopupMenu) then
+    begin
+      for C in Columns do
+        if C.PopupMenu = AComponent then
+          C.PopupMenu:=nil;
+    end;
+  end;
 end;
 
 function TRxDBGrid.UpdateRowsHeight: integer;
@@ -6831,6 +6846,21 @@ begin
           Canvas.Font.Color := clHighlightText;
       end;
   end;
+end;
+
+function TRxDBGrid.GetPopupMenu: TPopupMenu;
+var
+  C: TRxColumn;
+  R: TPoint;
+  C1: TGridCoord;
+begin
+  R:=ScreenToClient(Mouse.CursorPos);
+  C1:=MouseCoord(R.X, R.Y);
+  C:=TRxColumn(ColumnFromGridColumn(C1.X));
+  if Assigned(C) and Assigned(C.PopupMenu) then
+    Result:=C.PopupMenu
+  else
+    Result:=inherited GetPopupMenu;
 end;
 
 {$IFDEF DEVELOPER_RX}
