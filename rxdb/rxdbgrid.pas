@@ -6854,11 +6854,16 @@ var
   R: TPoint;
   C1: TGridCoord;
 begin
-  R:=ScreenToClient(Mouse.CursorPos);
-  C1:=MouseCoord(R.X, R.Y);
-  C:=TRxColumn(ColumnFromGridColumn(C1.X));
-  if Assigned(C) and Assigned(C.PopupMenu) then
-    Result:=C.PopupMenu
+  if not (csDestroying in ComponentState) then
+  begin
+    R:=ScreenToClient(Mouse.CursorPos);
+    C1:=MouseCoord(R.X, R.Y);
+    C:=TRxColumn(ColumnFromGridColumn(C1.X));
+    if Assigned(C) and Assigned(C.PopupMenu) then
+      Result:=C.PopupMenu
+    else
+      Result:=inherited GetPopupMenu;
+  end
   else
     Result:=inherited GetPopupMenu;
 end;
