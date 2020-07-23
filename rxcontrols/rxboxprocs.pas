@@ -35,7 +35,7 @@ unit rxboxprocs;
 
 interface
 
-uses Classes, Controls, StdCtrls;
+uses Classes, Controls, StdCtrls, LCLType;
 const
   LB_ERR = -1;
   
@@ -293,26 +293,17 @@ var
   R: TRect;
 
 procedure DrawItemFocusRect(Idx: Integer);
-(*
-{$IFDEF WIN32}
-  var
-    P: TPoint;
-    DC: HDC;
-{$ENDIF}
-  begin
-    R := BoxItemRect(List, Idx);
-{$IFDEF WIN32}
-    P := List.ClientToScreen(R.TopLeft);
-    R := Bounds(P.X, P.Y, R.Right - R.Left, R.Bottom - R.Top);
-    DC := GetDC(0);
-    DrawFocusRect(DC, R);
-    ReleaseDC(0, DC);
-{$ELSE}
-    BoxGetCanvas(List).DrawFocusRect(R);
-{$ENDIF}
-*)
+var
+  P: TPoint;
+  DC: HDC;
 begin
-   BoxGetCanvas(List).DrawFocusRect(R);
+  R := BoxItemRect(List, Idx);
+
+  P := List.ClientToScreen(R.TopLeft);
+  R := Bounds(P.X, P.Y, R.Right - R.Left, R.Bottom - R.Top);
+  DC := GetDC(0);
+  DrawFocusRect(DC, R);
+  ReleaseDC(0, DC);
 end;
 
 begin

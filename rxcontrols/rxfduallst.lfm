@@ -1,7 +1,7 @@
 object DualListForm: TDualListForm
-  Left = 916
+  Left = 1073
   Height = 344
-  Top = 266
+  Top = 33
   Width = 552
   ActiveControl = IncBtn
   BorderIcons = []
@@ -11,14 +11,14 @@ object DualListForm: TDualListForm
   OnActivate = ListClick
   OnShow = ListClick
   Position = poScreenCenter
-  LCLVersion = '1.5'
+  LCLVersion = '2.1.0.0'
   object SrcLabel: TLabel
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
     Left = 6
-    Height = 21
+    Height = 17
     Top = 6
-    Width = 45
+    Width = 40
     BorderSpacing.Left = 6
     BorderSpacing.Top = 6
     Caption = 'Source'
@@ -27,10 +27,10 @@ object DualListForm: TDualListForm
   object DstLabel: TLabel
     AnchorSideLeft.Control = DstList
     AnchorSideTop.Control = Owner
-    Left = 299
-    Height = 21
+    Left = 302
+    Height = 17
     Top = 6
-    Width = 31
+    Width = 27
     BorderSpacing.Top = 6
     Caption = 'Dest'
     ParentColor = False
@@ -43,8 +43,8 @@ object DualListForm: TDualListForm
     AnchorSideBottom.Control = ButtonPanel1
     Left = 6
     Height = 257
-    Top = 33
-    Width = 247
+    Top = 29
+    Width = 244
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 6
     DragMode = dmAutomatic
@@ -56,7 +56,7 @@ object DualListForm: TDualListForm
     OnDragOver = SrcListDragOver
     OnKeyDown = SrcListKeyDown
     ParentShowHint = False
-    ScrollWidth = 245
+    ScrollWidth = 242
     ShowHint = True
     Sorted = True
     TabOrder = 0
@@ -70,10 +70,10 @@ object DualListForm: TDualListForm
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = ButtonPanel1
-    Left = 299
+    Left = 302
     Height = 257
-    Top = 33
-    Width = 247
+    Top = 29
+    Width = 244
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 6
     DragMode = dmAutomatic
@@ -85,7 +85,7 @@ object DualListForm: TDualListForm
     OnDragOver = DstListDragOver
     OnKeyDown = DstListKeyDown
     ParentShowHint = False
-    ScrollWidth = 245
+    ScrollWidth = 242
     ShowHint = True
     Sorted = True
     TabOrder = 5
@@ -96,10 +96,10 @@ object DualListForm: TDualListForm
     AnchorSideTop.Control = SrcList
     AnchorSideRight.Control = IncAllBtn
     AnchorSideRight.Side = asrBottom
-    Left = 259
+    Left = 256
     Height = 41
-    Top = 39
-    Width = 34
+    Top = 35
+    Width = 40
     Anchors = [akTop, akLeft, akRight]
     AutoSize = True
     BorderSpacing.Top = 6
@@ -116,10 +116,10 @@ object DualListForm: TDualListForm
     AnchorSideLeft.Side = asrCenter
     AnchorSideTop.Control = IncBtn
     AnchorSideTop.Side = asrBottom
-    Left = 259
+    Left = 256
     Height = 41
-    Top = 86
-    Width = 34
+    Top = 82
+    Width = 40
     AutoSize = True
     BorderSpacing.Top = 6
     BorderSpacing.InnerBorder = 4
@@ -136,10 +136,10 @@ object DualListForm: TDualListForm
     AnchorSideTop.Side = asrBottom
     AnchorSideRight.Control = IncAllBtn
     AnchorSideRight.Side = asrBottom
-    Left = 259
+    Left = 256
     Height = 41
-    Top = 133
-    Width = 34
+    Top = 129
+    Width = 40
     Anchors = [akTop, akLeft, akRight]
     AutoSize = True
     BorderSpacing.Top = 6
@@ -157,10 +157,10 @@ object DualListForm: TDualListForm
     AnchorSideTop.Side = asrBottom
     AnchorSideRight.Control = IncAllBtn
     AnchorSideRight.Side = asrBottom
-    Left = 259
+    Left = 256
     Height = 41
-    Top = 180
-    Width = 34
+    Top = 176
+    Width = 40
     Anchors = [akTop, akLeft, akRight]
     AutoSize = True
     BorderSpacing.Top = 6
@@ -174,8 +174,8 @@ object DualListForm: TDualListForm
   end
   object ButtonPanel1: TButtonPanel
     Left = 6
-    Height = 42
-    Top = 296
+    Height = 46
+    Top = 292
     Width = 540
     OKButton.Name = 'OKButton'
     OKButton.DefaultCaption = True
