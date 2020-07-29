@@ -233,7 +233,7 @@ function RomanToInt(const S: string): Longint; deprecated; //use this function f
 
 procedure StrToStrings(const S:string; const List:TStrings; const Delims:Char);
 function FileToString(const AFileName:string):string;
-function RxPrettySizeName(ASize:Int64):string;
+function RxPrettySizeName(ASize:QWord):string;
 const
   DigitChars = ['0'..'9'];
   Brackets = ['(',')','[',']','{','}'];
@@ -1151,7 +1151,7 @@ begin
     Result:='';
 end;
 
-function RxPrettySizeName(ASize: Int64): string;
+function RxPrettySizeName(ASize: QWord): string;
 begin
   if ASize div (1024 * 1024 * 1024 * 1024) > 0 then
   begin
