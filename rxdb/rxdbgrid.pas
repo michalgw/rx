@@ -3788,7 +3788,8 @@ begin
     C := TRxColumn(Columns[i]);
     FPropertyStorageLink.Storage.WriteString(S1 + sCaption,
       StrToHexText(C.Title.Caption));
-    FPropertyStorageLink.Storage.WriteInteger(S1 + sWidth, C.Width);
+    //FPropertyStorageLink.Storage.WriteInteger(S1 + sWidth, C.Width);
+    FPropertyStorageLink.Storage.WriteInteger(S1 + sWidth, C.StoredWidth);
     FPropertyStorageLink.Storage.WriteInteger(S1 + sIndex, C.Index);
     FPropertyStorageLink.Storage.WriteInteger(S1 + sVisible, Ord(C.Visible));
   end;
