@@ -199,10 +199,10 @@ begin
 
       StringGrid1.Cells[0, i + 1]:=BoolToStr(C.Visible, '1', '0');
       StringGrid1.Cells[1, i + 1]:=C.Title.Caption;
-      if C.Width = 0 then
+      if C.StoredWidth = 0 then
         StringGrid1.Cells[2, i + 1]:=IntToStr(AGrid.DefaultColWidth)
       else
-        StringGrid1.Cells[2, i + 1]:=IntToStr(C.Width);
+        StringGrid1.Cells[2, i + 1]:=IntToStr(C.StoredWidth);
     end;
   end
   else
