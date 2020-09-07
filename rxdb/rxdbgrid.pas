@@ -3020,7 +3020,8 @@ var
 begin
   if Assigned(FGrid.SelectedField) and Assigned(FLDS.DataSet) then
   begin
-    F:=FLDS.DataSet.FieldByName(LookupDisplay);
+//    F:=FLDS.DataSet.FieldByName(LookupDisplay);
+    F:=FLDS.DataSet.FieldByName(LookupField);
     if Assigned(F) then
     begin
       sText := F.DisplayText;
@@ -3048,7 +3049,8 @@ begin
   CheckEditingKey;
   if (AResult) and Assigned(FGrid.SelectedField) and Assigned(FLDS.DataSet) then
   begin
-    F:=FLDS.DataSet.FieldByName(LookupDisplay);
+    //F:=FLDS.DataSet.FieldByName(LookupDisplay);
+    F:=FLDS.DataSet.FieldByName(LookupField);
     if Assigned(F) then
     begin
       if (FGrid<>nil) and Visible then begin
