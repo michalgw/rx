@@ -751,6 +751,7 @@ type
   { TRxDBGrid }
   TRxDBGrid = class(TCustomDBGrid)
   private
+    FDrawGetDefaultRowHeight:integer;
     FColumnDefValues: TRxDBGridColumnDefValues;
     FIsSelectedDefaultFont:boolean;
 
@@ -4439,7 +4440,7 @@ begin
           end
           else
           begin
-            aRect2.Bottom := aRect2.Top + MLI.Height * GetDefaultRowHeight;
+            aRect2.Bottom := aRect2.Top + MLI.Height * FDrawGetDefaultRowHeight;
             aState := aState - [gdPushed];
           end;
 
@@ -4931,14 +4932,14 @@ begin
   //TotalYOffs := GCache.ClientHeight {- (GetDefaultRowHeight * FFooterOptions.RowCount)};
   TotalYOffs := GCache.ClientRect.Bottom {- (GetDefaultRowHeight * FFooterOptions.RowCount)};
 
-  FooterRect := Rect(0, TotalYOffs, TotalWidth, TotalYOffs + GetDefaultRowHeight * FFooterOptions.RowCount);
+  FooterRect := Rect(0, TotalYOffs, TotalWidth, TotalYOffs + FDrawGetDefaultRowHeight * FFooterOptions.RowCount);
 
   Background := Canvas.Brush.Color;
   Canvas.Brush.Color := Color;
   Canvas.FillRect(FooterRect);
 
   R.Top := TotalYOffs;
-  R.Bottom := TotalYOffs + GetDefaultRowHeight * FFooterOptions.RowCount;
+  R.Bottom := TotalYOffs + FDrawGetDefaultRowHeight * FFooterOptions.RowCount;
 
   Canvas.Brush.Color := FFooterOptions.FColor;
   if (Columns.Count > 0) then
@@ -4956,7 +4957,7 @@ begin
     ABrush := nil;//initialize, no need create everytime.
 
     R.Top := TotalYOffs;
-    R.Bottom := TotalYOffs + GetDefaultRowHeight;
+    R.Bottom := TotalYOffs + FDrawGetDefaultRowHeight;
 
     for j:=0 to FFooterOptions.RowCount-1 do
     begin
@@ -5034,7 +5035,7 @@ begin
       end;
 
       R.Top := R.Bottom;
-      R.Bottom := R.Bottom + GetDefaultRowHeight;
+      R.Bottom := R.Bottom + FDrawGetDefaultRowHeight;
     end;
 
     if assigned(ABrush)then FreeAndNil(ABrush);
@@ -5616,6 +5617,7 @@ var
 begin
   Inc(FInProcessCalc);
   DoClearInvalidTitle;
+  FDrawGetDefaultRowHeight:=GetDefaultRowHeight;
 
   inherited Paint;
 
