@@ -140,6 +140,9 @@ begin
   ListBox1.Items.Add(FCurrentItem.Caption);
   ListBox1.ItemIndex:=ListBox1.Items.Count-1;
   ListBox1Click(nil);
+
+  if SynEdit1.Enabled then
+    SynEdit1.SetFocus;
 end;
 
 procedure TRxTextHolder_EditorForm.itemUpExecute(Sender: TObject);

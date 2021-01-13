@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
-  <Package Version="4">
+  <Package Version="5">
     <Name Value="dcl_rxtools"/>
     <Type Value="DesignTime"/>
     <Author Value="Lagunov Aleksey"/>
@@ -12,7 +12,7 @@
       </SearchPaths>
     </CompilerOptions>
     <License Value="LGPL 2"/>
-    <Version Release="1" Build="2"/>
+    <Version Major="1" Release="2" Build="5"/>
     <Files Count="2">
       <Item1>
         <Filename Value="dcl_rxtools/register_rxtools.pas"/>
@@ -25,6 +25,7 @@
         <UnitName Value="RxTextHolder_Editor"/>
       </Item2>
     </Files>
+    <CompatibilityMode Value="True"/>
     <i18n>
       <EnableI18N Value="True"/>
       <OutDir Value="languages"/>

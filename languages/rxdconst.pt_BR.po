@@ -6,6 +6,7 @@ msgid "All values"
 msgstr "Todos os valores"
 
 #: rxdconst.sapptitlelabel
+#, object-pascal-format
 msgid "Application \"%s\""
 msgstr "Aplicação \"%s\""
 
@@ -74,7 +75,7 @@ msgid "Data changed. Save?"
 msgstr "Dados alterados. Salvar?"
 
 #: rxdconst.sdatabasename
-#, fuzzy
+#, object-pascal-format, fuzzy
 #| msgid "Database loocked: %s"
 msgid "Database locked: %s"
 msgstr "Banco de dados bloqueado: %s"
@@ -84,6 +85,7 @@ msgid "Database"
 msgstr "Banco de Dados"
 
 #: rxdconst.sdbcomboboxfieldnotassigned
+#, object-pascal-format
 msgid "%s:TDBComboBox - DataField not assigned"
 msgstr "%s:TDBComboBox - DataField não configurado"
 
@@ -165,6 +167,7 @@ msgid "Compare opertion needs field and const"
 msgstr "Operação de comparação precisa de campo e constante"
 
 #: rxdconst.sexprbadfield
+#, object-pascal-format
 msgid "Field '%s' not used in filter expression"
 msgstr "Campo '%s' não usado na expressão de filtro"
 
@@ -175,6 +178,7 @@ msgid "NULL-values enabled in '=' and '<>'"
 msgstr "Valor nulo habilitado em '=' e '<>'"
 
 #: rxdconst.sexprexpected
+#, object-pascal-format
 msgid "Error %s"
 msgstr "Erro %s"
 
@@ -183,6 +187,7 @@ msgid "Error in filter expression"
 msgstr "Erro na expressão do filtro"
 
 #: rxdconst.sexprinvalidchar
+#, object-pascal-format
 msgid "Error symbol in expression: '%s'"
 msgstr "Erro símbolo na expresión: '%s'"
 
@@ -193,10 +198,12 @@ msgid "Error in filed name"
 msgstr "Erro no nome"
 
 #: rxdconst.sexprnorparen
+#, object-pascal-format
 msgid "Error ')', error: %s"
 msgstr "Erro ')', error: %s"
 
 #: rxdconst.sexprnotboolean
+#, object-pascal-format
 msgid "Field '%s' is not boolean"
 msgstr "Campo '%s' não é booleano (verdadeiro/falso)"
 
@@ -209,14 +216,17 @@ msgid "Error in filter end"
 msgstr "Erro na terminação do filtro"
 
 #: rxdconst.sfieldreadonly
+#, object-pascal-format
 msgid "SFieldReadOnly %s"
 msgstr "SCampoApenasLeitura %s"
 
 #: rxdconst.sfieldrequired
+#, object-pascal-format
 msgid "Field '%s' must have a value"
 msgstr "O campo '%s' deve ter um valor"
 
 #: rxdconst.sfieldtypemismatch
+#, object-pascal-format
 msgid "Type mismatch for field '%s', expecting: %s actual: %s"
 msgstr "Tipo não corresponde para o campo '%s', esperado: %s atual: %s"
 
@@ -512,6 +522,10 @@ msgstr "Diferenciar maiúsculas de minúsculas"
 msgid "Direction"
 msgstr "Direção"
 
+#: rxdconst.srxdbgridfindinallfileds
+msgid "Find in all fields"
+msgstr ""
+
 #: rxdconst.srxdbgridfindonfield
 msgid "Find on field"
 msgstr "Buscar no campo"
@@ -608,10 +622,6 @@ msgstr "Ajustar campos em SortField"
 msgctxt "rxdconst.srxfilterformapply"
 msgid "Apply"
 msgstr "Aplicar"
-
-#: rxdconst.srxfilterformcancel
-msgid "Cancel"
-msgstr "Cancelar"
 
 #: rxdconst.srxfilterformcaption
 msgid "Filter conditions"
@@ -728,6 +738,10 @@ msgstr "Mostrar cor do rodapé"
 msgid "Show grid color"
 msgstr "Mostrar cor da grade"
 
+#: rxdconst.sshowpreview
+msgid "Show preview"
+msgstr ""
+
 #: rxdconst.sshowreporttitle
 msgid "Show report title"
 msgstr "Mostrar título do relatório"
@@ -761,6 +775,7 @@ msgid "Top"
 msgstr "Início"
 
 #: rxdconst.sunknownfieldtype
+#, object-pascal-format
 msgid "SUnknownFieldType %s"
 msgstr "Tipo de campo desconhecido %s"
 
@@ -775,10 +790,8 @@ msgid "Unlock"
 msgstr "Desbloquear"
 
 #: rxdconst.sunlockhint
-#, fuzzy
-#| msgid "Enter you password"
 msgid "Enter your password"
-msgstr Digite sua senha"
+msgstr ""
 
 #: rxdconst.suserawjpeg
 msgid "Use raw JPEG"

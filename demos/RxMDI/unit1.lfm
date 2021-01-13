@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 527
+  Left = 686
   Height = 435
-  Top = 222
+  Top = 176
   Width = 613
   Caption = 'MainForm'
   ClientHeight = 410
@@ -13,7 +13,7 @@ object Form1: TForm1
   WindowState = wsMaximized
   object ToolPanel1: TToolPanel
     Left = 0
-    Height = 36
+    Height = 34
     Top = 0
     Width = 613
     Items = <    
@@ -37,7 +37,7 @@ object Form1: TForm1
     CustomizeShortCut = False
     Align = alTop
     BorderWidth = 4
-    ClientHeight = 36
+    ClientHeight = 34
     ClientWidth = 613
     TabOrder = 0
     object RxMDICloseButton1: TRxMDICloseButton
@@ -47,7 +47,7 @@ object Form1: TForm1
       AnchorSideRight.Side = asrBottom
       Left = 585
       Height = 22
-      Top = 7
+      Top = 6
       Width = 23
       Anchors = [akTop, akRight]
       Glyph.Data = {
@@ -75,7 +75,7 @@ object Form1: TForm1
   object RxMDITasks1: TRxMDITasks
     Left = 0
     Height = 25
-    Top = 364
+    Top = 367
     Width = 613
     Align = alBottom
     FlatButton = True
@@ -83,8 +83,8 @@ object Form1: TForm1
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 21
-    Top = 389
+    Height = 18
+    Top = 392
     Width = 613
     Panels = <    
       item
@@ -97,8 +97,8 @@ object Form1: TForm1
   end
   object RxMDIPanel1: TRxMDIPanel
     Left = 0
-    Height = 328
-    Top = 36
+    Height = 333
+    Top = 34
     Width = 613
     CloseButton = RxMDICloseButton1
     TaskPanel = RxMDITasks1
