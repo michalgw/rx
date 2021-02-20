@@ -888,6 +888,7 @@ type
 
     procedure OnDataSetScrolled(aDataSet:TDataSet; Distance: Integer);
     procedure FillFilterData;
+    procedure DoCblClickMrOk;
   protected
     FRxDbGridLookupComboEditor: TCustomControl;
     FRxDbGridDateEditor: TWinControl;
@@ -4318,6 +4319,18 @@ begin
 
 end;
 
+procedure TRxDBGrid.DoCblClickMrOk;
+begin
+  if Owner is TCustomForm then
+    TCustomForm(Owner).ModalResult := mrOk
+  else
+  if Owner is TCustomFrame then
+  begin
+    if TCustomFrame(Owner).Owner is TCustomForm then
+      ((TCustomFrame(Owner).Owner) as TCustomForm).ModalResult := mrOk
+  end;
+end;
+
 procedure TRxDBGrid.DefaultDrawCellA(aCol, aRow: integer; aRect: TRect;
   aState: TGridDrawState);
 begin
@@ -5338,15 +5351,16 @@ begin
         if TRxDBGridAbstractTools(FToolsList[i]).MouseDown(Button, Shift, X, Y) then
           exit;
 
-    if rdgMrOkOnDblClik in FOptionsRx then
-    begin
+    if (rdgMrOkOnDblClik in FOptionsRx) and (Cell.Y > 0) and (Cell.X >= Ord(dgIndicator in Options)) and (ssDouble in Shift) then
+      DoCblClickMrOk;
+(*    begin
       if (Cell.Y > 0) and (Cell.X >= Ord(dgIndicator in Options)) and
         (ssDouble in Shift) then
       begin
         if Owner is TCustomForm then
           TCustomForm(Owner).ModalResult := mrOk;
       end;
-    end;
+    end; *)
     inherited MouseDown(Button, Shift, X, Y);
   end;
 end;
