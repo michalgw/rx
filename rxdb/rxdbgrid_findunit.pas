@@ -57,10 +57,13 @@ type
     RadioGroup1: TRadioGroup;
     procedure BtnFindClick(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure Edit1Change(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure RadioButton1Click(Sender: TObject);
+    procedure RadioGroup1SelectionChanged(Sender: TObject);
   private
+    FFirstSearch: Boolean;
     FGrid:TRxDBGrid;
     FDataSet:TDataSet;
     procedure SetGrid(AGrid:TRxDBGrid);
@@ -92,6 +95,12 @@ begin
   Close;
 end;
 
+procedure TrxDBGridFindForm.Edit1Change(Sender: TObject);
+begin
+  if RadioGroup1.ItemIndex = 0 then
+    FFirstSearch:=true;
+end;
+
 procedure TrxDBGridFindForm.FormCreate(Sender: TObject);
 begin
   Caption:=sRxDbGridFindCaption;
@@ -119,6 +128,12 @@ end;
 procedure TrxDBGridFindForm.RadioButton1Click(Sender: TObject);
 begin
   ComboBox1.Enabled:=RadioButton1.Checked;
+end;
+
+procedure TrxDBGridFindForm.RadioGroup1SelectionChanged(Sender: TObject);
+begin
+  if RadioGroup1.ItemIndex = 0 then
+     FFirstSearch:=True;
 end;
 
 procedure TrxDBGridFindForm.BtnFindClick(Sender: TObject);
@@ -152,6 +167,15 @@ begin
       {$ELSE}
       P:=FDataSet.Bookmark;
       {$ENDIF}
+      if SearchOrigin = rsdAll Then
+      begin
+        if FFirstSearch then
+          FDataSet.First
+        else
+          FDataSet.Next;
+        SearchOrigin:=rsdForward;
+      end
+      else
       if SearchOrigin = rsdForward then
         FDataSet.Next
       else
@@ -180,6 +204,7 @@ begin
       if not R then
         FDataSet.Bookmark:=P;
       {$ENDIF}
+      FFirstSearch := False;
     end;
   end;
 end;
@@ -200,6 +225,8 @@ begin
     end;
 
     ComboBox1.ItemIndex:=ComboBox1.Items.IndexOf(AGrid.SelectedColumn.Title.Caption);
+    CheckBox1.Checked := not (loCaseInsensitive in AGrid.SearchOptions.QuickSearchOptions);
+    CheckBox2.Checked := loPartialKey in AGrid.SearchOptions.QuickSearchOptions;
   end;
 
   FDataSet:=nil;

@@ -69,11 +69,12 @@ object rxDBGridFindForm: TrxDBGridFindForm
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
     Left = 18
-    Height = 34
+    Height = 33
     Top = 29
     Width = 484
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Around = 6
+    OnChange = Edit1Change
     TabOrder = 0
   end
   object ComboBox1: TComboBox
@@ -83,8 +84,8 @@ object rxDBGridFindForm: TrxDBGridFindForm
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
     Left = 12
-    Height = 33
-    Top = 98
+    Height = 32
+    Top = 97
     Width = 490
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Around = 6
@@ -103,7 +104,7 @@ object rxDBGridFindForm: TrxDBGridFindForm
     AnchorSideBottom.Side = asrBottom
     Left = 139
     Height = 66
-    Top = 166
+    Top = 164
     Width = 363
     Anchors = [akTop, akLeft, akRight, akBottom]
     AutoFill = True
@@ -128,6 +129,7 @@ object rxDBGridFindForm: TrxDBGridFindForm
       'Forward'
       'Backward'
     )
+    OnSelectionChanged = RadioGroup1SelectionChanged
     TabOrder = 4
   end
   object Panel1: TPanel
@@ -136,7 +138,7 @@ object rxDBGridFindForm: TrxDBGridFindForm
     AnchorSideTop.Side = asrBottom
     Left = 6
     Height = 66
-    Top = 166
+    Top = 164
     Width = 127
     AutoSize = True
     BorderSpacing.Around = 6
@@ -173,7 +175,7 @@ object rxDBGridFindForm: TrxDBGridFindForm
     AnchorSideTop.Side = asrBottom
     Left = 6
     Height = 23
-    Top = 69
+    Top = 68
     Width = 98
     Caption = 'Find at field'
     Checked = True
@@ -187,7 +189,7 @@ object rxDBGridFindForm: TrxDBGridFindForm
     AnchorSideTop.Side = asrBottom
     Left = 6
     Height = 23
-    Top = 137
+    Top = 135
     Width = 121
     BorderSpacing.Around = 6
     Caption = 'Find in all fields'
