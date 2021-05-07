@@ -254,12 +254,18 @@ end;
 
 function VertEquiv(l: Integer): Integer;
 begin
-  VertEquiv := Longint(l) * AspectV div AspectH;
+  if AspectH<>0 then
+    VertEquiv := Longint(l) * AspectV div AspectH
+  else
+    Result:=Longint(l) * AspectV;
 end;
 
 function HorzEquiv(l: Integer): Integer;
 begin
-  HorzEquiv := Longint(l) * AspectH div AspectV;
+  if AspectV<>0 then
+    HorzEquiv := Longint(l) * AspectH div AspectV
+  else
+    HorzEquiv := Longint(l) * AspectH;
 end;
 
 function LightColor(Color: TColor): TColor;
@@ -302,8 +308,17 @@ begin
   finally
     ReleaseDC(0, DC);
   end;
-  AspectV := (Longint(VRes) * MmPerDm) div Longint(vSize);
-  AspectH := (Longint(HRes) * MmPerDm) div Longint(hSize);
+
+  if vSize<>0 then
+    AspectV := (Longint(VRes) * MmPerDm) div Longint(vSize)
+  else
+    AspectV := (Longint(VRes) * MmPerDm) {div Longint(vSize)};
+
+  if hSize<>0 then
+    AspectH := (Longint(HRes) * MmPerDm) div Longint(hSize)
+  else
+    AspectH := (Longint(HRes) * MmPerDm) {div Longint(hSize)};
+
   CircleTab := PPointArray(@ClockData);
   for Pos := 0 to HandPositions - 1 do
     CircleTab^[Pos].Y := VertEquiv(CircleTab^[Pos].Y);
@@ -673,7 +688,10 @@ var
   SaveBrush, SavePen: TColor;
   MinDots: Boolean;
 begin
-  DotWidth := (MaxDotWidth * Longint(FClockRect.Right - FClockRect.Left)) div HRes;
+  if HRes<>0 then
+    DotWidth := (MaxDotWidth * Longint(FClockRect.Right - FClockRect.Left)) div HRes
+  else
+    DotWidth := (MaxDotWidth * Longint(FClockRect.Right - FClockRect.Left));
   DotHeight := VertEquiv(DotWidth);
   if DotHeight < MinDotHeight then DotHeight := MinDotHeight;
   if DotWidth < MinDotWidth then DotWidth := MinDotWidth;
