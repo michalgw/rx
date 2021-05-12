@@ -192,20 +192,30 @@ end;
 procedure TRxDBCurrEdit.KeyDown(var Key: Word; Shift: TShiftState);
 begin
   inherited KeyDown(Key, Shift);
-  if Key=VK_ESCAPE then
-  begin
-    //cancel out of editing by reset on esc
-    FDataLink.Reset;
-    SelectAll;
-    Key := VK_UNKNOWN;
+  if Self.FDataLink.Editing then begin
+
+    if Key=VK_ESCAPE then
+    begin
+      //cancel out of editing by reset on esc
+
+      FDataLink.Reset;
+      SelectAll;
+      Key := VK_UNKNOWN;
+
+    end
+    else
+    if (Key<>VK_UNKNOWN) then
+    begin
+      //make sure we call edit to ensure the datset is in edit,
+      //this is for where the datasource is in autoedit, so we aren't
+      //read only even though the dataset isn't realy in edit
+      FDataLink.Edit;
+    end;
   end
-  else
-  if (Key<>VK_UNKNOWN) then
-  begin
-    //make sure we call edit to ensure the datset is in edit,
-    //this is for where the datasource is in autoedit, so we aren't
-    //read only even though the dataset isn't realy in edit
-    FDataLink.Edit;
+  else begin
+    if Key <> VK_TAB then begin
+      Key := VK_UNKNOWN;
+    end;
   end;
 end;
 
