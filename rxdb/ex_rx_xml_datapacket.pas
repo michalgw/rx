@@ -43,7 +43,7 @@
 
 unit ex_rx_xml_datapacket;
 
-{$mode objfpc}{$H+}
+{$I rx.inc}
 
 interface
 
@@ -134,6 +134,14 @@ const
       '',
       '',
       ''
+{$IFDEF FPC_FULLVERSION > 30200}
+      , ''
+      , ''
+      , ''
+      , ''
+      , ''
+      , ''
+{$ENDIF}
     );
 
 

@@ -30,7 +30,7 @@
 }
 unit RxAboutDialog;
 
-{$mode objfpc}
+{$I rx.inc}
 
 interface
 
