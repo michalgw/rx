@@ -31,7 +31,7 @@
 
 unit RxDBGridExportSpreadSheet_ParamsUnit;
 
-{$mode objfpc}{$H+}
+{$I rx.inc}
 
 interface
 

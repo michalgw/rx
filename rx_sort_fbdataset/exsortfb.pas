@@ -30,7 +30,7 @@
 
 unit exsortfb;
 
-{$mode objfpc}{$H+}
+{$I rx.inc}
 
 interface
 

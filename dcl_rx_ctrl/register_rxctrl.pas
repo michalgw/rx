@@ -31,7 +31,7 @@
 
 unit register_rxctrl;
 
-{$mode objfpc}{$H+}
+{$I rx.inc}
 
 interface
 uses

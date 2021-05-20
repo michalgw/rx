@@ -30,7 +30,7 @@
 }
 unit register_rxtools;
 
-{$mode objfpc}{$H+}
+{$I rx.inc}
 
 interface
 

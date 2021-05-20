@@ -31,8 +31,9 @@
 
 unit rxdconst;
 
-interface
+{$I rx.inc}
 
+interface
 
 resourcestring
 

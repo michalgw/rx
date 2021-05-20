@@ -31,7 +31,7 @@
 
 unit exsortzeos;
 
-{$mode objfpc}{$H+}
+{$I rx.inc}
 
 interface
 

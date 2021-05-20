@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
-  <Package Version="4">
+  <Package Version="5">
     <Name Value="rx_sort_sqldb"/>
     <Type Value="RunAndDesignTime"/>
+    <Author Value="Lagunov Aleksey"/>
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
@@ -10,7 +11,8 @@
         <UnitOutputDirectory Value="lib/rx_sort_sqldb/$(TargetCPU)-$(TargetOS)/$(LCLWidgetType)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Version Major="1" Minor="1" Release="1" Build="2"/>
+    <License Value="LGLPL"/>
+    <Version Major="1" Minor="1" Release="2" Build="3"/>
     <Files Count="2">
       <Item1>
         <Filename Value="rx_sort_sqldb/rxsortsqldb.pas"/>
@@ -22,6 +24,7 @@
         <UnitName Value="exsortsql"/>
       </Item2>
     </Files>
+    <CompatibilityMode Value="True"/>
     <RequiredPkgs Count="2">
       <Item1>
         <PackageName Value="SQLDBLaz"/>

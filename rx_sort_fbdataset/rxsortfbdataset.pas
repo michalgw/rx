@@ -30,7 +30,7 @@
 }
 unit RxSortFBDataSet;
 
-{$mode objfpc}{$H+}
+{$I rx.inc}
 
 interface
 

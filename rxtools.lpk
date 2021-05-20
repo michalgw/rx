@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
-  <Package Version="4">
+  <Package Version="5">
     <Name Value="rxtools"/>
     <Type Value="RunAndDesignTime"/>
     <Author Value="Lagunov Aleksey "/>
@@ -14,7 +14,7 @@
     <Description Value="
 "/>
     <License Value="LGPL"/>
-    <Version Minor="5" Build="10"/>
+    <Version Minor="6" Build="12"/>
     <Files Count="11">
       <Item1>
         <Filename Value="rxtools/rxcrc.pas"/>
@@ -60,6 +60,7 @@
         <UnitName Value="rxlogging"/>
       </Item11>
     </Files>
+    <CompatibilityMode Value="True"/>
     <LazDoc Paths="docs;/usr/local/share/lazarus/components/rxnew/docs"/>
     <i18n>
       <EnableI18N Value="True"/>

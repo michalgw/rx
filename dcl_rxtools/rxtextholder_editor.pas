@@ -30,7 +30,7 @@
 }
 unit RxTextHolder_Editor;
 
-{$mode objfpc}{$H+}
+{$I rx.inc}
 
 interface
 

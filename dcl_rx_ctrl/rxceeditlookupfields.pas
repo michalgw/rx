@@ -31,7 +31,7 @@
 
 unit rxceEditLookupFields;
 
-{$mode objfpc}{$H+}
+{$I rx.inc}
 
 interface
 

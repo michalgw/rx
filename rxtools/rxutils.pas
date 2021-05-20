@@ -31,7 +31,7 @@
 
 unit rxutils;
 
-{$mode objfpc}{$H+}
+{$I rx.inc}
 
 interface
 
