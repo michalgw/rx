@@ -31,7 +31,7 @@
 
 unit rxlogin;
 
-{$I RX.INC}
+{$I rx.inc}
 
 interface
 

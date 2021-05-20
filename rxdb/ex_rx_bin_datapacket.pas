@@ -44,7 +44,7 @@
 
 unit ex_rx_bin_datapacket;
 
-{$mode objfpc}{$H+}
+{$I rx.inc}
 
 interface
 

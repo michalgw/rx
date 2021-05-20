@@ -31,7 +31,7 @@
 
 unit RegisterRxDB;
 
-{$mode objfpc}{$H+}
+{$I rx.inc}
 
 interface
 

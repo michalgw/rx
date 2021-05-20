@@ -31,7 +31,7 @@
 
 unit rxfilterby;
 
-{$mode objfpc}{$H+}
+{$I rx.inc}
 
 interface
 

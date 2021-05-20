@@ -31,7 +31,7 @@
 
 unit RXHistory;
 
-{$mode objfpc}{$H+}
+{$I rx.inc}
 
 interface
 

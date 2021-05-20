@@ -31,7 +31,7 @@
 
 unit rxDateRangeEditUnit;
 
-{$mode objfpc}{$H+}
+{$I rx.inc}
 
 interface
 

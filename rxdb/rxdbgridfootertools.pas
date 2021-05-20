@@ -31,7 +31,7 @@
 
 unit RxDBGridFooterTools;
 
-{$mode objfpc}{$H+}
+{$I rx.inc}
 
 interface
 

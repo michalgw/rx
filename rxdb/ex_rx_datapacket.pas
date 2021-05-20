@@ -31,12 +31,12 @@
 
 unit ex_rx_datapacket;
 
-{$mode objfpc}{$H+}
+{$I rx.inc}
 
 interface
 
 uses
-  Classes, SysUtils,db;
+  Classes, SysUtils, db;
 
 type
   TRowStateValue = (rsvOriginal, rsvDeleted, rsvInserted, rsvUpdated, rsvDetailUpdates);

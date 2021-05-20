@@ -31,7 +31,7 @@
 
 unit RxDBGridExportPdf;
 
-{$mode objfpc}{$H+}
+{$I rx.inc}
 
 interface
 

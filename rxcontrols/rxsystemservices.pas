@@ -31,7 +31,7 @@
 
 unit RxSystemServices;
 
-{$mode objfpc}
+{$I rx.inc}
 
 interface
 

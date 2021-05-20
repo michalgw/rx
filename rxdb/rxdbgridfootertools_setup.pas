@@ -31,7 +31,7 @@
 
 unit rxdbgridfootertools_setup;
 
-{$mode objfpc}{$H+}
+{$I rx.inc}
 
 interface
 

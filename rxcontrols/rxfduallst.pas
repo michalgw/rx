@@ -31,7 +31,7 @@
 
 unit rxfduallst;
 
-{$I RX.INC}
+{$I rx.inc}
 
 interface
 

@@ -33,7 +33,7 @@ unit rxlclconst;
 
 interface
 
-{$I RX.INC}
+{$I rx.inc}
 
 uses LMessages, Controls;
 
