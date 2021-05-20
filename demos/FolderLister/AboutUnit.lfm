@@ -36,7 +36,7 @@ object AboutForm: TAboutForm
     Width = 274
     Alignment = taCenter
     Anchors = [akTop, akLeft, akRight]
-    Caption = '(c) 2005-2020 by Alexs'
+    Caption = '(c) 2005-2021 by Alexs'
     ParentColor = False
   end
   object Label3: TLabel
@@ -62,7 +62,7 @@ object AboutForm: TAboutForm
     Left = 108
     Height = 36
     Top = 121
-    Width = 59
+    Width = 58
     Anchors = [akLeft, akBottom]
     AutoSize = True
     BorderSpacing.Bottom = 6
