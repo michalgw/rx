@@ -132,7 +132,8 @@ function FieldValueToStrings(const DataSet: TDataSet; const FieldName: string; L
 
 procedure AddSQLExpressionAnd(var MacroStr:string; const MacroWhere:string); overload;
 procedure AddSQLExpressionAnd(var MacroStr:string; const MacroWhere:string; Params:array of const); overload;
-procedure AddSQLExpressionOr(var MacroStr:string; const MacroWhere:string);
+procedure AddSQLExpressionOr(var MacroStr:string; const MacroWhere:string); overload;
+procedure AddSQLExpressionOr(var MacroStr:string; const MacroWhere:string; Params:array of const); overload;
 
 { SQL expressions }
 
@@ -1159,6 +1160,12 @@ begin
     if MacroStr<>'' then MacroStr:=MacroStr + ' or ';
     MacroStr:=MacroStr + '('+MacroWhere+')';
   end;
+end;
+
+procedure AddSQLExpressionOr(var MacroStr: string; const MacroWhere: string;
+  Params: array of const);
+begin
+  AddSQLExpressionOr(MacroStr, Format(MacroWhere, Params));
 end;
 
 end.

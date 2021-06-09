@@ -25,7 +25,7 @@
 Copyright (c) 1998 Master-Bank
 translate to Lazarus by alexs in 2005 - 2020"/>
     <License Value="LGPL"/>
-    <Version Major="3" Minor="3" Release="5" Build="230"/>
+    <Version Major="3" Minor="3" Release="5" Build="231"/>
     <Files Count="70">
       <Item1>
         <Filename Value="registerrx.pas"/>
@@ -57,6 +57,7 @@ translate to Lazarus by alexs in 2005 - 2020"/>
       <Item7>
         <Filename Value="rxcontrols\rxaboutformunit.pas"/>
         <UnitName Value="rxAboutFormUnit"/>
+        <ResourceBaseClass Value="Form"/>
       </Item7>
       <Item8>
         <Filename Value="rxcontrols\rxclock.pas"/>
@@ -141,10 +142,12 @@ translate to Lazarus by alexs in 2005 - 2020"/>
       <Item28>
         <Filename Value="rxdb\rxdbgrid_columsunit.pas"/>
         <UnitName Value="rxdbgrid_columsunit"/>
+        <ResourceBaseClass Value="Form"/>
       </Item28>
       <Item29>
         <Filename Value="rxdb\rxdbgrid_findunit.pas"/>
         <UnitName Value="rxdbgrid_findunit"/>
+        <ResourceBaseClass Value="Form"/>
       </Item29>
       <Item30>
         <Filename Value="rxdb\exsortmds.pas"/>
@@ -157,6 +160,7 @@ translate to Lazarus by alexs in 2005 - 2020"/>
       <Item32>
         <Filename Value="rxdb\rxdbgridexportpdfsetupunit.pas"/>
         <UnitName Value="RxDBGridExportPdfSetupUnit"/>
+        <ResourceBaseClass Value="Form"/>
       </Item32>
       <Item33>
         <Filename Value="rxdb\rxdbgridfootertools.pas"/>
@@ -165,6 +169,7 @@ translate to Lazarus by alexs in 2005 - 2020"/>
       <Item34>
         <Filename Value="rxdb\rxdbgridfootertools_setup.pas"/>
         <UnitName Value="rxdbgridfootertools_setup"/>
+        <ResourceBaseClass Value="Form"/>
       </Item34>
       <Item35>
         <Filename Value="rxdb\rxdbspinedit.pas"/>
@@ -181,6 +186,7 @@ translate to Lazarus by alexs in 2005 - 2020"/>
       <Item38>
         <Filename Value="rxdb\rxfilterby.pas"/>
         <UnitName Value="rxfilterby"/>
+        <ResourceBaseClass Value="Form"/>
       </Item38>
       <Item39>
         <Filename Value="rxdb\rxlookup.pas"/>
@@ -197,10 +203,12 @@ translate to Lazarus by alexs in 2005 - 2020"/>
       <Item42>
         <Filename Value="rxdb\rxseldsfrm.pas"/>
         <UnitName Value="rxseldsfrm"/>
+        <ResourceBaseClass Value="Form"/>
       </Item42>
       <Item43>
         <Filename Value="rxdb\rxsortby.pas"/>
         <UnitName Value="rxsortby"/>
+        <ResourceBaseClass Value="Form"/>
       </Item43>
       <Item44>
         <Filename Value="rxdb\rxsortmemds.pas"/>
@@ -217,6 +225,7 @@ translate to Lazarus by alexs in 2005 - 2020"/>
       <Item47>
         <Filename Value="rxcontrols\rxfduallst.pas"/>
         <UnitName Value="rxfduallst"/>
+        <ResourceBaseClass Value="Form"/>
       </Item47>
       <Item48>
         <Filename Value="rxcontrols\rxfolderlister.pas"/>
@@ -237,6 +246,7 @@ translate to Lazarus by alexs in 2005 - 2020"/>
       <Item52>
         <Filename Value="rxcontrols\rxlogin.pas"/>
         <UnitName Value="rxlogin"/>
+        <ResourceBaseClass Value="Form"/>
       </Item52>
       <Item53>
         <Filename Value="rxcontrols\rxmdi.pas"/>
@@ -253,6 +263,7 @@ translate to Lazarus by alexs in 2005 - 2020"/>
       <Item56>
         <Filename Value="rxcontrols\rxshortcutunit.pas"/>
         <UnitName Value="rxShortCutUnit"/>
+        <ResourceBaseClass Value="Form"/>
       </Item56>
       <Item57>
         <Filename Value="rxcontrols\rxspin.pas"/>
@@ -269,6 +280,7 @@ translate to Lazarus by alexs in 2005 - 2020"/>
       <Item60>
         <Filename Value="rxcontrols\rxtbrsetup.pas"/>
         <UnitName Value="rxtbrsetup"/>
+        <ResourceBaseClass Value="Form"/>
       </Item60>
       <Item61>
         <Filename Value="rxcontrols\rxtimeedit.pas"/>
@@ -285,6 +297,7 @@ translate to Lazarus by alexs in 2005 - 2020"/>
       <Item64>
         <Filename Value="rxdb\rxdbgrid_popupfilterunit.pas"/>
         <UnitName Value="RxDBGrid_PopUpFilterUnit"/>
+        <ResourceBaseClass Value="Form"/>
       </Item64>
       <Item65>
         <Filename Value="rxdb\rxdbverticalgrid.pas"/>
