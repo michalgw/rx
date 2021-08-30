@@ -246,6 +246,7 @@ type
     procedure KeyValueChanged;
     procedure UpdateData;
     procedure NeedUpdateData;
+    procedure DoScrollLockup(AForward:Boolean);
   protected
     procedure CalculatePreferredSize(var PreferredWidth, PreferredHeight: integer;
                                      WithThemeSpace: Boolean); override;
@@ -269,6 +270,8 @@ type
     procedure Notification(AComponent: TComponent; Operation: TOperation); override;
     procedure CMVisibleChanged(var Msg: TLMessage); message CM_VISIBLECHANGED;
     procedure CMEnabledChanged(var Msg: TLMessage); message CM_ENABLEDCHANGED;
+    function  DoMouseWheelDown(Shift: TShiftState; MousePos: TPoint): Boolean; override;
+    function  DoMouseWheelUp(Shift: TShiftState; MousePos: TPoint): Boolean; override;
 
     procedure MouseEnter; override;
     procedure MouseLeave; override;
@@ -1193,6 +1196,31 @@ begin
   end;
 end;
 
+procedure TRxCustomDBLookupCombo.DoScrollLockup(AForward: Boolean);
+begin
+  if FLookupDataLink.Active and FDataLink.Active and not (PopupVisible or ReadOnly) then
+  begin
+    FDataLink.Edit;
+    if not FDataField.IsNull then
+    begin
+      If not FLocateObject.Locate(FLookupField, FDataField.AsString, true, false) then FLookupDataLink.DataSet.First;
+      if AForward then
+      begin
+        if not FLookupDataLink.DataSet.EOF then
+          FLookupDataLink.DataSet.Next;
+      end
+      else
+      begin
+        if not FLookupDataLink.DataSet.BOF then
+          FLookupDataLink.DataSet.Prior;
+      end;
+    end;
+    Self.NeedUpdateData;
+    DoSelect;
+    KeyValueChanged;
+  end
+end;
+
 procedure TRxCustomDBLookupCombo.CalculatePreferredSize(var PreferredWidth,
   PreferredHeight: integer; WithThemeSpace: Boolean);
 var
@@ -1302,22 +1330,7 @@ begin
   begin
     if (Key in [VK_UP, VK_DOWN]) and (Shift = []) then
     begin
-      FDataLink.Edit;
-      if not FDataField.IsNull then
-      begin
-        //FLocateObject.Locate(FLookupField, FDataField.AsString, true, false);
-        If not FLocateObject.Locate(FLookupField, FDataField.AsString, true, false) then FLookupDataLink.DataSet.First;
-        case Key of
-          VK_UP: if not FLookupDataLink.DataSet.BOF then
-                     FLookupDataLink.DataSet.Prior;
-          VK_DOWN: if not FLookupDataLink.DataSet.EOF then
-                     FLookupDataLink.DataSet.Next;
-        end;
-      end;
-      //FDataLink.UpdateRecord; -- no need more...
-      Self.NeedUpdateData;
-      DoSelect;
-      KeyValueChanged;
+      DoScrollLockup(Key = VK_DOWN);
       Key:=0;
     end
   end
@@ -1432,6 +1445,22 @@ begin
   inherited CMEnabledChanged(Msg);
   if FButton<>nil then
     FButton.Enabled:=Enabled;
+end;
+
+function TRxCustomDBLookupCombo.DoMouseWheelDown(Shift: TShiftState;
+  MousePos: TPoint): Boolean;
+begin
+  Result:=inherited DoMouseWheelDown(Shift, MousePos);
+  if (not Result) and (Shift = []) then
+    DoScrollLockup(true);
+end;
+
+function TRxCustomDBLookupCombo.DoMouseWheelUp(Shift: TShiftState;
+  MousePos: TPoint): Boolean;
+begin
+  Result:=inherited DoMouseWheelUp(Shift, MousePos);
+  if (not Result) and (Shift = []) then
+    DoScrollLockup(false);
 end;
 
 procedure TRxCustomDBLookupCombo.MouseEnter;
