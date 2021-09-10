@@ -3395,7 +3395,8 @@ var
   tmpCanvas: TCanvas;
   FWC: SizeInt;
 begin
- FDefRowH:=GetDefaultRowHeight;
+  //FDefRowH:=GetDefaultRowHeight;
+  FDefRowH:=DefaultRowHeight;
 
   { TODO -oalexs : need rewrite code - split to 2 step:
 1. make links between column
@@ -3603,7 +3604,8 @@ begin
   if Assigned(FFilterListEditor) then
     Result.Top := bRect.Bottom - FFilterListEditor.Height
   else
-    Result.Top := bRect.Bottom - GetDefaultRowHeight;
+    Result.Top := bRect.Bottom - DefaultRowHeight;
+//    Result.Top := bRect.Bottom - GetDefaultRowHeight;
 end;
 
 function TRxDBGrid.getTitleRect(bRect: TRect): TRect;
@@ -3612,7 +3614,8 @@ begin
   if Assigned(FFilterListEditor) then
     Result.Bottom := bRect.Bottom - FFilterListEditor.Height
   else
-    Result.Bottom := bRect.Bottom - GetDefaultRowHeight;
+    Result.Bottom := bRect.Bottom - DefaultRowHeight
+//    Result.Bottom := bRect.Bottom - GetDefaultRowHeight;
 end;
 
 procedure TRxDBGrid.OutCaptionCellText(aCol, aRow: integer; const aRect: TRect;
@@ -4041,7 +4044,9 @@ begin
     begin
       if Assigned(FOnCalcRowHeight) then
         FOnCalcRowHeight(Self, H);
-      RowHeights[i] := GetDefaultRowHeight * H;
+      //RowHeights[i] := GetDefaultRowHeight * H;
+      RowHeights[i] := DefaultRowHeight * H;
+
       H2:=H2 + RowHeights[i];
       if H2<=ClientHeight  then
         Inc(Result);
@@ -4055,7 +4060,8 @@ var
   i:integer;
 begin
   for i:=1 to RowCount-1 do
-    RowHeights[i] := GetDefaultRowHeight;
+    RowHeights[i] := DefaultRowHeight
+//    RowHeights[i] := GetDefaultRowHeight;
 end;
 
 procedure TRxDBGrid.DoClearInvalidTitle;
@@ -5428,7 +5434,8 @@ begin
     Rct := CellRect(0, 0);
     MPT.X := Rct.Left;
     if rdgFilter in FOptionsRx then
-      MPT.Y := Rct.Bottom - GetDefaultRowHeight
+//      MPT.Y := Rct.Bottom - GetDefaultRowHeight
+      MPT.Y := Rct.Bottom - DefaultRowHeight
     else
       MPT.Y := Rct.Bottom;
     MPT := ClientToScreen(MPT);
@@ -5631,7 +5638,8 @@ var
 begin
   Inc(FInProcessCalc);
   DoClearInvalidTitle;
-  FDrawGetDefaultRowHeight:=GetDefaultRowHeight;
+//  FDrawGetDefaultRowHeight:=GetDefaultRowHeight;
+  FDrawGetDefaultRowHeight:=DefaultRowHeight;
 
   inherited Paint;
 
@@ -5659,21 +5667,25 @@ begin
         if dgTitles in Options then
           Dec(Result, 1);}
 
-  if GetDefaultRowHeight > 0 then
+  //if GetDefaultRowHeight > 0 then
+  if DefaultRowHeight > 0 then
   begin
     H:=ClientHeight;
     if FFooterOptions.Active then
-      H:=H - GetDefaultRowHeight * FFooterOptions.RowCount;
+      //H:=H - GetDefaultRowHeight * FFooterOptions.RowCount;
+      H:=H - DefaultRowHeight * FFooterOptions.RowCount;
 
 
-    Result := H div GetDefaultRowHeight;
+    //Result := H div GetDefaultRowHeight;
+    Result := H div DefaultRowHeight;
 
     if rdgFilter in OptionsRx then
       Dec(Result, 1);
 
     if dgTitles in Options then
       //Dec(Result, 1);
-      Result:=Result - RowHeights[0] div GetDefaultRowHeight;
+      //Result:=Result - RowHeights[0] div GetDefaultRowHeight;
+      Result:=Result - RowHeights[0] div DefaultRowHeight;
   end
   else
     Result := 1;
@@ -5894,7 +5906,8 @@ begin
   begin
     P:=GCache.MaxClientXY;
     with GCache do
-      MaxClientXY.Y:=MaxClientXY.Y - (GetDefaultRowHeight * FFooterOptions.RowCount + 2);
+      //MaxClientXY.Y:=MaxClientXY.Y - (GetDefaultRowHeight * FFooterOptions.RowCount + 2);
+      MaxClientXY.Y:=MaxClientXY.Y - (DefaultRowHeight * FFooterOptions.RowCount + 2);
   end;
 
   if ((rdgWordWrap in FOptionsRx) or (Assigned(FGroupItems) and FGroupItems.Active)) and (HandleAllocated) then
