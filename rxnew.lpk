@@ -25,7 +25,7 @@
 Copyright (c) 1998 Master-Bank
 translate to Lazarus by alexs in 2005 - 2020"/>
     <License Value="LGPL"/>
-    <Version Major="3" Minor="3" Release="5" Build="231"/>
+    <Version Major="3" Minor="3" Release="6" Build="232"/>
     <Files Count="70">
       <Item1>
         <Filename Value="registerrx.pas"/>

@@ -6488,6 +6488,13 @@ begin
       rxSortByForm.CheckBox1.Checked := rdgCaseInsensitiveSort in FOptionsRx;
       if rxSortByForm.Execute(Self, FSortListField) then
       begin
+        for i:=0 to Columns.Count-1 do
+        begin
+          FColumn:=Columns[i];
+          FColumn.FSortPosition:=0;
+          FColumn.FSortOrder:=smNone;
+        end;
+
         for i := 0 to FSortListField.Count - 1 do
         begin
           S1:=FSortListField.Strings[i];
