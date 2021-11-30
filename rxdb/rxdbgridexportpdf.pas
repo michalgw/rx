@@ -35,7 +35,7 @@ unit RxDBGridExportPdf;
 
 interface
 
-{$IF (FPC_FULLVERSION >= 30004)}
+{$IFDEF RX_USE_FCL_PDF}
 uses
   Classes, SysUtils, DB, rxdbgrid, rxlclutils, Graphics, fpPDF, contnrs,  fpparsettf,
   fpTTF;
@@ -188,10 +188,10 @@ type
     property TitleColor:TColor read FTitleColor write FTitleColor default clSilver;
   end;
 
-  {$ENDIF}
+{$ENDIF}
 implementation
 
-{$IF (FPC_FULLVERSION >= 30004)}
+{$IFDEF RX_USE_FCL_PDF}
 uses Grids, rxdconst, FileUtil, Forms, Controls, LCLIntf, LazFileUtils, FPReadBMP,
   RxDBGridExportPdfSetupUnit, LazUTF8;
 

@@ -23,9 +23,9 @@
     </CompilerOptions>
     <Description Value="Delphi VCL Extensions (RX) 
 Copyright (c) 1998 Master-Bank
-translate to Lazarus by alexs in 2005 - 2020"/>
+translate to Lazarus by alexs in 2005 - 2021"/>
     <License Value="LGPL"/>
-    <Version Major="3" Minor="3" Release="6" Build="232"/>
+    <Version Major="3" Minor="4" Release="1" Build="234"/>
     <Files Count="70">
       <Item1>
         <Filename Value="registerrx.pas"/>
