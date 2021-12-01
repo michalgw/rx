@@ -64,7 +64,6 @@ type
     function GetPageCount: Integer;
     function GetPageIndex: Integer;
     procedure SetNextBtn(const AValue: TControl);
-    procedure SetOnCheckPageEnabled(const AValue: TCheckPageEnabled);
     procedure SetOptions(const AValue: TPageManagerOptions);
     procedure SetPageIndex(const AValue: Integer);
     procedure SetPageOwner(const AValue: TPageOwner);
@@ -93,7 +92,7 @@ type
     property PageOwner: TPageOwner read FPageOwner write SetPageOwner;
     property NextBtn: TControl read FNextBtn write SetNextBtn;
     property PriorBtn: TControl read FPriorBtn write SetPriorBtn;
-    property OnCheckPageEnabled:TCheckPageEnabled read FOnCheckPageEnabled write SetOnCheckPageEnabled;
+    property OnCheckPageEnabled:TCheckPageEnabled read FOnCheckPageEnabled write FOnCheckPageEnabled;
     property OnPageChanged: TNotifyEvent read FOnPageChanged write FOnPageChanged;
     property Options:TPageManagerOptions read FOptions write SetOptions default [];
     property StatusControl:TControl read FStatusControl write SetStatusControl;
@@ -124,12 +123,6 @@ function TPageManager.GetPageIndex: Integer;
 begin
   if Assigned(PageOwner) then Result := PageOwner.ActivePageIndex
   else Result := pageNull;
-end;
-
-procedure TPageManager.SetOnCheckPageEnabled(const AValue: TCheckPageEnabled);
-begin
-  if FOnCheckPageEnabled=AValue then exit;
-  FOnCheckPageEnabled:=AValue;
 end;
 
 procedure TPageManager.SetOptions(const AValue: TPageManagerOptions);
