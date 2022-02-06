@@ -4215,7 +4215,7 @@ end;
 function TRxDBGrid.GetFieldDisplayText(AField: TField; ACollumn: TRxColumn
   ): string;
 var
-  J: Integer;
+  J, i: Integer;
 begin
   Result:='';
   if Assigned(AField) then
@@ -4224,7 +4224,14 @@ begin
     begin
       {$IF lcl_fullversion >= 1090000}
       if CheckDisplayMemo(AField) then
-        Result := AField.AsString
+      begin
+        Result := AField.AsString;
+        {$IFDEF RDBGridDisplayMemoText_ClearSC}
+        for i:=1 to Length(Result) do
+          if Result[i] < ' ' then
+            Result[i]:=' ';
+        {$ENDIF}
+      end
       else
       {$ENDIF}
         Result := AField.DisplayText;
