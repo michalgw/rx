@@ -1458,7 +1458,12 @@ var
     I: Integer;
   begin
     if FieldCount = 1 then
-      Result := CompareField(TField(Fields.First), KeyValues)
+    begin
+      if VarIsArray(KeyValues) then
+        Result := CompareField(TField(Fields.First), KeyValues[VarArrayLowBound(KeyValues, 1)])
+      else
+        Result := CompareField(TField(Fields.First), KeyValues)
+    end
     else begin
       Result := True;
       for I := 0 to FieldCount - 1 do
