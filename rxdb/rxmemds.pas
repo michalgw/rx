@@ -162,6 +162,7 @@ type
     function IsSequenced: Boolean; override;
     function Locate(const KeyFields: string; const KeyValues: Variant;
       Options: TLocateOptions): Boolean; override;
+    function Lookup(const KeyFields: string; const KeyValues: Variant; const ResultFields: string): Variant; override;
     procedure SortOnFields(const FieldNames: string;
       CaseInsensitive: Boolean = True; Descending: Boolean = False);
     procedure SortOnFieldsEx(const FieldNames: string;
@@ -1523,6 +1524,27 @@ begin
     DataEvent(deDataSetChange, 0);
     DoAfterScroll;
   end;
+end;
+
+function TRxMemoryData.Lookup(const KeyFields: string;
+  const KeyValues: Variant; const ResultFields: string): Variant;
+var
+  SaveState: TDataSetState;
+begin
+  if DataSetLocateThrough(Self, KeyFields, KeyValues, []{, ARecNo}) then
+  begin
+{    SaveState := SetTempState(dsCalcFields);
+    try
+      // FFilterBuffer contains found record
+      CalculateFields(FFilterBuffer); // CalcBuffer is set to FFilterBuffer
+      Result:=FieldValues[ResultFields];
+    finally
+      RestoreState(SaveState);
+    end;}
+    Result:=FieldByName(ResultFields).Value;
+  end
+  else
+    Result:=Null;
 end;
 
 { Table Manipulation }
