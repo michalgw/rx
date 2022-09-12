@@ -66,8 +66,4 @@
 {$DEFINE RX_USE_FCL_PDF}
 {$ENDIF}
 
-{$IF FPC_FULLVERSION > 30299}
-{$DEFINE RX_USE_DELPHI_EXT_FIELD_TYPES}
-{$ENDIF}
-
 {.$DEFINE RDBGridDisplayMemoText_ClearSC} //clear speshial chars on display memo text fields

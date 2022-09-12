@@ -134,7 +134,7 @@ const
       '',
       '',
       ''
-{$IFDEF RX_USE_DELPHI_EXT_FIELD_TYPES}
+{$IF declared(ftOraTimeStamp)}
       , ''
       , ''
       , ''
