@@ -823,6 +823,8 @@ type
     //Group data suppert
     FGroupItems:TColumnGroupItems;
 
+    FLastDataset: TDataSet;
+
     procedure DoCreateJMenu;
     function GetColumns: TRxDbGridColumns;
     function GetFooterColor: TColor;
@@ -4834,6 +4836,7 @@ begin
       FSortEngine := RxDBGridSortEngineList.Objects[Pos] as TRxDBGridSortEngine
     else
       FSortEngine := nil;
+    FLastDataset := DataSource.DataSet;
   end;
 
   inherited LinkActive(Value);
@@ -4851,6 +4854,8 @@ begin
 end;
 
 procedure TRxDBGrid.SetDBHandlers(Value: boolean);
+var
+  DS: TDataSet = nil;
 begin
    if Value then
   begin
@@ -4889,16 +4894,24 @@ begin
   else
   begin
     if Assigned(DataSource) and Assigned(DataSource.DataSet) then
+      DS := DataSource.DataSet
+    else
+      if Assigned(FLastDataset) then
+      begin
+        DS := FLastDataset;
+        FLastDataset := nil;
+      end;
+    if Assigned(DS) then
     begin
-      DataSource.DataSet.OnFilterRecord := F_EventOnFilterRec;
+      DS.OnFilterRecord := F_EventOnFilterRec;
       F_EventOnFilterRec := nil;
-      DataSource.DataSet.BeforeDelete := F_EventOnBeforeDelete;
+      DS.BeforeDelete := F_EventOnBeforeDelete;
       F_EventOnBeforeDelete := nil;
-      DataSource.DataSet.BeforePost := F_EventOnBeforePost;
+      DS.BeforePost := F_EventOnBeforePost;
       F_EventOnBeforePost := nil;
-      DataSource.DataSet.OnDeleteError := F_EventOnDeleteError;
+      DS.OnDeleteError := F_EventOnDeleteError;
       F_EventOnDeleteError := nil;
-      DataSource.DataSet.OnPostError := F_EventOnPostError;
+      DS.OnPostError := F_EventOnPostError;
       F_EventOnPostError := nil;
       if rdgFilter in OptionsRx then
       begin
