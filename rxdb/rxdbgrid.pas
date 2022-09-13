@@ -3396,6 +3396,7 @@ var
   MLRec2: TMLCaptionItem;
   tmpCanvas: TCanvas;
   FWC: SizeInt;
+  R: TRect;
 begin
   //FDefRowH:=GetDefaultRowHeight;
   FDefRowH:=DefaultRowHeight;
@@ -3422,10 +3423,17 @@ begin
           begin
             rxColNext := nil;
             rxTitleNext := nil;
-            if i < Columns.Count - 1 then
+            j := i;
+            // find next visible column
+            while j < Columns.Count - 1 do
             begin
-              rxColNext := TRxColumn(Columns[i + 1]);
-              rxTitleNext := TRxColumnTitle(rxColNext.Title);
+              if Columns[j + 1].Visible then
+              begin
+                rxColNext := TRxColumn(Columns[j + 1]);
+                rxTitleNext := TRxColumnTitle(rxColNext.Title);
+                Break;
+              end;
+              Inc(j);
             end;
 
 //            W := Max(rxCol.Width - 6, 1);
@@ -3485,13 +3493,13 @@ begin
 
     //Тут расчёт высоты заголовка каждой колонки - надо обработать слитые заголовки
 
-    H := 1;
+    H := DefaultRowHeight;
     for i := 0 to Columns.Count - 1 do
     begin
       rxCol := TRxColumn(Columns[i]);
       rxTit := TRxColumnTitle(rxCol.Title);
       H1 := 0;
-      W := Max(rxCol.Width - 6, 1);
+      W := Max(rxCol.Width - 2 * constCellPadding, 1);
       //Не забудем про вертикальную ориентацию
       if Assigned(rxCol) and rxCol.Visible and Assigned(rxTit) then
       begin
@@ -3502,14 +3510,18 @@ begin
         begin
           if rxTit.CaptionLinesCount = 0 then
           begin
-            H1 := Max((tmpCanvas.TextWidth(rxTit.Caption) + 2) div W + 1, H);
+            FillByte(R, SizeOf(R), 0);
+            R.Width := W;
+            DrawText(tmpCanvas.Handle, PAnsiChar(rxTit.Caption), Length(rxTit.Caption), R, DT_CALCRECT + DT_WORDBREAK);
+            H1 := Max(R.Height + 2 * constCellPadding, H);
+            {H1 := Max((tmpCanvas.TextWidth(rxTit.Caption) + 2) div W + 1, H);
             FWC:=WordCount(rxTit.Caption, [' ']);
-            if H1 > FWC then H1 := FWC;
+            if H1 > FWC then H1 := FWC;}
           end
           else
           begin
-            if rxTit.CaptionLinesCount > H then
-              H := rxTit.CaptionLinesCount;
+            //if rxTit.CaptionLinesCount > H then
+            //  H := rxTit.CaptionLinesCount;
             for j := 0 to rxTit.CaptionLinesCount - 1 do
             begin
               MLRec1 := rxTit.CaptionLine(j);
@@ -3523,11 +3535,15 @@ begin
                   Inc(W, P.Col.Width);
                   P := P.Next;
                 end;
-                W1 := tmpCanvas.TextWidth(MLRec1.Caption) + 2;
+                FillByte(R, SizeOf(R), 0);
+                R.Width := W - 2 * constCellPadding;
+                DrawText(tmpCanvas.Handle, PAnsiChar(MLRec1.Caption), Length(MLRec1.Caption), R, DT_CALCRECT + DT_WORDBREAK);
+                MLRec1.Height := Max(R.Height + 2 * constCellPadding, DefaultRowHeight);
+                {W1 := tmpCanvas.TextWidth(MLRec1.Caption) + 2;
                 if W1 > W then
                   MLRec1.Height := Min(W1 div Max(W, 1) + 1, UTF8Length(MLRec1.Caption))
                 else
-                  MLRec1.Height := 1;
+                  MLRec1.Height := 1;}
 
                 P := MLRec1.Next;
                 while Assigned(P) do
@@ -3547,7 +3563,7 @@ begin
     end;
 
     if not (rdgDisableWordWrapTitles in OptionsRx) then
-      RowHeights[0] := FDefRowH * H
+      RowHeights[0] := {FDefRowH *} H
     else
       RowHeights[0] := FDefRowH;
 
@@ -4468,7 +4484,7 @@ begin
           end
           else
           begin
-            aRect2.Bottom := aRect2.Top + MLI.Height * FDrawGetDefaultRowHeight;
+            aRect2.Bottom := aRect2.Top + MLI.Height{ * FDrawGetDefaultRowHeight};
             aState := aState - [gdPushed];
           end;
 
