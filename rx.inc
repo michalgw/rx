@@ -67,3 +67,5 @@
 {$ENDIF}
 
 {.$DEFINE RDBGridDisplayMemoText_ClearSC} //clear speshial chars on display memo text fields
+
+{$DEFINE RXDBGRID_STDDATEEDIT}

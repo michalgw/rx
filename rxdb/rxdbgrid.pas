@@ -1210,7 +1210,8 @@ implementation
 
 uses Math, rxdateutil, rxdconst, rxstrutils, rxutils, strutils, rxdbgrid_findunit, Themes,
   rxdbgrid_columsunit, RxDBGrid_PopUpFilterUnit, rxlookup, rxtooledit, LCLProc,
-  Clipbrd, rxfilterby, rxsortby, variants, LazUTF8, DateUtils;
+  Clipbrd, rxfilterby, rxsortby, variants, LazUTF8, DateUtils
+  {$IFDEF RXDBGRID_STDDATEEDIT}, DateTimePicker {$ENDIF};
 
 {$R rxdbgrid.res}
 
@@ -1290,14 +1291,24 @@ type
     destructor Destroy; override;
   end;
 
+  {$IFDEF RXDBGRID_STDDATEEDIT}
+  TDateTimePartArray = array of TDateTimePart;
+  {$ENDIF}
+
   { TRxDBGridDateEditor }
-  TRxDBGridDateEditor = class(TCustomRxDateEdit)
+  TRxDBGridDateEditor = class({$IFDEF RXDBGRID_STDDATEEDIT}TCustomDateTimePicker{$ELSE}TCustomRxDateEdit{$ENDIF})
   private
     FGrid: TRxDBGrid;
     FCol, FRow: integer;
   protected
+    {$IFDEF RXDBGRID_STDDATEEDIT}
+    procedure Change; override;
+    procedure KeyDown(var Key: Word; Shift: TShiftState); override;
+    function GetVisibleDateTimeParts: TDateTimePartArray;
+    {$ELSE}
     procedure EditChange; override;
     procedure EditKeyDown(var Key: word; Shift: TShiftState); override;
+    {$ENDIF}
 
     procedure WndProc(var TheMessage: TLMessage); override;
     procedure msg_SetGrid(var Msg: TGridMessage); message GM_SETGRID;
@@ -2744,6 +2755,97 @@ end;
 
 
 { TRxDBGridDateEditor }
+{$IFDEF RXDBGRID_STDDATEEDIT}
+procedure TRxDBGridDateEditor.Change;
+var
+  S: String;
+begin
+  inherited;
+  if (FGrid <> nil) and Visible then
+  begin
+    if DateTime <> NullDate then
+      case FGrid.SelectedField.DataType of
+        ftTime: S := TimeToStr(Time);
+        ftDateTime: S := DateTimeToStr(DateTime);
+        else S := DateToStr(Date);
+      end
+    else
+      S := '';
+    FGrid.EditorTextChanged(FCol, FRow, S);
+  end;
+end;
+
+procedure TRxDBGridDateEditor.KeyDown(var Key: Word; Shift: TShiftState);
+
+  function GetFastEntry: boolean;
+  begin
+    if FGrid <> nil then
+      Result := FGrid.FastEditing
+    else
+      Result := False;
+  end;
+
+var
+  Parts: TDateTimePartArray;
+
+begin
+  Parts := GetVisibleDateTimeParts;
+  if ((Key = VK_UP) or (Key = VK_DOWN) or ((Key = VK_LEFT) and
+    (Parts[0] = GetSelectedDateTimePart)) or ((Key = VK_RIGHT) and
+    (Parts[Pred(Length(Parts))] = GetSelectedDateTimePart))) and GetFastEntry and
+    ([ssCtrl, ssShift] * Shift = []) then
+    FGrid.KeyDown(Key, Shift)
+  else
+  begin
+    inherited KeyDown(Key, Shift);
+    if FGrid <> nil then
+      FGrid.EditorKeyDown(Self, Key, Shift);
+  end;
+end;
+
+function TRxDBGridDateEditor.GetVisibleDateTimeParts: TDateTimePartArray;
+begin
+  Result := [];
+  case EffectiveDateDisplayOrder of
+    ddoMDY: begin
+      if not (dtpMonth in EffectiveHideDateTimeParts) then
+        Result := Concat(Result, [dtpMonth]);
+      if not (dtpDay in EffectiveHideDateTimeParts) then
+        Result := Concat(Result, [dtpDay]);
+      if not (dtpYear in EffectiveHideDateTimeParts) then
+        Result := Concat(Result, [dtpYear]);
+    end;
+    ddoDMY: begin
+      if not (dtpDay in EffectiveHideDateTimeParts) then
+        Result := Concat(Result, [dtpDay]);
+      if not (dtpMonth in EffectiveHideDateTimeParts) then
+        Result := Concat(Result, [dtpMonth]);
+      if not (dtpYear in EffectiveHideDateTimeParts) then
+        Result := Concat(Result, [dtpYear]);
+    end;
+    ddoYMD: begin
+      if not (dtpYear in EffectiveHideDateTimeParts) then
+        Result := Concat(Result, [dtpYear]);
+      if not (dtpMonth in EffectiveHideDateTimeParts) then
+        Result := Concat(Result, [dtpMonth]);
+      if not (dtpDay in EffectiveHideDateTimeParts) then
+        Result := Concat(Result, [dtpDay]);
+    end;
+    otherwise;
+  end;
+  if not (dtpHour in EffectiveHideDateTimeParts) then
+    Result := Concat(Result, [dtpHour]);
+  if not (dtpMinute in EffectiveHideDateTimeParts) then
+    Result := Concat(Result, [dtpMinute]);
+  if not (dtpSecond in EffectiveHideDateTimeParts) then
+    Result := Concat(Result, [dtpSecond]);
+  if not (dtpMiliSec in EffectiveHideDateTimeParts) then
+    Result := Concat(Result, [dtpMiliSec]);
+  if not (dtpAMPM in EffectiveHideDateTimeParts) then
+    Result := Concat(Result, [dtpAMPM]);
+end;
+
+{$ELSE}
 procedure TRxDBGridDateEditor.EditChange;
 var
   D:TDateTime;
@@ -2833,6 +2935,7 @@ begin
       doEditorKeyDown;
   end;
 end;
+{$ENDIF}
 
 procedure TRxDBGridDateEditor.WndProc(var TheMessage: TLMessage);
 begin
@@ -2871,13 +2974,27 @@ procedure TRxDBGridDateEditor.msg_SetValue(var Msg: TGridMessage);
 var
   D: TDateTime;
 begin
+  {$IFDEF RXDBGRID_STDDATEEDIT}
+  case FGrid.SelectedField.DataType of
+    ftDateTime, ftTimeStamp: Kind := dtkDateTime;
+    ftTime: Kind := dtkTime;
+    else Kind := dtkDate;
+  end;
+  if FGrid.SelectedField.IsNull then
+    Self.DateTime := NullDate
+  else
+  {$ENDIF}
   if FGrid.SelectedField.DataType in [ftDate, ftDateTime] then
     Self.Date := FGrid.SelectedField.AsDateTime
   else
   if TryStrToDateTime(FGrid.SelectedField.AsString, D) then
     Self.Date := D
   else
+    {$IFDEF RXDBGRID_STDDATEEDIT}
+    Self.DateTime := NullDate;
+    {$ELSE}
     Self.Clear;
+    {$ENDIF}
 end;
 
 procedure TRxDBGridDateEditor.msg_GetValue(var Msg: TGridMessage);
@@ -2887,21 +3004,36 @@ begin
   if Date = NullDate then
     sText := ''
   else
-    sText := Text;
+    {$IFDEF RXDBGRID_STDDATEEDIT}
+    if (FGrid <> nil) and (FGrid.SelectedField.DataType = ftTime) then
+      sText := TimeToStr(Self.Time)
+    else
+    {$ENDIF}
+    sText := DateTimeToStr(Date);
   Msg.Value := sText;
 end;
 
 procedure TRxDBGridDateEditor.msg_SelectAll(var Msg: TGridMessage);
 begin
+  {$IFDEF RXDBGRID_STDDATEEDIT}
+  if (FGrid <> nil) and (FGrid.SelectedField.DataType = ftTime) then
+    SelectTime
+  else
+    SelectDate;
+  {$ELSE}
   SelectAll;
+  {$ENDIF}
 end;
 
 constructor TRxDBGridDateEditor.Create(Aowner: TComponent);
 begin
   inherited Create(Aowner);
   AutoSize := false;
+  BorderStyle := bsNone;
+  {$IFNDEF RXDBGRID_STDDATEEDIT}
   Spacing:=0;
   UpdateMask;
+  {$ENDIF}
 end;
 
 procedure TRxDBGridDateEditor.EditingDone;
@@ -5994,7 +6126,7 @@ begin
         exit;
       end
       else
-      if F.DataType in [ftDate, ftDateTime] then
+      if F.DataType in [ftDate, ftDateTime{$IFDEF RXDBGRID_STDDATEEDIT}, ftTime, ftTimeStamp{$ENDIF}] then
       begin
         Result := FRxDbGridDateEditor;
         exit;
